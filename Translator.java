@@ -630,30 +630,11 @@ public class Translator
         //If its the first time, process the first x amount of lines. Else, skip them and continually
         //process the following data. Inits can be run in here also.
 
-        read = read.replace( "HEADER(", "" );
-        read = read.replace( ")", "" );
-        read = read.replace( Character.toString( '"' ), "" );
-
-        ColumnHeaders = read.split( "," );
-
-        //If this is the first time running the translate function, then load all the headers into the header ArrayList.
-        if( first )
-        {
-
-            for( String i:ColumnHeaders  )
-            {
-
-                Headers.add( i );
-
-            }
-
-        }
-
         //These are the lists that contain accepted functions, operators, and unwanted characters for the parser.
         String logiclist[] = { "IF","ELSE","SWITCH","ELSEIF" };
         char unwantedchars[] = { '\t', '"', '(', ')', '{', '}', ',' };
         String oplist[] = { "=", "!=", "<", ">", "<=", ">=", "&&", "||" };
-        String funclist[] = { "SEQ","TODAY","CONCAT","SUBSTR","LENGTH","REPLACE","C","TRUE","FALSE","PRINT","UPPER","LOWER", "ISNUMERIC","BLANK", "IGNORE", "FC", "GROUPTOTAL" };
+        String funclist[] = { "SEQ","TODAY","CONCAT","SUBSTR","LENGTH","REPLACE","C","TRUE","FALSE","PRINT","UPPER","LOWER", "ISNUMERIC","BLANK", "IGNORE", "FC", "GROUPTOTAL","HEADER" };
 
         if(first)
             code.add( new ArrayList<String>() );
@@ -691,18 +672,34 @@ public class Translator
         for( int i = 0; i < code.size(); i++ )
         {
 
+            if( !first && i == 0 )
+            {
+
+                continue;
+             
+            }
+
             //Create an array of booleans for each line of code, and then set it all to false.
             //This array tells the program whether or not to execute a line of code.
             boolean execlines[] = new boolean[code.get(i).size()];
             for( int f = 0; f < execlines.length; f++)
             {
 
-                execlines[f] = false;
+                if( first )
+                {
+                    execlines[f] = true;
+                }
+                else
+                {
+                    execlines[f] = false;
+                }
 
             }
             //The first line should always be executed.
             if( execlines.length > 0 )
+            {
                 execlines[0] = true;
+            }
 
             //This determines whether or not a value has been added to the output ArrayList. If so, there is nothing more to add.
             boolean hasadded = false;
@@ -1225,6 +1222,24 @@ public class Translator
                                         break;
 
                                     }
+                                    case "HEADER":
+                                    {
+
+                                        String params[] = GETPARAMS(paramstack, 1);
+                                        params = params[0].split(",");
+                                        
+                                        System.out.println( "hereeasdasda" );
+
+                                        for( String head:params )
+                                        {
+                                        
+                                            Headers.add( head );
+
+                                        }
+
+                                        break;
+
+                                    }
 
                                 }
                             }
@@ -1245,14 +1260,18 @@ public class Translator
 
                     //If the character is an accepted character, then add it to the holder string.
                     if( !ISONLIST( code.get(i).get(f).charAt(j), unwantedchars ) )
+                    {
                         holder += code.get(i).get(f).charAt(j);
+                    }
 
                     //If it is numeric and the character head of it is not numeric, it's a number.
                     //It's then added to the parameter stack.
                     if( isNumeric(holder) && !isNumeric( holder + code.get(i).get(f).charAt(j+1) ) )
                     {
                         if( !holder.isEmpty() )
+                        {
                             paramstack.add(holder);
+                        }
 
                         holder = "";
                     }
@@ -1291,8 +1310,10 @@ public class Translator
 
             }
 
-            if (!hasadded)
+            if (!hasadded && !first )
+            {
                 output.get( output.size()-1 ).add( "" );
+            }
 
         }
 
@@ -1443,7 +1464,7 @@ public class Translator
         for( int i = 0; i < Headers.size(); i++ )
         {
 
-            //If it finds that there are zero commans in a field, then it removes any quotes that may be there.
+            //If it finds that there are zero commas in a field, then it removes any quotes that may be there.
             if( getCharCount(Headers.get(i),',') == 0 )
             {
 
