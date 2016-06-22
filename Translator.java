@@ -626,6 +626,10 @@ public class Translator
         BufferedReader in = new BufferedReader(new FileReader(transfile));
         String read = in.readLine();
 
+        //Get rid of the next lines, do it like this:
+        //If its the first time, process the first x amount of lines. Else, skip them and continually
+        //process the following data. Inits can be run in here also.
+
         read = read.replace( "HEADER(", "" );
         read = read.replace( ")", "" );
         read = read.replace( Character.toString( '"' ), "" );
