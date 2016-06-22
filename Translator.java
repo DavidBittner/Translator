@@ -761,10 +761,12 @@ public class Translator
                     {
 
                         //If there is logic that must be solved, and there are not any more funcions in the function stack.
-                        if (logicstack.size() > 0 && funcstack.size() <= 0) {
+                        if (logicstack.size() > 0 && funcstack.size() <= 0) 
+                        {
 
                             //Do a switch on the piece of logic in the back of the stack. Why there isn't an ArrayList.end function I will never know.
-                            switch (logicstack.get(logicstack.size() - 1)) {
+                            switch (logicstack.get(logicstack.size() - 1))
+                            {
 
                                 case "IF":
                                 {
@@ -1321,11 +1323,7 @@ public class Translator
         if( transfile.equals("") ){ System.out.println( "File location not received for -template" ); kill = true; }
 
         //It keeps the program open for nine seconds so the user can contemplate on what they've done.
-        try
-        {
-            if( kill ){Thread.sleep(9000);System.exit(0);}
-        }
-        catch( InterruptedException a )
+        if( kill )
         {
             System.exit(0);
         }
@@ -1493,10 +1491,6 @@ public class Translator
         //Used to calculate how long the process took in it's entirety.
         long etime = System.currentTimeMillis();
         System.out.println( "Process took: "+(etime-stime)/1000.0+"s." );
-
-        try{ Thread.sleep( 500 ); }
-        catch( InterruptedException a )
-        {System.exit(0);}
 
     }
 }
