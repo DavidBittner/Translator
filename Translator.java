@@ -624,7 +624,7 @@ public class Translator
 
         //Loading in the translator file.
         BufferedReader in = new BufferedReader(new FileReader(transfile));
-        String read = in.readLine();
+        String read = "";
 
         //Get rid of the next lines, do it like this:
         //If its the first time, process the first x amount of lines. Else, skip them and continually
@@ -637,7 +637,9 @@ public class Translator
         String funclist[] = { "SEQ","TODAY","CONCAT","SUBSTR","LENGTH","REPLACE","C","TRUE","FALSE","PRINT","UPPER","LOWER", "ISNUMERIC","BLANK", "IGNORE", "FC", "GROUPTOTAL","HEADER" };
 
         if(first)
+        {
             code.add( new ArrayList<String>() );
+        }
 
         int levelcount = 0;
 
@@ -707,14 +709,18 @@ public class Translator
             //Find the amount of lines of code in this block.
             for( int f = 0; f < code.get(i).size(); f++ )
             {
-
+    
                 currow++;
 
                 if( removeChar( code.get(i).get(f),'\t').isEmpty() )
+                {
                     continue;
+                }
 
                 if( removeChar(code.get(i).get(f),'\t').charAt(0) == '#' || removeChar( code.get(i).get(f), ' ' ).charAt(0) == '#' )
+                {
                     continue;
+                }
 
                 if( (getCharCount( code.get(i).get(f), ')' ) + getCharCount( code.get(i).get(f), '(' ))%2 != 0 )
                 {
@@ -1228,8 +1234,6 @@ public class Translator
                                         String params[] = GETPARAMS(paramstack, 1);
                                         params = params[0].split(",");
                                         
-                                        System.out.println( "hereeasdasda" );
-
                                         for( String head:params )
                                         {
                                         
