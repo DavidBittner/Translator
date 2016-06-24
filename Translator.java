@@ -30,8 +30,11 @@ public class Translator
     //The ArrayList that tells the program with lines need to be executed.
     static ArrayList<ArrayList<String>> code = new ArrayList<>();
 
+    //Things for the grouptotal function
     static ArrayList<Unique>  countedIDs = new ArrayList<>();
     static ArrayList<Integer> IDrows = new ArrayList<>();
+
+    static LookupMaster keyMaster = new LookupMaster(); //Like in the Matrix heh
 
     //The outputstream to write to the log file.
     static FileOutputStream log;
@@ -634,7 +637,7 @@ public class Translator
         String logiclist[] = { "IF","ELSE","SWITCH","ELSEIF" };
         char unwantedchars[] = { '\t', '"', '(', ')', '{', '}', ',' };
         String oplist[] = { "=", "!=", "<", ">", "<=", ">=", "&&", "||" };
-        String funclist[] = { "SEQ","TODAY","CONCAT","SUBSTR","LENGTH","REPLACE","C","TRUE","FALSE","PRINT","UPPER","LOWER", "ISNUMERIC","BLANK", "IGNORE", "FC", "GROUPTOTAL","HEADER" };
+        String funclist[] = { "SEQ","TODAY","CONCAT","SUBSTR","LENGTH","REPLACE","C","TRUE","FALSE","PRINT","UPPER","LOWER", "ISNUMERIC","BLANK", "IGNORE", "FC", "GROUPTOTAL","HEADER","LOAD","EXISTS" };
 
         if(first)
         {
@@ -1232,6 +1235,8 @@ public class Translator
                                     {
 
                                         String params[] = GETPARAMS(paramstack, 1);
+                                        funcstack.remove( funcstack.size()-1 );
+
                                         params = params[0].split(",");
                                         
                                         for( String head:params )
@@ -1241,6 +1246,26 @@ public class Translator
 
                                         }
 
+                                        break;
+
+                                    }
+                                    case "LOAD":
+                                    {
+
+                                        String params[] = GETPARAMS( paramstack, 1 );
+                                        funcstack.remove( funcstack.size()-1 );
+
+                                        keyMaster.LoadFile( params[0] );
+                                        break;
+
+                                    }
+                                    case "EXISTS":
+                                    {
+
+                                        String params[] = GETPARAMS( paramstack, 3 );
+                                        funcstack.remove( funcstack.size()-1 );
+
+                                        logicansstack.add( keyMaster.checkExistence( params[0], params[1], params[2] ) );
                                         break;
 
                                     }

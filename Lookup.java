@@ -8,7 +8,14 @@ public class Lookup
     private ArrayList<String[]> data;
     private String[] headers;
 
-    public void giveName( String filename )
+    public String getFilename()
+    {
+
+        return filename;
+
+    }
+
+    public Lookup( String filename )
     {
 
         this.filename = filename;
