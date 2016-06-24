@@ -1,21 +1,5 @@
-HEADER("not added")
-LOAD("compare")
-LOAD("compare2")
+HEADER("wages")
+LOAD("input")
 END
-IF( EXISTS( "compare", "usernames", C(1) ) || EXISTS( "compare2", "usernames", C(1) ) )
-{
-
-	C(1)
-
-}
-ELSE
-{
-
-	IGNORE()
-
-}
-END
-C(2)
-END
-C(3)
+LOOKUP("input","usernames",C(1),"wages")
 END

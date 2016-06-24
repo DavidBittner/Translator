@@ -38,10 +38,8 @@ class LookupMaster
 
     }
 
-    public String checkExistence( String name, String header, String str )
+    private Lookup findLookup( String name )
     {
-
-        boolean result = false;
 
         for( Lookup i : lookups )
         {
@@ -49,13 +47,32 @@ class LookupMaster
             if( i.getFilename().equals( name ) )
             {
 
-                result = i.checkExistence( header, str );
+                return i;
 
             }
 
         }
-        
-        return (result)?("true"):("false");
+
+        System.out.println( "File "+name+" not loaded!" );
+        return null;
+
+    }
+
+    public String checkExistence( String name, String header, String str )
+    {
+
+        Lookup lookup = findLookup( name );
+
+        return (lookup.checkExistence( header, str ))?("true"):("false");
+
+    }
+
+    public String Lookup( String name, String cola, String str, String colb )
+    {
+
+        Lookup lookup = findLookup( name );
+
+        return ( lookup.Lookup( cola, str, colb ) );
 
     }
 

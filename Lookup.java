@@ -52,8 +52,7 @@ public class Lookup
 
     }
 
-    //This function goes through to see if a string exists under that header
-    public boolean checkExistence( String header, String str )
+    private int FindCol( String header )
     {
 
         int col = 0;
@@ -67,10 +66,19 @@ public class Lookup
         if( col > headers.length-1 )
         {
 
-            return false;
+            return -1;
 
         }
 
+        return col;
+
+    }
+
+    //This function goes through to see if a string exists under that header
+    public boolean checkExistence( String header, String str )
+    {
+
+        int col = FindCol( header );
         for( int i = 0; i < data.size(); i++ )
         {
 
@@ -83,6 +91,35 @@ public class Lookup
 
         }
         return false;
+
+    }
+
+    public String Lookup( String cola, String str, String colb )
+    {
+
+        int loca = FindCol( cola );
+        int locb = FindCol( colb );
+
+        if( loca == -1 || locb == -1 )
+        {
+
+            return "";
+
+        }
+
+        for( int i = 0; i < data.size(); i++ )
+        {
+
+            if( str.equals( data.get(i)[loca] ) )
+            {
+
+                return data.get(i)[locb];
+
+            }
+
+        }
+
+        return "";
 
     }
 

@@ -637,7 +637,7 @@ public class Translator
         String logiclist[] = { "IF","ELSE","SWITCH","ELSEIF" };
         char unwantedchars[] = { '\t', '"', '(', ')', '{', '}', ',' };
         String oplist[] = { "=", "!=", "<", ">", "<=", ">=", "&&", "||" };
-        String funclist[] = { "SEQ","TODAY","CONCAT","SUBSTR","LENGTH","REPLACE","C","TRUE","FALSE","PRINT","UPPER","LOWER", "ISNUMERIC","BLANK", "IGNORE", "FC", "GROUPTOTAL","HEADER","LOAD","EXISTS" };
+        String funclist[] = { "SEQ","TODAY","CONCAT","SUBSTR","LENGTH","REPLACE","C","TRUE","FALSE","PRINT","UPPER","LOWER", "ISNUMERIC","BLANK", "IGNORE", "FC", "GROUPTOTAL","HEADER","LOAD","EXISTS","LOOKUP" };
 
         if(first)
         {
@@ -1266,6 +1266,17 @@ public class Translator
                                         funcstack.remove( funcstack.size()-1 );
 
                                         logicansstack.add( keyMaster.checkExistence( params[0], params[1], params[2] ) );
+                                        break;
+
+                                    }
+                                    case "LOOKUP":
+                                    {
+
+                                        String params[] = GETPARAMS( paramstack, 4 );
+                                        funcstack.remove( funcstack.size()-1 );
+
+                                        paramstack.add( keyMaster.Lookup( params[0], params[1], params[2], params[3] ) );
+
                                         break;
 
                                     }
