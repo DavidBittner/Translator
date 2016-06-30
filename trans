@@ -1,5 +1,0 @@
-HEADER("wages")
-LOAD("input")
-END
-LOOKUP("input","usernames",C(1),"wages")
-END

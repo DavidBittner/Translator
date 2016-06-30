@@ -1,0 +1,30 @@
+HEADER("username,wage,hours")
+END
+SWITCH( C(1) )
+{
+
+    CASE "david"
+    {
+
+        C(2)
+
+    }
+    CASE DEFAULT
+    {
+
+        IGNORE()
+
+    }
+
+}
+END
+C(1)
+END
+C(2)
+END
+C(3)
+END
+C(2)
+END
+CONCAT(C(1),C(2))
+END
