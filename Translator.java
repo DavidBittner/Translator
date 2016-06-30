@@ -47,9 +47,62 @@ public class Translator
     public static void main( String args[] )
     {
 
-        String templateFile = "template";
-        String dataFile = "data";
-        String outputFile = "output";
+
+        String templateFile = "";
+        String dataFile = "";
+        String outputFile = "";
+
+        for( int i = 0; i < args.length; i+=2 )
+        {
+
+            switch( args[i] )
+            {
+
+                case "-template":
+                {
+
+                    templateFile = args[i+1];
+                    break;
+
+                }
+                case "-import":
+                {
+
+                    dataFile = args[i+1];
+                    break;
+
+                }
+                case "-export":
+                {
+
+                    outputFile = args[i+1];
+                    break;
+
+                }
+                default:
+                {
+
+                    System.out.println( "Unkown argument: "+args[i]+"." );
+                    break;
+
+                }
+
+            }
+
+        }
+
+        if( templateFile.isEmpty() )
+        {
+           Error er = new Error( "No filename entered for the template file ." ); 
+        }
+        if( dataFile.isEmpty() )
+        {
+           Error er = new Error( "No filename entered for the input file." ); 
+        }
+        if( outputFile.isEmpty() )
+        {
+           Error er = new Error( "No filename entered for the output file." ); 
+        }
 
         ArrayList<String[]> output = new ArrayList<>();
 
