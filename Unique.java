@@ -6,7 +6,7 @@ public class Unique
     {
 
         this.ID = ID;
-        ocs = 0;
+        ocs = 1;
 
     }
 

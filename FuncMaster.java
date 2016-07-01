@@ -1,4 +1,5 @@
 import java.util.*;
+import java.text.*;
 
 //Bringin' the func!
 public class FuncMaster
@@ -110,12 +111,6 @@ public class FuncMaster
                 break;
 
             }
-            case "ISNUMERIC":
-            {
-
-                break;
-
-            }
             case "SEQ":
             {
 
@@ -161,6 +156,58 @@ public class FuncMaster
 
                 String params[] = GrabParams( paramstack, 4 );
                 return keyMaster.Lookup( params[0], params[1], params[2], params[3] );
+
+            }
+            case "GROUPTOTAL":
+            {
+
+                Translator tempTrans = new Translator();
+
+                UniqueMaster tempUniq = new UniqueMaster();
+                String params[] = GrabParams( paramstack, 1 );
+                
+                tempTrans.UniqueColNum();
+
+                tempUniq.giveKey( params[0] );
+                return params[0];
+
+            }
+            case "TODAY":
+            {
+
+                String params[] = GrabParams( paramstack, 1 ); 
+                Date curDat = new Date();
+                SimpleDateFormat form = new SimpleDateFormat( params[0] );  
+
+                return form.format( curDat );
+
+            }
+            case "REPLACE":
+            {
+
+                String params[] = GrabParams( paramstack, 3 );
+
+                return params[0].replace( params[1], params[2] );
+
+            }
+            case "ISNUMERIC":
+            {
+
+                try
+                {
+
+                    String params[] = GrabParams( paramstack, 1 );
+                    Integer.parseInt( params[0] );
+
+                    return "true";
+
+                }
+                catch( NumberFormatException e )
+                {
+
+                    return "false";
+
+                }
 
             }
             default:

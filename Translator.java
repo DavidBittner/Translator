@@ -7,6 +7,9 @@ public class Translator
     static ArrayList<Code> execLines = new ArrayList<>();
     static String[] headers = new String[1];
 
+    static ArrayList<Integer> uniqueCols = new ArrayList<>();;
+    static int curColumn = 0;
+
     static boolean ignoreFlag = false;
 
     private static int GetCharCount( String str, char ch )
@@ -27,6 +30,31 @@ public class Translator
         }
 
         return count;
+
+    }
+
+    public static void UniqueColNum()
+    {
+
+        boolean exists = false;
+        for( int i : uniqueCols )
+        {
+
+            if( i == curColumn )
+            {
+
+                exists = true;
+
+            }
+
+        }
+
+        if( !exists )
+        {
+
+            uniqueCols.add( curColumn );
+
+        }
 
     }
 
@@ -198,11 +226,13 @@ public class Translator
                 output.add( new String[ execLines.size() ] );
 
                 int adder = 0;
+                curColumn = 0;
                 for( Code i : execLines )
                 {
 
                     output.get( output.size()-1 )[adder] = i.Execute( usedList );
                     adder++;
+                    curColumn++;
 
                 }
                 FuncMaster seqAdder = new FuncMaster();
@@ -228,6 +258,17 @@ public class Translator
 
         try
         {
+
+            UniqueMaster tempUniq = new UniqueMaster();
+            for( int j = 0; j < output.size(); j++ )
+            {
+                for( int i : uniqueCols )
+                {
+
+                    output.get(j)[i] = Integer.toString(tempUniq.getOccurences( output.get(j)[i] ));
+
+                }
+            }
 
             FileOutputStream writer = new FileOutputStream( outputFile );
 

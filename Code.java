@@ -3,6 +3,7 @@ import java.util.*;
 public class Code
 {
 
+    //The various lists of accepted inputs.
     static String logiclist[] = { "IF","ELSE","SWITCH","ELSEIF" };
     static char wantedchars[] = { '(', ')', '{', '}' };
     static String oplist[] = { "=", "!=", "<", ">", "<=", ">=", "&&", "||" };
@@ -20,6 +21,7 @@ public class Code
 
     }
 
+    //Function used to add lines to this block of code.
     public void AddLine( String line )
     {
 
@@ -27,6 +29,7 @@ public class Code
 
     }
 
+    //Function to check whether or not a character is on the list of wanted characters.
     private boolean OnList( char list[], char check )
     {
 
@@ -46,6 +49,7 @@ public class Code
 
     }
 
+    //For checking if other things are on the other lists.
     private boolean OnList( String list[], String check )
     {
 
@@ -65,6 +69,7 @@ public class Code
 
     }
 
+    //For checking all of them at once.
     private boolean CheckAllLists( String check )
     {
 
@@ -77,6 +82,7 @@ public class Code
 
     }
 
+    //A bit hacky, but eh. For checking whether or not a string is numeric.
     private boolean IsNumeric( String str )
     {
 
@@ -97,6 +103,7 @@ public class Code
 
     }
 
+    //This is for replacing a character in a string, but only outside of quotes.
     String ReplaceOutsideQuotes( String str, char charac )
     {
 
@@ -110,7 +117,7 @@ public class Code
             if( strbuild.charAt(i) == '"' )
             {
 
-                //It adds 1 to i, and the runs a loop that continues until it has found another quote.
+                //It adds 1 to i, and the runs a loop that continues until it has found another quote
                 i++;
                 while( strbuild.charAt(i)!='"' && i < strbuild.length() )
                 {
@@ -138,6 +145,7 @@ public class Code
 
     }
 
+    //In the title. Returns the amount of characters in a string.
     int GetCharCount( String str, char ch )
     {
 
@@ -159,6 +167,7 @@ public class Code
 
     }
 
+    //This function is for tokenizing the line of code its given.
     public ArrayList<String> TokenizeLine( String line )
     {
 
@@ -246,23 +255,28 @@ public class Code
 
     }
 
+    //This is for resolving logic statements. It tells the class which lines to execute.
     private void LogicStatement( String statement, boolean res, String inp, int curline )
     {
 
+        //This switch goes through the logic possibilities
         switch( statement )
         {
 
             case "IF":
             {
 
+                //The nest level variable determines how many layers of nesting the function has gone through, it's used to determine when it's back to the right level of curly brackets.
                 int nstlvl = 0;
 
                 if( !res )
                 {
 
+                    //If the resolution is false then it moves until it can find the else statement
                     while( !lines.get(curline).contains("ELSE") )
                     {
 
+                        //This is so it knows whether or not it reached the end of the file.
                         curline++;
                         if( curline == execlines.length )
                         {
@@ -276,6 +290,7 @@ public class Code
 
                 }
 
+                //If the nstlvl was set to -1, it knows it failed.
                 if( nstlvl != -1 )
                 {
                    
@@ -299,6 +314,7 @@ public class Code
             case "SWITCH":
             {
 
+                //These two ArrayLists are to hold the options of the switch statement, as well as their associated lines.
                 ArrayList<String> opts = new ArrayList<>();
                 ArrayList<Integer> optslines = new ArrayList<>();
 
@@ -306,6 +322,7 @@ public class Code
                 
                 int nstlvl = 0;
                 boolean def = false;
+
                 do
                 {
 
@@ -320,6 +337,7 @@ public class Code
                         String holder = "";
                         boolean found = false;
 
+                        //This is to determine whether or not there is a default statement
                         if( lines.get(templine).contains( "DEFAULT" ) )
                         {
 
@@ -378,6 +396,7 @@ public class Code
 
                 }
 
+                //If stline is set to -1, then it knows that the input did not match any of the cases in the switch statement.
                 if( stline != -1 )
                 {
 
@@ -397,7 +416,9 @@ public class Code
                 }else if( def )
                 {
 
-                   curline = defline; 
+                    //In the case of there being a default statement, it executes that code.
+
+                    curline = defline; 
                     nstlvl = 0;
                     do
                     {
