@@ -1,19 +1,28 @@
-HEADER("GroupTest")
+HEADER("Names,Wages,Hours")
+LOAD("lookup")
 END
-GROUPTOTAL(C( 1 ) )
-END
-C(1)
-END
-IF( ISNUMERIC("12a3") )
+IF( ISNUMERIC(C(1)) = FALSE() )
 {
+    IF( EXISTS("lookup","usernames",C(1) ) )
+    {
 
-    "numeric"
+        "matches"
 
+    }
+    ELSE
+    {
+
+        C(1)
+
+    }
 }
 ELSE
 {
 
-    "nop"
+    "N/A"
 
 }
 END
+C(2)
+END
+CONCAT( C(2), C(3) )

@@ -296,12 +296,14 @@ public class FuncMaster
     
         if( paramstack.get( paramstack.size()-1 ).equals("true") )
         {
-
+            
+            System.out.println( "tru");
             return true;
 
         }else if( paramstack.get( paramstack.size()-1 ).equals("false") )
         {
 
+            System.out.println( "falz" );
             return false;
 
         }

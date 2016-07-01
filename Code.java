@@ -259,6 +259,7 @@ public class Code
     private void LogicStatement( String statement, boolean res, String inp, int curline )
     {
 
+
         //This switch goes through the logic possibilities
         switch( statement )
         {
@@ -271,14 +272,15 @@ public class Code
 
                 if( !res )
                 {
-
                     //If the resolution is false then it moves until it can find the else statement
-                    while( !lines.get(curline).contains("ELSE") )
+                    do
                     {
 
-                        //This is so it knows whether or not it reached the end of the file.
                         curline++;
-                        if( curline == execlines.length )
+                        nstlvl+=GetCharCount( lines.get(curline), '{' );
+                        nstlvl-=GetCharCount( lines.get(curline), '}' );
+
+                        if( curline == lines.size()-1 )
                         {
 
                             nstlvl = -1;
@@ -286,18 +288,18 @@ public class Code
 
                         }
 
-                    }
+                    }while( nstlvl != 0 || !lines.get(curline).contains("ELSE") );
 
                 }
 
                 //If the nstlvl was set to -1, it knows it failed.
                 if( nstlvl != -1 )
                 {
-                   
+                    
                     nstlvl = 0;
                     do
                     {
-
+                        
                         curline++;
                         nstlvl+=GetCharCount( lines.get(curline), '{' );
                         nstlvl-=GetCharCount( lines.get(curline), '}' );
@@ -306,7 +308,7 @@ public class Code
 
                     }while( nstlvl != 0 );
                 
-                }       
+                }
 
                 break;
         
@@ -468,6 +470,11 @@ public class Code
                 tracker++;
                 continue;
 
+            }else
+            {
+
+                System.out.println( tracker );
+
             }
     
             //This tokenizes the current line, returning functions and parameters seperated nicely.
@@ -519,6 +526,8 @@ public class Code
 
                             boolean res = funcs.solveLogic( logicstack, paramstack );
                             LogicStatement( funcstack.get( funcstack.size()-1 ), res, "", tracker );
+                            paramstack.clear();
+
                         }else if( funcstack.get( funcstack.size()-1 ).equals( "SWITCH" ) )
                         {
 
