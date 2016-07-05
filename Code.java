@@ -267,13 +267,13 @@ public class Code
 
         }
 
-        //This switch goes through the logic possibilities
+            //This switch goes through the logic possibilities
         switch( statement )
         {
 
             case "IF":
             {
-
+                
                 //The nest level variable determines how many layers of nesting the function has gone through, it's used to determine when it's back to the right level of curly brackets.
                 int nstlvl = 0;
 
