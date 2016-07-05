@@ -334,8 +334,8 @@ public class FuncMaster
             }
         
         }
-    
-        return false;
+ 
+        return (paramstack.get(paramstack.size()-1).equals("true"))?( true ):( false );
     
     } 
 
