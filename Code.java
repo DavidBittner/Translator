@@ -260,6 +260,13 @@ public class Code
     {
 
 
+        for( int i = 0; i < execlines.length; i++ )
+        {
+
+            execlines[i] = false;
+
+        }
+
         //This switch goes through the logic possibilities
         switch( statement )
         {
@@ -303,7 +310,7 @@ public class Code
                         curline++;
                         nstlvl+=GetCharCount( lines.get(curline), '{' );
                         nstlvl-=GetCharCount( lines.get(curline), '}' );
-
+                       
                         execlines[curline] = true;
 
                     }while( nstlvl != 0 );
@@ -469,11 +476,6 @@ public class Code
                 
                 tracker++;
                 continue;
-
-            }else
-            {
-
-                System.out.println( tracker );
 
             }
     

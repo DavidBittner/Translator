@@ -51,13 +51,36 @@ public class FuncMaster
             case "C":
             {
             
-               String params[] = GrabParams( paramstack, 1 ); 
-               return rowData.get( (Integer.parseInt( params[0] )-1)%rowData.size() );
+                //This function simply returns a column from the dataset.
+                String params[] = GrabParams( paramstack, 1 ); 
+                return rowData.get( (Integer.parseInt( params[0] )-1)%rowData.size() );
+
+            }
+            case "FC":
+            {
+
+                //This is for comma-less files. It returns substrings of the entire dataset instead of columns.
+                String params[] = GrabParams( paramstack, 2 );
+                int st = Integer.parseInt( params[0] );
+                int en = Integer.parseInt( params[1] );
+                int tracker = 0;
+                String ret = "";
+
+                while( ret.length() < st+en )
+                {
+
+                    ret = ret+rowData.get(tracker);
+                    tracker++;
+
+                }
+
+                return ret.substring( st, en );
 
             }
             case "CONCAT":
             {
 
+                //For concatenating.
                 String params[] = GrabParams( paramstack, 2 );
                 return params[0]+params[1];
 
@@ -65,6 +88,7 @@ public class FuncMaster
             case "HEADER":
             {
 
+                //This function sets the headers of the output file.
                 Translator statTrans = new Translator();
 
                 String params[] = GrabParams( paramstack, 1 );
@@ -77,6 +101,7 @@ public class FuncMaster
             case "LOAD":
             {
 
+                //This loads in another file for the EXISTS and LOOKUP functions.
                 String params[] = GrabParams( paramstack, 1 );
                 keyMaster.LoadFile( params[0] );
                 break;
@@ -85,6 +110,7 @@ public class FuncMaster
             case "SUBSTR":
             {
 
+                //A substring function.
                 String params[] = GrabParams( paramstack, 3 );
                 return Substr( params[0], params[1], params[2] );
 
@@ -92,6 +118,7 @@ public class FuncMaster
             case "LENGTH":
             {
 
+                //Returns the length of the given string.
                 String params[] = GrabParams( paramstack, 1 );
                 return Integer.toString(params[0].length());
 
@@ -99,12 +126,14 @@ public class FuncMaster
             case "BLANK":
             {
 
+                //Returns a blank string.
                 return "";
 
             }
             case "IGNORE":
             {
 
+                //Ignores the entire row from the output file.
                 Translator tempTrans = new Translator();
                 tempTrans.IgnoreRecord();
 
@@ -114,6 +143,7 @@ public class FuncMaster
             case "SEQ":
             {
 
+                //Returns a 'counter'. It starts at whatever value you supply as an argument.
                 String params[] = GrabParams( paramstack, 1 );
                 return Integer.toString( Integer.parseInt( params[0] )+seq );
 
@@ -121,18 +151,21 @@ public class FuncMaster
             case "TRUE":
             {
 
+                //Returns true for logic.
                 return "true";
 
             }
             case "FALSE":
             {
 
+                //Returns false for logic.
                 return "false";
 
             }
             case "LOWER":
             {
 
+                //Makes strings lowercase.
                 String params[] = GrabParams( paramstack, 1 );
                 return params[0].toLowerCase();
 
@@ -140,6 +173,7 @@ public class FuncMaster
             case "UPPER":
             {
 
+                //Makes strings uppercase.
                 String params[] = GrabParams( paramstack, 1 );
                 return params[0].toUpperCase();
 
@@ -147,6 +181,7 @@ public class FuncMaster
             case "EXISTS":
             {
 
+                //This function returns true or false if an entry already exists in the given file.
                 String params[] = GrabParams( paramstack, 3 );
                 return keyMaster.checkExistence( params[0], params[1], params[2] );
 
@@ -154,6 +189,7 @@ public class FuncMaster
             case "LOOKUP":
             {
 
+                //This looks into another file and returns an entry from that column, if it exists.
                 String params[] = GrabParams( paramstack, 4 );
                 return keyMaster.Lookup( params[0], params[1], params[2], params[3] );
 
@@ -161,6 +197,7 @@ public class FuncMaster
             case "GROUPTOTAL":
             {
 
+                //Used to count the amount of unique occurences of something such as a username.
                 Translator tempTrans = new Translator();
 
                 UniqueMaster tempUniq = new UniqueMaster();
@@ -175,6 +212,7 @@ public class FuncMaster
             case "TODAY":
             {
 
+                //Returns the current date in the given format.
                 String params[] = GrabParams( paramstack, 1 ); 
                 Date curDat = new Date();
                 SimpleDateFormat form = new SimpleDateFormat( params[0] );  
@@ -185,6 +223,7 @@ public class FuncMaster
             case "REPLACE":
             {
 
+                //For replacing things inside strings.
                 String params[] = GrabParams( paramstack, 3 );
 
                 return params[0].replace( params[1], params[2] );
@@ -193,6 +232,7 @@ public class FuncMaster
             case "ISNUMERIC":
             {
 
+                //Checks whether or not a string is a number.
                 try
                 {
 
@@ -226,6 +266,7 @@ public class FuncMaster
     boolean solveLogic( ArrayList<String> logicstack, ArrayList<String> paramstack )
     {
     
+        //This function is given a list of logic operators and determines the answer to them.
         while( logicstack.size() > 0 )
         {
     
@@ -294,20 +335,6 @@ public class FuncMaster
         
         }
     
-        if( paramstack.get( paramstack.size()-1 ).equals("true") )
-        {
-            
-            System.out.println( "tru");
-            return true;
-
-        }else if( paramstack.get( paramstack.size()-1 ).equals("false") )
-        {
-
-            System.out.println( "falz" );
-            return false;
-
-        }
-
         return false;
     
     } 
