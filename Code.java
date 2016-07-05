@@ -479,6 +479,9 @@ public class Code
 
             }
     
+            Error er = new Error();
+            er.curLine( line );
+
             //This tokenizes the current line, returning functions and parameters seperated nicely.
             ArrayList<String> tokens = TokenizeLine( line );
 
@@ -511,34 +514,49 @@ public class Code
                 }else if( iter.equals( ")" ) )
                 {
                
-                    if( OnList( funclist, funcstack.get( funcstack.size()-1 ) ) )
+                    try
                     {
-                        //This executes the most recent function in the function stack.
-                        String res = funcs.CallFunc( data, paramstack, funcstack.get(funcstack.size()-1) );
-                        paramstack.add( res );
+                        if( OnList( funclist, funcstack.get( funcstack.size()-1 ) ) )
+                        {
+                            //This executes the most recent function in the function stack.
+                            String res = funcs.CallFunc( data, paramstack, funcstack.get(funcstack.size()-1) );
+                            paramstack.add( res );
 
-                        funcstack.remove( funcstack.size()-1 );
-                    
-                    }
-                    else if( OnList( logiclist, funcstack.get( funcstack.size()-1 ) ) )
-                    {
+                            funcstack.remove( funcstack.size()-1 );
                         
-                        if( funcstack.get( funcstack.size()-1 ).equals( "IF" ) )
+                        }
+                        else if( OnList( logiclist, funcstack.get( funcstack.size()-1 ) ) )
                         {
+                            
+                            if( funcstack.get( funcstack.size()-1 ).equals( "IF" ) )
+                            {
 
-                            boolean res = funcs.solveLogic( logicstack, paramstack );
-                            LogicStatement( funcstack.get( funcstack.size()-1 ), res, "", tracker );
-                            paramstack.clear();
+                                boolean res = funcs.solveLogic( logicstack, paramstack );
+                                LogicStatement( funcstack.get( funcstack.size()-1 ), res, "", tracker );
+                                paramstack.clear();
 
-                        }else if( funcstack.get( funcstack.size()-1 ).equals( "SWITCH" ) )
-                        {
+                            }else if( funcstack.get( funcstack.size()-1 ).equals( "SWITCH" ) )
+                            {
 
-                            String param = paramstack.get( paramstack.size()-1 );
-                            paramstack.remove( paramstack.size()-1 );
+                                String param = paramstack.get( paramstack.size()-1 );
+                                paramstack.remove( paramstack.size()-1 );
 
-                            LogicStatement( funcstack.get( funcstack.size()-1 ), false, param, tracker ); 
+                                LogicStatement( funcstack.get( funcstack.size()-1 ), false, param, tracker ); 
+
+                            }else
+                            {
+
+                                er = new Error( "Unrecognized logic type: "+funcstack.get(funcstack.size()-1)+".", 1 );
+
+                            }
 
                         }
+
+                    }
+                    catch( ArrayIndexOutOfBoundsException e )
+                    {
+
+                        er = new Error( "Not enough functions on line "+(tracker+1)+". Perhaps you have an extra ')'?", 1 );
 
                     }
 

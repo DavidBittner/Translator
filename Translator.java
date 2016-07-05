@@ -11,6 +11,39 @@ public class Translator
     static int curColumn = 0;
 
     static boolean ignoreFlag = false;
+    static boolean exitFlag = false;
+
+    public static void ExitProg( int num )
+    {
+
+       switch( num )
+       {
+
+            case 0:
+            {
+
+                break;
+
+            }
+            case 1:
+            {
+
+                exitFlag = true;
+                break;
+
+            }
+            default:
+            {
+
+                System.out.println( "Program forcefully closed with error code "+num+"." );
+                System.exit( num );
+
+            }
+
+
+       }
+
+    }
 
     private static int GetCharCount( String str, char ch )
     {
@@ -80,56 +113,66 @@ public class Translator
         String dataFile = "";
         String outputFile = "";
 
-        for( int i = 0; i < args.length; i+=2 )
+        try
         {
-
-            switch( args[i] )
+            for( int i = 0; i < args.length; i+=2 )
             {
 
-                case "-template":
+                switch( args[i] )
                 {
 
-                    templateFile = args[i+1];
-                    break;
+                    case "-template":
+                    {
 
-                }
-                case "-import":
-                {
+                        templateFile = args[i+1];
+                        break;
 
-                    dataFile = args[i+1];
-                    break;
+                    }
+                    case "-import":
+                    {
 
-                }
-                case "-export":
-                {
+                        dataFile = args[i+1];
+                        break;
 
-                    outputFile = args[i+1];
-                    break;
+                    }
+                    case "-export":
+                    {
 
-                }
-                default:
-                {
+                        outputFile = args[i+1];
+                        break;
 
-                    System.out.println( "Unkown argument: "+args[i]+"." );
-                    break;
+                    }
+                    default:
+                    {
+
+                        System.out.println( "Unkown argument: "+args[i]+"." );
+                        break;
+
+                    }
 
                 }
 
             }
+        
+        }
+        catch( ArrayIndexOutOfBoundsException e )
+        {
+
+           //Do nothing. 
 
         }
 
         if( templateFile.isEmpty() )
         {
-           Error er = new Error( "No filename entered for the template file ." ); 
+           Error er = new Error( "No filename entered for the template file .", -1 ); 
         }
         if( dataFile.isEmpty() )
         {
-           Error er = new Error( "No filename entered for the input file." ); 
+           Error er = new Error( "No filename entered for the input file.", -1 ); 
         }
         if( outputFile.isEmpty() )
         {
-           Error er = new Error( "No filename entered for the output file." ); 
+           Error er = new Error( "No filename entered for the output file.", -1 ); 
         }
 
         ArrayList<String[]> output = new ArrayList<>();
@@ -237,6 +280,14 @@ public class Translator
                 }
                 FuncMaster seqAdder = new FuncMaster();
                 seqAdder.SeqInc();
+
+                if( exitFlag )
+                {
+
+                    System.out.println( "Program exited cleanly." );
+                    System.exit( 0 );
+            
+                }
 
                 if( ignoreFlag )
                 {

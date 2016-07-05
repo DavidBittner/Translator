@@ -3,7 +3,7 @@ LOAD("lookup")
 END
 IF( ISNUMERIC(C(1)) = FALSE() )
 {
-    IF( EXISTS("lookup","usernames",C(1) ) )
+    IF( EXISTS("lookup","usernames",C() ) )
     {
 
         "matches"
