@@ -13,6 +13,8 @@ public class Translator
     static boolean ignoreFlag = false;
     static boolean exitFlag = false;
 
+    static int lineTracker = 0;
+
     public static void ExitProg( int num )
     {
 
@@ -41,6 +43,20 @@ public class Translator
 
             }
         }
+    }
+
+    public static void CountLine()
+    {
+
+        lineTracker++;
+
+    }
+
+    public static int GetLine()
+    {
+
+        return lineTracker;
+
     }
 
     //Finds the amount of times a character occurs in a string
@@ -270,7 +286,10 @@ public class Translator
                     output.get( output.size()-1 )[adder] = i.Execute( usedList );
                     adder++;
                     curColumn++;
+
+                    CountLine();
                 }
+                lineTracker = 0;
 
                 FuncMaster seqAdder = new FuncMaster();
                 seqAdder.SeqInc();

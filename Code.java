@@ -461,20 +461,24 @@ public class Code
         //This array tells whether or not a function should be executed.
         //It's purpose is just for the logic, determining where to execute what.
         execlines = new boolean[lines.size()];
-        for( int i = 0; i < execlines.length; i++ )
+
+        for( int i = 0; i < lines.size(); i++ )
         {
 
-            execlines[i] = (data==null)?(true):(false);
+            execlines[i] = true;
 
         }
-        execlines[0] = true;
 
         //Iterating through ever line of code in this section.
         int tracker = 0;
+        Translator lineTracker = new Translator();
+
         for( String line : lines )
         {
 
-            //If this line isn't supposed to be executed or its empty, it skips it.
+            lineTracker.CountLine();
+
+            //If this line isn't supposed to be executed or its empty, skip it.
             if( !execlines[tracker] || line.isEmpty() ) 
             {
                 
@@ -561,7 +565,7 @@ public class Code
                             }else
                             {
 
-                                //Not sure how this could be called, but I'm handling it just in case.
+                                //Not sure how this could be called, but I'm handling it just in case
                                 er = new Error( "Unrecognized logic type: "+funcstack.get(funcstack.size()-1)+".", 1 );
 
                             }

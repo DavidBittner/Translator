@@ -13,30 +13,24 @@ public class FuncMaster
     private String []GrabParams( ArrayList<String> params, int count )
     {
 
-        try
-        {
-
-            String ret[] = new String[count];
-
-            for( int i = 0; i < count; i++ )
-            {
-
-                ret[(count-i)-1] = params.get( params.size()-1 );
-                params.remove( params.size()-1 );
-
-            }
-
-            return ret;
-
-        }
-        catch( ArrayIndexOutOfBoundsException e )
+        if( count > params.size() )
         {
 
             Error er = new Error( "Not enough parameters. Need "+count+", have "+params.size()+".", 2 );
 
         }
 
-        return null;
+        String ret[] = new String[count];
+
+        for( int i = 0; i < count; i++ )
+        {
+
+            ret[(count-i)-1] = params.get( params.size()-1 );
+            params.remove( params.size()-1 );
+
+        }
+
+        return ret;
 
     }
 

@@ -1,29 +1,26 @@
 HEADER("Names,Wages,Hours")
 LOAD("lookup")
 END
-IF( ISNUMERIC(C(1)) = FALSE() )
+IF( ISNUMERIC(C(1)) )
 {
-    IF( EXISTS("lookup","usernames",C(1) ) )
-    {
 
-        "matches"
-
-    }
-    ELSE
-    {
-
-        C(1)
-
-    }
+    C(1)
 
 }
 ELSE
 {
 
-    "N/A"
+    IF( C(1) = "kyle" )
+    {
+
+        C(2)
+
+    }
+    ELSE
+    {
+
+        IGNORE()
+
+    }
 
 }
-END
-C(2)
-END
-CONCAT( C(2), C(3) )

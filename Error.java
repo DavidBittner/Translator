@@ -14,13 +14,16 @@ public class Error
     public Error()
     {
 
-        //Do nothing, important
+        //Needs to be declared to do nothing
 
     }
 
     public Error( String msg, int code )
     {
 
+        int line = sygCommands.GetLine()+1;
+
+        System.out.println( "Error at line "+line+":" );
         System.out.println( msg );
         
         if( !curline.isEmpty() )
