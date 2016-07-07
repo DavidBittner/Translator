@@ -1,26 +1,4 @@
 HEADER("Names,Wages,Hours")
 LOAD("lookup")
 END
-IF( ISNUMERIC(C(1)) )
-{
-
-    C(1)
-
-}
-ELSE
-{
-
-    IF( C(1) = "kyle" )
-    {
-
-        C(2)
-
-    }
-    ELSE
-    {
-
-        IGNORE()
-
-    }
-
-}
+SEARCH( C(1), "av" )

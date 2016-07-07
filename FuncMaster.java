@@ -102,6 +102,25 @@ public class FuncMaster
                     return ret.substring( st, en );
 
                 }
+                case "SEARCH":
+                {
+
+                    String params[] = GrabParams( paramstack, 2 );
+
+                    for( int i = 0; i < params[0].length()-params[1].length(); i++ )
+                    {
+
+                        if( params[0].substring( i, i+params[1].length() ).equals( params[1] ) )
+                        {
+
+                            return Integer.toString(i);
+
+                        }
+
+                    }
+                    return "0";
+
+                }
                 case "PRINT":
                 {
 
