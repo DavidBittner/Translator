@@ -8,6 +8,8 @@ public class FuncMaster
     static LookupMaster keyMaster = new LookupMaster();
     static int seq = 0;
 
+    //This function grabs a certain amount of values from the given ArrayList
+    //It also does error handling in case there aren't enough values available
     private String []GrabParams( ArrayList<String> params, int count )
     {
 
@@ -30,7 +32,7 @@ public class FuncMaster
         catch( ArrayIndexOutOfBoundsException e )
         {
 
-            Error er = new Error( "Not enough parameters. Need "+count+". Have "+params.size()+".", 2 );
+            Error er = new Error( "Not enough parameters. Need "+count+", have "+params.size()+".", 2 );
 
         }
 
@@ -46,22 +48,16 @@ public class FuncMaster
 
         if( start > str.length() )
         {
-
             start = str.length()-1;
-
         }
         if( stop > str.length() )
         {
-
             stop = str.length()-1;
-
         }
 
         if( start > stop )
         {
-
             return "";
-
         }
 
         return str.substring( start, stop ); 
@@ -110,6 +106,14 @@ public class FuncMaster
                     }
 
                     return ret.substring( st, en );
+
+                }
+                case "PRINT":
+                {
+
+                    String params[] = GrabParams( paramstack, 1 );
+                    System.out.println( params[0] );
+                    return "";
 
                 }
                 case "CONCAT":
@@ -268,6 +272,7 @@ public class FuncMaster
                 {
 
                     //Checks whether or not a string is a number.
+                    //It works, okay?
                     try
                     {
 
@@ -323,6 +328,7 @@ public class FuncMaster
                 case "=":
                 {
 
+                    //Who needs if statements?
                     paramstack.add( (params[0].equals(params[1]))?("true"):("false") );
                     break;
 
@@ -330,6 +336,7 @@ public class FuncMaster
                 case ">":
                 {
         
+                    //!(pepperoni > cheese)
                     int a = Integer.parseInt( params[0] );
                     int b = Integer.parseInt( params[1] );
 

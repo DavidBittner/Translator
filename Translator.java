@@ -16,8 +16,9 @@ public class Translator
     public static void ExitProg( int num )
     {
 
-       switch( num )
-       {
+        //Determines what to do based on the number they pass
+        switch( num )
+        {
 
             case 0:
             {
@@ -39,17 +40,14 @@ public class Translator
                 System.exit( num );
 
             }
-
-
-       }
-
+        }
     }
 
+    //Finds the amount of times a character occurs in a string
     private static int GetCharCount( String str, char ch )
     {
 
         int count = 0;
-
         for( int i = 0; i < str.length(); i++ )
         {
 
@@ -66,6 +64,7 @@ public class Translator
 
     }
 
+    //Finds the columns in which the GroupTotal function is used on
     public static void UniqueColNum()
     {
 
@@ -91,6 +90,7 @@ public class Translator
 
     }
 
+    //Called when IGNORE() is called
     public static void IgnoreRecord()
     {
 
@@ -98,16 +98,15 @@ public class Translator
 
     }
 
+    //Called when the HEADER() function is called. Tells the program what to actually output header-wise.
+    //You could say it.. gives it a heads up to what the headers are! 
     public static void GiveHeaders( String heads[] )
     {
-
         headers = heads;
-
     }
 
     public static void main( String args[] )
     {
-
 
         String templateFile = "";
         String dataFile = "";
@@ -149,17 +148,13 @@ public class Translator
                         break;
 
                     }
-
                 }
-
             }
-        
         }
+
         catch( ArrayIndexOutOfBoundsException e )
         {
-
-           //Do nothing. 
-
+            Error er = new Error( "Invalid parameters entered.", 2 );
         }
 
         if( templateFile.isEmpty() )
@@ -176,7 +171,6 @@ public class Translator
         }
 
         ArrayList<String[]> output = new ArrayList<>();
-
         long stime = System.nanoTime();
 
         try
@@ -254,6 +248,7 @@ public class Translator
                 for( int i = 0; i < usedList.size(); i++ )
                 {
 
+                    //This basically combines entries until they have matching quotes on each end.
                     while( GetCharCount( usedList.get(i), '"' ) == 1 )
                     {
 
@@ -272,52 +267,41 @@ public class Translator
                 curColumn = 0;
                 for( Code i : execLines )
                 {
-
                     output.get( output.size()-1 )[adder] = i.Execute( usedList );
                     adder++;
                     curColumn++;
-
                 }
+
                 FuncMaster seqAdder = new FuncMaster();
                 seqAdder.SeqInc();
 
                 if( exitFlag )
                 {
-
                     System.out.println( "Program exited cleanly." );
                     System.exit( 0 );
-            
                 }
 
                 if( ignoreFlag )
                 {
-                    
                     ignoreFlag = false;
                     output.remove( output.size()-1 );
-
                 }
-
             }
-
         }
+
         catch( IOException e )
         {
-
             System.out.println( e.getMessage() );
-
         }
 
         try
         {
-
             UniqueMaster tempUniq = new UniqueMaster();
             for( int j = 0; j < output.size(); j++ )
             {
                 for( int i : uniqueCols )
                 {
-
                     output.get(j)[i] = Integer.toString(tempUniq.getOccurences( output.get(j)[i] ));
-
                 }
             }
 
@@ -391,6 +375,7 @@ public class Translator
 
         }
 
+        //Just calculating how long the whole operation took
         long etime = System.nanoTime();
 
         double calckedTime = (etime-stime)/(Math.pow(10,9));
@@ -399,5 +384,4 @@ public class Translator
         System.out.println( "Process took a total of "+Double.toString( calckedTime )+" seconds." );
 
     }
-
 }

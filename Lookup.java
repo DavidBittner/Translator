@@ -10,11 +10,10 @@ public class Lookup
 
     public String getFilename()
     {
-
         return filename;
-
     }
 
+    //Constructor, opens and loads the file.
     public Lookup( String filename )
     {
 
@@ -52,6 +51,7 @@ public class Lookup
 
     }
 
+    //Finds the index of a given column
     private int FindCol( String header )
     {
 
@@ -79,6 +79,14 @@ public class Lookup
     {
 
         int col = FindCol( header );
+
+        if( col == -1 )
+        {
+
+            Error er = new Error( "Cannot find column "+header+".", 2 );
+
+        }
+
         for( int i = 0; i < data.size(); i++ )
         {
 

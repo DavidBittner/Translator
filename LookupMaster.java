@@ -12,6 +12,7 @@ class LookupMaster
 
     }
 
+    //This checks if a file exists already, if it doesn't it loads it in.
     public void LoadFile( String filename )
     {
 
@@ -53,7 +54,7 @@ class LookupMaster
 
         }
 
-        System.out.println( "File "+name+" not loaded!" );
+        Error er = new Error( "File "+name+" not found.", 2 );
         return null;
 
     }
@@ -62,16 +63,15 @@ class LookupMaster
     {
 
         Lookup lookup = findLookup( name );
-
         return (lookup.checkExistence( header, str ))?("true"):("false");
 
     }
 
+    //Checks actually executes the individual functions declared above.
     public String Lookup( String name, String cola, String str, String colb )
     {
 
         Lookup lookup = findLookup( name );
-
         return ( lookup.Lookup( cola, str, colb ) );
 
     }

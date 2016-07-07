@@ -129,8 +129,6 @@ public class Code
             }
 
             if( i >= strbuild.length() ) i = 0;
-
-            //Everytime it deletes a character, i needs to move backwards to avoid any overflow possibilitie.
             if( strbuild.charAt(i) == charac )
             {
 
@@ -140,6 +138,7 @@ public class Code
             }
 
         }
+
         //Return the string!
         return strbuild.toString();
 
@@ -177,6 +176,7 @@ public class Code
         String holder = "";
         ArrayList<String> output = new ArrayList<>();
 
+        //This turns the line into a bunch of tokens, iterating through each character and checking if it exists in one of the list given at the beginning of the file.
         for( int i = 0; i < line.length(); i++ )
         { 
 
@@ -256,6 +256,7 @@ public class Code
     }
 
     //This is for resolving logic statements. It tells the class which lines to execute.
+    //This is all a bit brute-forced, but I struggle to think of an elegant way to do this.
     private void LogicStatement( String statement, boolean res, String inp, int curline )
     {
 
@@ -267,7 +268,7 @@ public class Code
 
         }
 
-            //This switch goes through the logic possibilities
+        //This switch goes through the logic possibilities
         switch( statement )
         {
 
@@ -327,6 +328,7 @@ public class Code
                 ArrayList<String> opts = new ArrayList<>();
                 ArrayList<Integer> optslines = new ArrayList<>();
 
+                //The templine is to iterate through finding the potential options.
                 int templine = curline;
                 
                 int nstlvl = 0;
@@ -383,6 +385,11 @@ public class Code
 
                 }while( nstlvl != 0 );
 
+                if( opts.size() == 0 )
+                {
+                    Error er = new Error( "No cases for switch statement found. (Perhaps you did case instead of CASE?)", 2 );
+                }
+
                 int stline = -1;
                 int defline = 0;
                 for( int i = 0; i < opts.size(); i++ )
@@ -390,17 +397,13 @@ public class Code
 
                     if( opts.get(i).equals(inp) )
                     {
-
                        stline = optslines.get(i);
                        break;
-
                     }
 
                     if( opts.get(i).equals("DEFAULT") )
                     {
-
                         defline = optslines.get(i);
-
                     }
 
                 }
@@ -426,7 +429,6 @@ public class Code
                 {
 
                     //In the case of there being a default statement, it executes that code.
-
                     curline = defline; 
                     nstlvl = 0;
                     do
@@ -451,6 +453,7 @@ public class Code
     public String Execute( ArrayList<String> data )
     {
 
+        //The stacks that hold functions, parameters and so on.
         ArrayList<String> paramstack = new ArrayList<String>();
         ArrayList<String> logicstack = new ArrayList<String>();
         ArrayList<String> funcstack = new ArrayList<String>();
@@ -471,14 +474,15 @@ public class Code
         for( String line : lines )
         {
 
-            if( !execlines[tracker] )
+            //If this line isn't supposed to be executed or its empty, it skips it.
+            if( !execlines[tracker] || line.isEmpty() ) 
             {
                 
                 tracker++;
                 continue;
 
             }
-    
+
             Error er = new Error();
             er.curLine( line );
 
@@ -520,7 +524,12 @@ public class Code
                         {
                             //This executes the most recent function in the function stack.
                             String res = funcs.CallFunc( data, paramstack, funcstack.get(funcstack.size()-1) );
-                            paramstack.add( res );
+
+                            //This is just to put something in the parameter stack if there isn't anything already there.
+                            if( (res.isEmpty() && paramstack.size() == 0) || !res.isEmpty() )
+                            {
+                                paramstack.add( res );
+                            }
 
                             funcstack.remove( funcstack.size()-1 );
                         
@@ -528,12 +537,16 @@ public class Code
                         else if( OnList( logiclist, funcstack.get( funcstack.size()-1 ) ) )
                         {
                             
+                            //This is determining what kind of logic function it is. If, or switch.
                             if( funcstack.get( funcstack.size()-1 ).equals( "IF" ) )
                             {
 
+                                //Gets the results from the queued up logic functions 
                                 boolean res = funcs.solveLogic( logicstack, paramstack );
                                 LogicStatement( funcstack.get( funcstack.size()-1 ), res, "", tracker );
                                 paramstack.clear();
+
+                                funcstack.remove( funcstack.size()-1 );
 
                             }else if( funcstack.get( funcstack.size()-1 ).equals( "SWITCH" ) )
                             {
@@ -542,10 +555,13 @@ public class Code
                                 paramstack.remove( paramstack.size()-1 );
 
                                 LogicStatement( funcstack.get( funcstack.size()-1 ), false, param, tracker ); 
-
+                            
+                                funcstack.remove( funcstack.size()-1 );
+        
                             }else
                             {
 
+                                //Not sure how this could be called, but I'm handling it just in case.
                                 er = new Error( "Unrecognized logic type: "+funcstack.get(funcstack.size()-1)+".", 1 );
 
                             }
@@ -565,6 +581,13 @@ public class Code
             }
 
             tracker++;
+
+        }
+
+        if( funcstack.size() > 0 )
+        {
+
+            Error er = new Error( funcstack.size() + " unsolved function(s) left. (Did you forget a ')'?)", 1 );
 
         }
 
