@@ -129,6 +129,21 @@ public class FuncMaster
                     return "";
 
                 }
+                case "UNIQUE":
+                {
+
+                    String params[] = GrabParams( paramstack, 1 );
+                    if( params[0].equals( "true" ) )
+                    {
+
+                        Translator uniqueCall = new Translator();
+                        uniqueCall.UniqueRecords();
+
+                    }
+                    break;
+                    
+
+                }
                 case "CONCAT":
                 {
 

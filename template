@@ -1,4 +1,7 @@
 HEADER("Names,Wages,Hours")
+UNIQUE(FALSE())
 LOAD("lookup")
 END
-SEARCH( C(1), "av" )
+C(1)
+END
+C(2)

@@ -11,6 +11,7 @@ public class Translator
     static int curColumn = 0;
 
     static boolean ignoreFlag = false;
+    static boolean uniqueFlag = false;
     static boolean exitFlag = false;
 
     static int lineTracker = 0;
@@ -56,6 +57,72 @@ public class Translator
     {
 
         return lineTracker;
+
+    }
+
+    private static String ConcatRow( String row[] )
+    {
+
+        String ret = "";
+
+        for( String i : row )
+        {
+
+            ret = ret+i;
+
+        }
+
+        return ret;
+
+    }
+
+    private static ArrayList<String[]> GetUniques( ArrayList<String[]> in )
+    {
+
+        for( int i = 0; i < in.size(); i++ )
+        {
+
+            for( int j = 0; j < in.size(); j++ )
+            {
+
+                if( in.size() <= 1 )
+                {
+
+                    return in;
+
+                }
+
+                if( i==j )
+                {
+
+                    continue;
+
+                }
+
+                if( ConcatRow( in.get(j) ).equals( ConcatRow( in.get(i) ) ) )
+                {
+
+                    in.remove( j );
+                    if( i > 0 )
+                    {
+
+                        i--;
+
+                    }
+                    if( j > 0 )
+                    {
+
+                        j--;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        return in;
 
     }
 
@@ -111,6 +178,14 @@ public class Translator
     {
 
         ignoreFlag = true;
+
+    }
+
+    //Called when UNIQUE() is called
+    public static void UniqueRecords()
+    {
+
+        uniqueFlag = true;
 
     }
 
@@ -324,6 +399,13 @@ public class Translator
                 }
             }
 
+            if( uniqueFlag )
+            {
+
+                output = GetUniques( output );
+
+            }
+
             FileOutputStream writer = new FileOutputStream( outputFile );
 
             boolean first = true;
@@ -352,6 +434,13 @@ public class Translator
 
             for( String i[] : output )
             {
+
+                if( ConcatRow( i ).isEmpty() )
+                {
+
+                    continue;
+
+                }
 
                 first = true;
                 for( String str : i )
