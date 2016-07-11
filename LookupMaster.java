@@ -42,9 +42,10 @@ class LookupMaster
     private Lookup findLookup( String name )
     {
 
+        //Search through the available lookups trying to find a matching ID. (Filename is deprecated)
         for( Lookup i : lookups )
         {
-
+ 
             if( i.getFilename().equals( name ) )
             {
 
@@ -54,7 +55,7 @@ class LookupMaster
 
         }
 
-        Error er = new Error( "File "+name+" not found.", 2 );
+        Error er = new Error( "LOAD(): File "+name+" not found.", 2 );
         return null;
 
     }
@@ -62,6 +63,7 @@ class LookupMaster
     public String checkExistence( String name, String header, String str )
     {
 
+        //After it finds the matching lookup, it then searches whether or not the entry exists
         Lookup lookup = findLookup( name );
         return (lookup.checkExistence( header, str ))?("true"):("false");
 
@@ -71,6 +73,7 @@ class LookupMaster
     public String Lookup( String name, String cola, String str, String colb )
     {
 
+        //This starts out the same as the previous function, but instead calls the lookup function
         Lookup lookup = findLookup( name );
         return ( lookup.Lookup( cola, str, colb ) );
 
