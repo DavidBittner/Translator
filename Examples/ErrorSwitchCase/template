@@ -1,0 +1,13 @@
+HEADER( "A" )
+END
+SWITCH( C(1) )
+{
+
+    case "apple"
+    {
+
+        "nothing"
+
+    }
+
+}

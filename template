@@ -1,7 +1,9 @@
 HEADER("Names,Wages,Hours")
-UNIQUE(FALSE())
-LOAD("lookup")
 END
-C(1)
+IF( LENGTH(C(1)) >= 5 )
+{
+
+    RIGHT(5,C(1))
+
+}
 END
-C(2)

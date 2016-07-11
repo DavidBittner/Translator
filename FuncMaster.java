@@ -12,7 +12,7 @@ public class FuncMaster
     //It also does error handling in case there aren't enough values available
     private String []GrabParams( ArrayList<String> params, int count )
     {
-
+    
         if( count > params.size() )
         {
 
@@ -188,6 +188,34 @@ public class FuncMaster
                     //Returns the length of the given string.
                     String params[] = GrabParams( paramstack, 1 );
                     return Integer.toString(params[0].length());
+
+                }
+                case "MATH":
+                {
+
+                    String params[] = GrabParams( paramstack, 2 );
+                    int prec = Integer.parseInt( params[1] );
+
+                    RPN calc = new RPN();
+                    return calc.Calc( params[0], prec );
+
+                }
+                case "RIGHT":
+                {
+
+                    String params[] = GrabParams( paramstack, 2 );
+                    int val = Integer.parseInt( params[0] );
+                    
+                    return params[1].substring( (params[1].length())-val, params[1].length() );
+
+                }
+                case "LEFT":
+                {
+
+                    String params[] = GrabParams( paramstack, 2 );
+                    int val = Integer.parseInt( params[0] );
+
+                    return params[1].substring( 1, val );
 
                 }
                 case "BLANK":

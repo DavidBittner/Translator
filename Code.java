@@ -7,7 +7,7 @@ public class Code
     static String logiclist[] = { "IF","ELSE","SWITCH","ELSEIF" };
     static char wantedchars[] = { '(', ')', '{', '}' };
     static String oplist[] = { "=", "!=", "<", ">", "<=", ">=", "&&", "||" };
-    static String funclist[] = { "SEQ","SEARCH","TODAY","CONCAT","SUBSTR","LENGTH","REPLACE","C","TRUE","FALSE","PRINT","UPPER","LOWER", "ISNUMERIC","BLANK", "IGNORE", "FC", "UNIQUE", "GROUPTOTAL","HEADER","LOAD","EXISTS","LOOKUP" };
+    static String funclist[] = { "SEQ","SEARCH","TODAY","CONCAT","SUBSTR","LENGTH","MATH","RIGHT","REPLACE","C","TRUE","FALSE","PRINT","UPPER","LOWER","LEFT","ISNUMERIC","BLANK", "IGNORE", "FC", "UNIQUE", "GROUPTOTAL","HEADER","LOAD","EXISTS","LOOKUP" };
 
     FuncMaster funcs = new FuncMaster();
 
@@ -170,6 +170,13 @@ public class Code
     public ArrayList<String> TokenizeLine( String line )
     {
 
+        if( line.replace(" ","").replace("\t","").startsWith( "#" ) )
+        {
+
+            return new ArrayList<>();
+
+        }
+
         line = line.replace( Character.toString( '\t' ), "" );
         line = ReplaceOutsideQuotes( line, ' ' );
 
@@ -230,6 +237,13 @@ public class Code
 
                 holder+=line.charAt(i);
             
+            }
+
+            if( OnList( oplist, holder ) && OnList( oplist, holder+line.charAt(i+1) ) )
+            {
+
+                continue;
+
             }
 
             if( CheckAllLists( holder ) )

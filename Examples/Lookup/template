@@ -1,0 +1,30 @@
+HEADER("Exists")
+LOAD("names")
+END
+C(1)
+END
+IF( EXISTS("names","names",C(1) ) )
+{
+
+    "yes"
+
+}
+ELSE
+{
+
+    "no"
+
+}
+END
+IF( EXISTS("names","names",C(1) ) )
+{
+
+    LOOKUP("names","names",C(1),"wages")
+
+}
+ELSE
+{
+
+    "N/A"
+
+}

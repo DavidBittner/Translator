@@ -1,0 +1,24 @@
+HEADER("username,wage,hours,gender")
+END
+#If statement, checking if the username is david
+IF( C(1) = "david" )
+{
+
+    #If it is, print the first column
+    C(1)
+
+}
+ELSE
+{
+
+    #If it isn't, ignore this whole entry.
+    #The only output should be the one row whose username is david
+    IGNORE()
+
+}
+END
+C(2)
+END
+C(3)
+END
+C(4)

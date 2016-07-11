@@ -1,0 +1,56 @@
+HEADER("A,B,C")
+END
+IF( C(4) = "m" )
+{
+
+    SWITCH( C(1) )
+    {
+
+        CASE "david"
+        {
+
+            "foundname"
+
+        }
+
+        CASE "kelly"
+        {
+
+            "foundname"
+
+        }
+
+        CASE "kevin"
+        {
+
+            "foundname"
+
+        }
+
+        CASE DEFAULT
+        {
+
+            "notfound"
+
+        }
+
+    }
+
+}ELSE
+{
+
+    IF( C(1) = "kelly" )
+    {
+
+        "blah"
+
+    }
+    ELSE
+    {
+
+        "BLAH"
+
+    }
+
+}
+END

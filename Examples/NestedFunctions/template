@@ -1,0 +1,5 @@
+HEADER("username,concatted,substr")
+END
+CONCAT(C(1),C(2))
+END
+SUBSTR( CONCAT(C(1),C(2)), 1, LENGTH(CONCAT(C(1),C(2))) )

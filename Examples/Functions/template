@@ -1,0 +1,12 @@
+HEADER( "Column,Concat,Substring,Replace,FC,Upper,Lower")
+END
+C(1)
+END
+CONCAT(C(1),C(2))
+END
+SUBSTR(C(1),1,40)
+END
+PRINT(CONCAT(C(1),C(2)))
+REPLACE(C(1),"a","rep")
+END
+FC(1,5)
