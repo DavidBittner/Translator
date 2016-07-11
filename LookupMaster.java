@@ -13,7 +13,7 @@ class LookupMaster
     }
 
     //This checks if a file exists already, if it doesn't it loads it in.
-    public void LoadFile( String filename )
+    public void LoadFile( String filename, String id )
     {
 
         boolean exists = false;
@@ -33,7 +33,7 @@ class LookupMaster
         if( !exists )
         {
 
-            lookups.add( new Lookup( filename ) );
+            lookups.add( new Lookup( filename, id ) );
 
         }
 

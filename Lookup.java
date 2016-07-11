@@ -5,19 +5,21 @@ public class Lookup
 {
 
     private String filename;
+    private String id;
     private ArrayList<String[]> data;
     private String[] headers;
 
     public String getFilename()
     {
-        return filename;
+        return id;
     }
 
     //Constructor, opens and loads the file.
-    public Lookup( String filename )
+    public Lookup( String filename, String id )
     {
 
         this.filename = filename;
+        this.id = id;
         runInit();
 
     }
@@ -87,12 +89,14 @@ public class Lookup
 
         }
 
+        System.out.print( str + " = " );
         for( int i = 0; i < data.size(); i++ )
         {
 
             if( str.equals( data.get(i)[col] ) )
             {
-
+                
+                System.out.print( data.get(i)[col] + ", at " + i + ".\n" );
                 return true;
 
             }

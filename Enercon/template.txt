@@ -1,5 +1,5 @@
 HEADER("Username,First_Name,Last_Name,Middle_Initial,Suffix,NickName,Exempt_Status,Roles,Time_Period,Pay_Code,Hour_Increment,Expense_Approval_Group,Person_Code,ID_Code_1,ID_Code_2,Password,IVR_Password,Email,Person_Org_Code,Bill_Rate,Cost_Rate,Time_Approval_Group,Active,Timesheet_Emails,Expense_Emails,Autofill_Timesheet,Expense_Approval_Amount,Effective_Date,Dilution_Period,Default_Project_Org,Default_Project,Default_Task,Default_Labor_Category,Default_Payment_Method,TITO_Required,Business_Week,Assignment_Emails,User01,User02,User03,User04,User05,User06,User07,User08,User09,User10,Hire_Date,Payment_Currency,Delete,Cost_Structure,Cost_Element,Unlock,Location,Employee_Type,Hide_VAT,Leave_Request_Emails,TBD_User,Time_Vendor,Expense_Vendor")
-LOAD("Enercon/Lookup.csv")
+LOAD("Enercon/Lookup.csv","ENERCON")
 END
 #Username
 C(1)
@@ -71,48 +71,33 @@ END
 C(23)
 END
 #Timesheet Emails
-IF( EXISTS( "Enercon/Lookup.csv", "*Username", C(1) ) )
+IF( EXISTS( "ENERCON", "*Username", C(1) ) )
 {
-
-
-	"!BLANK!"
-
+	""
 }
 ELSE
 {
-
 	"Y"
-
 }
 END
 #Expense Emails
-IF( EXISTS( "Enercon/Lookup.csv", "*Username", C(1) ) )
+IF( EXISTS( "ENERCON", "*Username", C(1) ) )
 {
-
-
-	"!BLANK!"
-
+	""
 }
 ELSE
 {
-
 	"Y"
-
 }
 END
 #Autofill Timesheet
-IF( EXISTS( "Enercon/Lookup.csv", "*Username", C(1) ) )
+IF( EXISTS( "ENERCON", "*Username", C(1) ) )
 {
-
-
-	"!BLANK!"
-
+	""
 }
 ELSE
 {
-
 	"Y"
-
 }
 END
 #Expense Approval Amount
@@ -146,18 +131,13 @@ END
 C(36)
 END
 #Assignment Emails
-IF( EXISTS( "Enercon/Lookup.csv", "*Username", C(1) ) )
+IF( EXISTS( "ENERCON", "*Username", C(1) ) )
 {
-
-
-	"!BLANK!"
-
+	""
 }
 ELSE
 {
-
 	"N"
-
 }
 END
 #User01 Gainshare Classification
