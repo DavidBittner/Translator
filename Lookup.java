@@ -89,14 +89,12 @@ public class Lookup
 
         }
 
-        System.out.print( str + " = " );
         for( int i = 0; i < data.size(); i++ )
         {
 
             if( str.equals( data.get(i)[col] ) )
             {
                 
-                System.out.print( data.get(i)[col] + ", at " + i + ".\n" );
                 return true;
 
             }

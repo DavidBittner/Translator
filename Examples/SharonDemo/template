@@ -1,0 +1,67 @@
+HEADER("A,B,C,D")
+LOAD( "names", "NAME_FILE" )
+END
+IF( EXISTS( "NAME_FILE","names",C(1) ) )
+{
+
+    CONCAT( C(1), " exists already" )
+
+}
+ELSE
+{
+
+    CONCAT( C(1), " does not exist already" )
+
+}
+END
+IF( EXISTS( "NAME_FILE","names",C(1)) )
+{
+
+    CONCAT( C(1), CONCAT( "'s wage is: ", LOOKUP( "NAME_FILE", "names", C(1), "wages" ) ) )
+
+}
+ELSE
+{
+
+    CONCAT( "Wage not found for ", C(1) )
+
+}
+END
+IF( EXISTS( "NAME_FILE", "names", C(1) ) )
+{
+
+    MATH( CONCAT( LOOKUP( "NAME_FILE", "names", C(1), "wages" ), "^2" ), 2 )
+
+}
+ELSE
+{
+
+    "N/A"
+
+}
+END
+SWITCH( C(4) )
+{
+
+    CASE "m"
+    {
+
+        CONCAT( C(1), " is male" )
+
+    }
+
+    CASE "f"
+    {
+
+        CONCAT( C(1), " is female" )
+
+    }
+
+    CASE DEFAULT
+    {
+
+        CONCAT( C(1), " is unknown" )
+
+    }
+
+}
