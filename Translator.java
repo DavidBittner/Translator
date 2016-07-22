@@ -323,7 +323,7 @@ public class Translator
             execLines.get(0).Execute( null );
             execLines.remove( 0 );
 
-            while( (buff = read.readLine()) != null )
+            while( (buff = read.readLine()) != null && !buff.isEmpty() )
             {
 
                 String tempArray[] = buff.split(","); 

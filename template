@@ -1,9 +1,4 @@
 HEADER("Names,Wages,Hours")
 END
-IF( LENGTH(C(1)) >= 5 )
-{
-
-    RIGHT(5,C(1))
-
-}
+CONCAT( CONCAT( CONCAT( CONCAT( C(2), CONCAT( "A", C(1) ) ), C(2) ), "apple" ), " a a a a a" )
 END
