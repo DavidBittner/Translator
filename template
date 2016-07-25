@@ -28,7 +28,7 @@ ELSE
 
 }
 END
-C(1)
+CONCAT(CONCAT(CONCAT(CONCAT(C(1),C(2)), C(1)),C(2)),"hELLO")
 END
 C(2)
 
