@@ -1,4 +1,9 @@
 HEADER("Names,Wages,Hours")
+UNIQUE(TRUE())
 END
-CONCAT( CONCAT( CONCAT( CONCAT( C(2), CONCAT( "A", C(1) ) ), C(2) ), "apple" ), " a a a a a" )
+C(3)
 END
+C(1)
+END
+C(2)
+

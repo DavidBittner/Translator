@@ -97,7 +97,7 @@ public class FuncMaster
                     int tracker = 0;
                     String ret = "";
 
-                    while( ret.length() < st+en )
+                    while( ret.length() < st+en && tracker < rowData.size() )
                     {
 
                         ret = ret+rowData.get(tracker);
@@ -398,7 +398,6 @@ public class FuncMaster
                 case ">":
                 {
         
-                    //!(pepperoni > cheese)
                     int a = Integer.parseInt( params[0] );
                     int b = Integer.parseInt( params[1] );
 

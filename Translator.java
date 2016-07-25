@@ -65,10 +65,20 @@ public class Translator
 
         String ret = "";
 
+        boolean first = true;
         for( String i : row )
         {
 
-            ret = ret+i;
+            if( i.contains( Character.toString('"') ) )
+            {
+
+                i = '"'+i+'"';
+
+            }
+
+            ret = (!first)?(ret+','+i):(ret+i);
+
+            first = false;
 
         }
 
@@ -79,44 +89,52 @@ public class Translator
     private static ArrayList<String[]> GetUniques( ArrayList<String[]> in )
     {
 
-        for( int i = 0; i < in.size(); i++ )
+        String ary[] = new String[ in.size() ];
+
+        int tracker = 0;
+        for( String i[] : in )
         {
 
-            for( int j = 0; j < in.size(); j++ )
+            ary[tracker] = ConcatRow( i );
+            tracker++;
+
+        }
+
+        Arrays.sort( ary );
+
+        in.clear();
+        String last = "";
+        for( int i = 0; i < ary.length; i++ )
+        {
+
+            if( !last.equals( ary[i] ) )
             {
 
-                if( in.size() <= 1 )
+                last = ary[i];
+
+                ArrayList<String> tempList = new ArrayList<>();
+
+                for( String iter : last.split(",") )
                 {
 
-                    return in;
+                    tempList.add( iter );
 
                 }
 
-                if( i==j )
+                for( int iter = 0; iter < tempList.size()-1; iter++ )
                 {
 
-                    continue;
-
-                }
-
-                if( ConcatRow( in.get(j) ).equals( ConcatRow( in.get(i) ) ) )
-                {
-
-                    in.remove( j );
-                    if( i > 0 )
+                    while( GetCharCount( tempList.get(iter), '"' ) == 1 )
                     {
 
-                        i--;
-
-                    }
-                    if( j > 0 )
-                    {
-
-                        j--;
+                        tempList.set( iter, tempList.get(iter)+','+tempList.get( iter+1 ) );
+                        tempList.remove( iter+1 );
+                        iter--;
 
                     }
 
                 }
+                in.add( tempList.toArray( new String[tempList.size()] ) );
 
             }
 
@@ -301,7 +319,7 @@ public class Translator
             }
 
             read.close();
-        
+
         }
         catch( IOException e )
         {
@@ -323,8 +341,17 @@ public class Translator
             execLines.get(0).Execute( null );
             execLines.remove( 0 );
 
+            int inTracker = 1;
             while( (buff = read.readLine()) != null && !buff.isEmpty() )
             {
+
+                inTracker++;
+                if( buff.split(",").length != headers.split(",").length && !buff.contains(Character.toString( '"' ) ) )
+                {
+
+                    Error er = new Error( "Input file column count does not match output header count at line "+inTracker, -2 );
+
+                }
 
                 String tempArray[] = buff.split(","); 
                 ArrayList<String> usedList = new ArrayList<>();
@@ -356,6 +383,7 @@ public class Translator
 
                 int adder = 0;
                 curColumn = 0;
+
                 for( Code i : execLines )
                 {
                     output.get( output.size()-1 )[adder] = i.Execute( usedList );
@@ -364,6 +392,7 @@ public class Translator
 
                     CountLine();
                 }
+
                 lineTracker = 0;
 
                 FuncMaster seqAdder = new FuncMaster();
@@ -469,14 +498,12 @@ public class Translator
 
             }
 
-        }
-        catch( FileNotFoundException e )
+        } catch( FileNotFoundException e )
         {
 
             System.out.println( e.getMessage() );
     
-        }
-        catch( IOException e )
+        } catch( IOException e ) 
         {
 
             System.out.println( e.getMessage() );
