@@ -312,6 +312,8 @@ public class Code
 
                     }while( nstlvl != 0 || !lines.get(curline).contains("ELSE") );
 
+                    System.out.println( curline );
+
                 }
 
                 //If the nstlvl was set to -1, it knows it failed.

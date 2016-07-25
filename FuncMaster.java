@@ -401,7 +401,7 @@ public class FuncMaster
                     int a = Integer.parseInt( params[0] );
                     int b = Integer.parseInt( params[1] );
 
-                    paramstack.add( (a<b)?("true"):("false") );
+                    paramstack.add( (a>b)?("true"):("false") );
                     break;
 
                 }
