@@ -1,9 +1,9 @@
 HEADER("Exists")
-LOAD("names")
+LOAD("names","NAMES")
 END
 C(1)
 END
-IF( EXISTS("names","names",C(1) ) )
+IF( EXISTS("NAMES","names",C(1) ) )
 {
 
     "yes"
@@ -16,10 +16,10 @@ ELSE
 
 }
 END
-IF( EXISTS("names","names",C(1) ) )
+IF( EXISTS("NAMES","names",C(1) ) )
 {
 
-    LOOKUP("names","names",C(1),"wages")
+    LOOKUP("NAMES","names",C(1),"wages")
 
 }
 ELSE

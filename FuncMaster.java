@@ -16,12 +16,6 @@ public class FuncMaster
         if( count > params.size() )
         {
             
-            for( String i : params )
-            {
-
-              System.out.println( i );
-
-            }
             Error er = new Error( "Not enough parameters. Need "+count+", have "+params.size()+".", 2 );
 
         }
