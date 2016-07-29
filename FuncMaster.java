@@ -34,6 +34,25 @@ public class FuncMaster
 
     }
 
+    private boolean isNumeric( String a )
+    {
+
+        for( int i = 0; i < a.length(); i++ )
+        {
+
+            if( !Character.isDigit( a.charAt(i) ) )
+            {
+
+                return false;
+
+            }
+
+        }
+
+        return true;
+
+    }
+
     private String Substr( String str, String sta, String sto )
     {
 
@@ -297,7 +316,7 @@ public class FuncMaster
 
                     UniqueMaster tempUniq = new UniqueMaster();
                     String params[] = GrabParams( paramstack, 1 );
-                    
+                     
                     tempTrans.UniqueColNum();
 
                     tempUniq.giveKey( params[0] );
@@ -328,22 +347,22 @@ public class FuncMaster
                 {
 
                     //Checks whether or not a string is a number.
-                    //It works, okay?
-                    try
+                    String params[] = GrabParams( paramstack, 1 );
+                    Integer.parseInt( params[0] );
+
+                    for( int i = 0; i < params[0].length(); i++ )
                     {
 
-                        String params[] = GrabParams( paramstack, 1 );
-                        Integer.parseInt( params[0] );
+                        if( !Character.isDigit( params[0].charAt(i) ) )
+                        {
+    
+                            return "false";
 
-                        return "true";
-
-                    }
-                    catch( NumberFormatException e )
-                    {
-
-                        return "false";
+                        }
 
                     }
+
+                    return "true";
 
                 }
                 default:
@@ -392,21 +411,39 @@ public class FuncMaster
                 case ">":
                 {
         
-                    int a = Integer.parseInt( params[0] );
-                    int b = Integer.parseInt( params[1] );
+                    if( isNumeric( params[0] ) && isNumeric( params[1] ) )
+                    {
+                        int a = Integer.parseInt( params[0] );
+                        int b = Integer.parseInt( params[1] );
 
-                    paramstack.add( (a>b)?("true"):("false") );
-                    break;
+                        paramstack.add( (a>b)?("true"):("false") );
+                        break;
+                     
+                     }else
+                     {
+            
+                        paramstack.add( (params[0].compareTo(params[1]) < 0 )?("true"):("false") );
+
+                     }
 
                 }
                 case "<":
                 {
 
-                    int a = Integer.parseInt( params[0] );
-                    int b = Integer.parseInt( params[1] );
+                    if( isNumeric( params[0] ) && isNumeric( params[1] ) )
+                    {
+                        int a = Integer.parseInt( params[0] );
+                        int b = Integer.parseInt( params[1] );
 
-                    paramstack.add( (a<b)?("true"):("false") );
-                    break;
+                        paramstack.add( (a<b)?("true"):("false") );
+                        break;
+                     
+                     }else
+                     {
+            
+                        paramstack.add( (params[0].compareTo(params[1]) >= 0 )?("true"):("false") );
+
+                     }
 
                 }
                 case ">=":
