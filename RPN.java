@@ -1,8 +1,26 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+class Answer
+{
+
+    public String ops;
+    public double ans;
+
+    Answer( String ops, double ans )
+    {
+
+        this.ops = ops;
+        this.ans = ans;
+
+    }
+
+}
+
 public class RPN
 {
+
+    static ArrayList<Answer> cache = new ArrayList<>();
 
     private static double mag( int am )
     {
@@ -23,10 +41,23 @@ public class RPN
     public static String Calc( String equ, int prec )
     {
 
+        for( Answer i : cache )
+        {
+
+            if( i.ops.equals( equ ) )
+            {
+
+                return Double.toString( Math.round( i.ans*mag(prec) )/mag(prec) );
+
+            }
+
+        }
 
         double val = 0.0;
-
         val = EvalRPN( shuntingYard( tokenize( equ ) ) );
+
+        cache.add( new Answer( equ, val ) );
+
         return Double.toString( Math.round(val*mag(prec))/mag(prec) );
 
     }

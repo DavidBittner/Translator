@@ -1,32 +1,11 @@
 HEADER("Names,Wages,Hours")
 #UNIQUE(TRUE())
 END
-IF( C(1) = "david" )
-{
-
-    IF(C(3) > 0 )
-    {
-
-        IF( C(2) > 0 )
-        {
-            CONCAT("BLAH",C(2))
-        }
-
-    }
-    ELSE
-    {
-
-        CONCAT(C(2),"YES")
-
-    }
-
-}
-ELSE
-{
-
-    C(2)
-
-}
+MATH("5+2-3", 7)
+END
+MATH("10*4+2", 7)
+END
+MATH( CONCAT(C(2),"^2/4*sin(4)"), 4 )
 END
 CONCAT(CONCAT(CONCAT(CONCAT(C(1),C(2)), C(1)),C(2)),"hELLO")
 END
