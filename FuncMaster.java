@@ -34,6 +34,7 @@ public class FuncMaster
 
     }
 
+    //Checking whether or not a string is numeric, I.E. 1523 is true.
     private boolean isNumeric( String a )
     {
 
@@ -53,6 +54,7 @@ public class FuncMaster
 
     }
 
+    //Modified substr that takes strings as parameters, nothing else.
     private String Substr( String str, String sta, String sto )
     {
 
@@ -77,6 +79,7 @@ public class FuncMaster
 
     }
 
+    //This function is used if the SEQ function is called, basically just tracks the line that the program is currently on.
     public void SeqInc()
     {
 
@@ -84,6 +87,7 @@ public class FuncMaster
 
     }
 
+    //A switch statement that handles every function call.
     String CallFunc( ArrayList<String> rowData, ArrayList<String> paramstack, String funcName )
     {
 

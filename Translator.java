@@ -221,6 +221,7 @@ public class Translator
         String dataFile = "";
         String outputFile = "";
 
+        //Done horribly. I'll try and think of a cleaner way, it will always work but when a user makes a mistake its very unclear what mistake they made.
         try
         {
             for( int i = 0; i < args.length; i+=2 )
