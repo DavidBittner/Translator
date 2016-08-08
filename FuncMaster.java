@@ -403,7 +403,6 @@ public class FuncMaster
 
             switch( operator )
             {
-
                 case "=":
                 {
 
@@ -429,6 +428,7 @@ public class FuncMaster
                         paramstack.add( (params[0].compareTo(params[1]) < 0 )?("true"):("false") );
 
                      }
+                     break;
 
                 }
                 case "<":
@@ -445,9 +445,11 @@ public class FuncMaster
                      }else
                      {
             
-                        paramstack.add( (params[0].compareTo(params[1]) >= 0 )?("true"):("false") );
+                        int ret = params[0].compareTo( params[1] );
+                        paramstack.add( (ret >= 0)?("true"):("false") );
 
                      }
+                     break;
 
                 }
                 case ">=":
