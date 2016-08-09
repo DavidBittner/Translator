@@ -420,7 +420,6 @@ public class FuncMaster
                         int b = Integer.parseInt( params[1] );
 
                         paramstack.add( (a>b)?("true"):("false") );
-                        break;
                      
                      }else
                      {
@@ -440,7 +439,6 @@ public class FuncMaster
                         int b = Integer.parseInt( params[1] );
 
                         paramstack.add( (a<b)?("true"):("false") );
-                        break;
                      
                      }else
                      {
@@ -455,21 +453,40 @@ public class FuncMaster
                 case ">=":
                 {
 
-                    int a = Integer.parseInt( params[0] );
-                    int b = Integer.parseInt( params[1] );
+                    if( isNumeric( params[0] ) && isNumeric( params[1] ) )
+                    {
+                        int a = Integer.parseInt( params[0] );
+                        int b = Integer.parseInt( params[1] );
 
-                    paramstack.add( (a>=b)?("true"):("false") );
-                    break;
+                        paramstack.add( (a>=b)?("true"):("false") );
+                     
+                     }else
+                     {
+            
+                        paramstack.add( (params[0].compareTo(params[1]) >= 0 )?("true"):("false") );
+
+                     }
+                     break;
 
                 }
                 case "<=":
                 {
 
-                    int a = Integer.parseInt( params[0] );
-                    int b = Integer.parseInt( params[1] );
+                    if( isNumeric( params[0] ) && isNumeric( params[1] ) )
+                    {
+                        int a = Integer.parseInt( params[0] );
+                        int b = Integer.parseInt( params[1] );
 
-                    paramstack.add( (a<=b)?("true"):("false") );
-                    break;
+                        paramstack.add( (a<=b)?("true"):("false") );
+                     
+                     }else
+                     {
+            
+                        int ret = params[0].compareTo( params[1] );
+                        paramstack.add( (ret <= 0)?("true"):("false") );
+
+                     }
+                     break;
 
                 }
                 case "!=":
