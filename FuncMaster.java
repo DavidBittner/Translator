@@ -425,7 +425,7 @@ public class FuncMaster
                      }else
                      {
             
-                        paramstack.add( (params[0].compareTo(params[1]) < 0 )?("true"):("false") );
+                        paramstack.add( (params[0].compareTo(params[1]) > 0 )?("true"):("false") );
 
                      }
                      break;
@@ -446,7 +446,7 @@ public class FuncMaster
                      {
             
                         int ret = params[0].compareTo( params[1] );
-                        paramstack.add( (ret >= 0)?("true"):("false") );
+                        paramstack.add( (ret < 0)?("true"):("false") );
 
                      }
                      break;
