@@ -69,13 +69,6 @@ public class Translator
         for( String i : row )
         {
 
-            if( i.contains( Character.toString('"') ) )
-            {
-
-                i = '"'+i+'"';
-
-            }
-
             ret = (!first)?(ret+','+i):(ret+i);
 
             first = false;
@@ -121,19 +114,6 @@ public class Translator
 
                 }
 
-                for( int iter = 0; iter < tempList.size()-1; iter++ )
-                {
-
-                    while( GetCharCount( tempList.get(iter), '"' ) == 1 )
-                    {
-
-                        tempList.set( iter, tempList.get(iter)+','+tempList.get( iter+1 ) );
-                        tempList.remove( iter+1 );
-                        iter--;
-
-                    }
-
-                }
                 in.add( tempList.toArray( new String[tempList.size()] ) );
 
             }
@@ -387,7 +367,12 @@ public class Translator
 
                 for( Code i : execLines )
                 {
-                    output.get( output.size()-1 )[adder] = i.Execute( usedList );
+                    
+                    String ret = i.Execute( usedList );
+
+                    ret = (GetCharCount( ret, ',' )>0)?('"'+ret+'"'):(ret);
+
+                    output.get( output.size()-1 )[adder] = ret;
                     adder++;
                     curColumn++;
 
@@ -475,13 +460,6 @@ public class Translator
                 first = true;
                 for( String str : i )
                 {
-
-                    if( GetCharCount( str, ',' ) > 0 )
-                    {
-
-                        str = '"'+str+'"';
-
-                    }
 
                     if( !first )
                     {
