@@ -47,7 +47,8 @@ public class Lookup
         catch( IOException err )
         {
 
-            System.out.println( "Unable to open file "+filename+"." );
+            System.out.println( err.getMessage() + "\n" );
+            Error er = new Error( "Error when opening file:"+filename+" for Lookup funcs.", 2 );
 
         }
 

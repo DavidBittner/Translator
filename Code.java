@@ -544,10 +544,7 @@ public class Code
                             String res = funcs.CallFunc( data, paramstack, funcstack.get(funcstack.size()-1) );
 
                             //This is just to put something in the parameter stack if there isn't anything already there.
-                            if( (res.isEmpty() && paramstack.size() == 0) || !res.isEmpty() )
-                            {
-                                paramstack.add( res );
-                            }
+                            paramstack.add( res );
 
                             funcstack.remove( funcstack.size()-1 );
                         

@@ -12,7 +12,7 @@ public class FuncMaster
     //It also does error handling in case there aren't enough values available
     private String []GrabParams( ArrayList<String> params, int count )
     {
-    
+
         if( count > params.size() )
         {
             
