@@ -15,26 +15,19 @@ class LookupMaster
     //This checks if a file exists already, if it doesn't it loads it in.
     public void LoadFile( String filename, String id )
     {
-
         boolean exists = false;
 
         for( Lookup i : lookups )
         {
-
             if( filename.equals( i.getFilename() ) )
             {
-
                 exists = true;
-
             }
-
         }
 
         if( !exists )
         {
-
             lookups.add( new Lookup( filename, id ) );
-
         }
 
     }
@@ -45,14 +38,10 @@ class LookupMaster
         //Search through the available lookups trying to find a matching ID. (Filename is deprecated)
         for( Lookup i : lookups )
         {
- 
             if( i.getFilename().equals( name ) )
             {
-
                 return i;
-
             }
-
         }
 
         Error er = new Error( "LOAD(): File "+name+" not found.", 2 );

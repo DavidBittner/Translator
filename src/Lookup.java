@@ -17,20 +17,16 @@ public class Lookup
     //Constructor, opens and loads the file.
     public Lookup( String filename, String id )
     {
-
         this.filename = filename;
         this.id = id;
         runInit();
-
     }
 
     public void runInit()
     {
-
         try
         {
-
-            BufferedReader dataReader = new BufferedReader( new FileReader( filename ) ); 
+            BufferedReader dataReader = new BufferedReader( new FileReader( filename ) );
             data = new ArrayList<>();
 
             String read = "";
@@ -38,30 +34,24 @@ public class Lookup
 
             while( ( read = dataReader.readLine() ) != null )
             {
-
                 data.add( read.split( "," ) );
-
             }
-        
+
         }
         catch( IOException err )
         {
-
             System.out.println( err.getMessage() + "\n" );
             Error er = new Error( "Error when opening file:"+filename+" for Lookup funcs.", 2 );
-
         }
-
     }
 
     //Finds the index of a given column
     private int FindCol( String header )
     {
-
         int col = 0;
         while( col < headers.length-1 && !headers[col].equals( header ) )
         {
-        
+
             col++;
 
         }
@@ -74,13 +64,11 @@ public class Lookup
         }
 
         return col;
-
     }
 
     //This function goes through to see if a string exists under that header
     public boolean checkExistence( String header, String str )
     {
-
         int col = FindCol( header );
 
         if( col == -1 )
@@ -95,43 +83,33 @@ public class Lookup
 
             if( str.equals( data.get(i)[col] ) )
             {
-                
+
                 return true;
 
             }
 
         }
         return false;
-
     }
 
     public String Lookup( String cola, String str, String colb )
     {
-
         int loca = FindCol( cola );
         int locb = FindCol( colb );
 
         if( loca == -1 || locb == -1 )
         {
-
             return "";
-
         }
 
         for( int i = 0; i < data.size(); i++ )
         {
-
             if( str.equals( data.get(i)[loca] ) )
             {
-
                 return data.get(i)[locb];
-
             }
-
         }
 
         return "";
-
     }
-
 }
