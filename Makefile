@@ -6,7 +6,7 @@ CLASS = $(SRC:.java=.class)
 
 BIN = Translator.jar
 
-MANIFEST = ./src/Manifest
+MANIFEST = Manifest
 
 all:
 	@echo Compiling for target all...
@@ -15,7 +15,8 @@ all:
 
 jar: all
 	@echo Jarring together class files...
-	@$(JAR) $(BIN) $(MANIFEST) $(CLASS)
+	@cd src; $(JAR) $(BIN) $(MANIFEST) $(subst ./src/, ,$(CLASS))
+	@mv ./src/$(BIN) .
 	@echo $(BIN) was created.
 
 clean:
