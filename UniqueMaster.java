@@ -12,15 +12,11 @@ public class UniqueMaster
         Unique found = null;
         for( Unique i : uniques )
         {
-
             if( i.ID.equals( key ) )
             {
-
                 exists = true;
                 found = i;
-    
             }
-
         }
 
         if( !exists )

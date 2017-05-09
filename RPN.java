@@ -24,7 +24,6 @@ public class RPN
 
     private static double mag( int am )
     {
-
         int ret = 1;
 
         for( int i = 0; i < am; i++ )
@@ -35,22 +34,19 @@ public class RPN
         }
 
         return ret;
-
     }
 
     public static String Calc( String equ, int prec )
     {
 
+        equ = equ.replace(" ", "");
+
         for( Answer i : cache )
         {
-
             if( i.ops.equals( equ ) )
             {
-
                 return Double.toString( Math.round( i.ans*mag(prec) )/mag(prec) );
-
             }
-
         }
 
         double val = 0.0;
@@ -141,7 +137,7 @@ public class RPN
         {
 
             return true;
-    
+
         }
 
         switch( op )
@@ -187,7 +183,7 @@ public class RPN
 
         for( String i : input )
         {
-    
+
             if( isNumeric( i ) || i.equals("x") )
             {
 
@@ -223,15 +219,15 @@ public class RPN
 
                     if( !CheckFunc( i ) )
                     {
-                     
+
                         OpAlready = true;
-                    
+
                     }
 
                 }
 
                 OpAlready = true;
-                
+
                 if( operator.size() > 0 )
                 {
 
@@ -252,7 +248,7 @@ public class RPN
                             {
 
                                 break;
-                                
+
                             }
 
                         }
@@ -337,10 +333,10 @@ public class RPN
 
         if( count > in.size() )
         {
-            
+
             System.out.println( "Not enough values!" );
             NumberFormatException e = new NumberFormatException();
-            throw e; 
+            throw e;
 
         }
 
@@ -363,7 +359,7 @@ public class RPN
         ArrayList<String> ops = new ArrayList<>();
 
         ArrayList<Double> vals = new ArrayList<>();
-        
+
         for( String i : input )
         {
 
@@ -444,7 +440,7 @@ public class RPN
                     }
                     case "log":
                     {
-    
+
                         vals = GetVals( 1, output );
                         output.add( Math.log( vals.get(0) ) );
                         break;
@@ -506,7 +502,7 @@ public class RPN
                     }
                     case "ceil":
                     {
-                    
+
                         vals = GetVals( 1, output );
                         output.add( Math.ceil( vals.get(0) ));
                         break;
@@ -557,7 +553,7 @@ public class RPN
             NullPointerException e = new NullPointerException();
 
             throw e;
-    
+
         }
 
         return output.get(0);
@@ -621,7 +617,7 @@ public class RPN
     public static ArrayList<String> tokenize( String input )
     {
 
-        input.replace( " ", "" ); 
+        input.replace( " ", "" );
         ArrayList<String> tokens = new ArrayList<>(0);
 
         String holder = "";

@@ -5,6 +5,7 @@ import java.text.*;
 public class FuncMaster
 {
 
+    //Definitely not a Matrix reference...
     static LookupMaster keyMaster = new LookupMaster();
     static int seq = 0;
 
@@ -15,7 +16,7 @@ public class FuncMaster
 
         if( count > params.size() )
         {
-            
+
             Error er = new Error( "Not enough parameters. Need "+count+", have "+params.size()+".", 2 );
 
         }
@@ -37,21 +38,14 @@ public class FuncMaster
     //Checking whether or not a string is numeric, I.E. 1523 is true.
     private boolean isNumeric( String a )
     {
-
         for( int i = 0; i < a.length(); i++ )
         {
-
             if( !Character.isDigit( a.charAt(i) ) )
             {
-
                 return false;
-
             }
-
         }
-
         return true;
-
     }
 
     //Modified substr that takes strings as parameters, nothing else.
@@ -75,16 +69,14 @@ public class FuncMaster
             return "";
         }
 
-        return str.substring( start, stop ); 
+        return str.substring( start, stop );
 
     }
 
     //This function is used if the SEQ function is called, basically just tracks the line that the program is currently on.
     public void SeqInc()
     {
-
         seq++;
-
     }
 
     //A switch statement that handles every function call.
@@ -98,9 +90,9 @@ public class FuncMaster
 
                 case "C":
                 {
-                
+
                     //This function simply returns a column from the dataset.
-                    String params[] = GrabParams( paramstack, 1 ); 
+                    String params[] = GrabParams( paramstack, 1 );
                     return rowData.get( (Integer.parseInt( params[0] )-1)%rowData.size() );
 
                 }
@@ -127,22 +119,16 @@ public class FuncMaster
                 }
                 case "SEARCH":
                 {
-
                     String params[] = GrabParams( paramstack, 2 );
 
                     for( int i = 0; i < params[0].length()-params[1].length(); i++ )
                     {
-
                         if( params[0].substring( i, i+params[1].length() ).equals( params[1] ) )
                         {
-
                             return Integer.toString(i);
-
                         }
-
                     }
                     return "0";
-
                 }
                 case "PRINT":
                 {
@@ -158,13 +144,11 @@ public class FuncMaster
                     String params[] = GrabParams( paramstack, 1 );
                     if( params[0].equals( "true" ) )
                     {
-
                         Translator uniqueCall = new Translator();
                         uniqueCall.UniqueRecords();
-
                     }
                     break;
-                    
+
 
                 }
                 case "CONCAT":
@@ -228,7 +212,7 @@ public class FuncMaster
 
                     String params[] = GrabParams( paramstack, 2 );
                     int val = Integer.parseInt( params[0] );
-                    
+
                     return params[1].substring( (params[1].length())-val, params[1].length() );
 
                 }
@@ -320,7 +304,7 @@ public class FuncMaster
 
                     UniqueMaster tempUniq = new UniqueMaster();
                     String params[] = GrabParams( paramstack, 1 );
-                     
+
                     tempTrans.UniqueColNum();
 
                     tempUniq.giveKey( params[0] );
@@ -331,9 +315,9 @@ public class FuncMaster
                 {
 
                     //Returns the current date in the given format.
-                    String params[] = GrabParams( paramstack, 1 ); 
+                    String params[] = GrabParams( paramstack, 1 );
                     Date curDat = new Date();
-                    SimpleDateFormat form = new SimpleDateFormat( params[0] );  
+                    SimpleDateFormat form = new SimpleDateFormat( params[0] );
 
                     return form.format( curDat );
 
@@ -359,30 +343,22 @@ public class FuncMaster
 
                         if( !Character.isDigit( params[0].charAt(i) ) )
                         {
-    
                             return "false";
-
                         }
 
                     }
-
                     return "true";
-
                 }
                 default:
                 {
-
                     break;
-
                 }
-
            }
-
         }
         catch( NumberFormatException e )
         {
 
-            Error er = new Error( "Invalid value received for "+funcName+"().", 0 ); 
+            Error er = new Error( "Invalid value received for "+funcName+"().", 0 );
 
         }
 
@@ -392,11 +368,11 @@ public class FuncMaster
 
     boolean solveLogic( ArrayList<String> logicstack, ArrayList<String> paramstack )
     {
-    
+
         //This function is given a list of logic operators and determines the answer to them.
         while( logicstack.size() > 0 )
         {
-    
+
             String params[] = GrabParams( paramstack, 2 );
             String operator = logicstack.get( logicstack.size()-1 );
             logicstack.remove( logicstack.size()-1 );
@@ -413,17 +389,17 @@ public class FuncMaster
                 }
                 case ">":
                 {
-        
+
                     if( isNumeric( params[0] ) && isNumeric( params[1] ) )
                     {
                         int a = Integer.parseInt( params[0] );
                         int b = Integer.parseInt( params[1] );
 
                         paramstack.add( (a>b)?("true"):("false") );
-                     
+
                      }else
                      {
-            
+
                         paramstack.add( (params[0].compareTo(params[1]) > 0 )?("true"):("false") );
 
                      }
@@ -439,10 +415,10 @@ public class FuncMaster
                         int b = Integer.parseInt( params[1] );
 
                         paramstack.add( (a<b)?("true"):("false") );
-                     
+
                      }else
                      {
-            
+
                         int ret = params[0].compareTo( params[1] );
                         paramstack.add( (ret < 0)?("true"):("false") );
 
@@ -459,10 +435,10 @@ public class FuncMaster
                         int b = Integer.parseInt( params[1] );
 
                         paramstack.add( (a>=b)?("true"):("false") );
-                     
+
                      }else
                      {
-            
+
                         paramstack.add( (params[0].compareTo(params[1]) >= 0 )?("true"):("false") );
 
                      }
@@ -478,10 +454,10 @@ public class FuncMaster
                         int b = Integer.parseInt( params[1] );
 
                         paramstack.add( (a<=b)?("true"):("false") );
-                     
+
                      }else
                      {
-            
+
                         int ret = params[0].compareTo( params[1] );
                         paramstack.add( (ret <= 0)?("true"):("false") );
 
@@ -497,11 +473,8 @@ public class FuncMaster
                 }
 
             }
-        
-        }
- 
-        return (paramstack.get(paramstack.size()-1).equals("true"))?( true ):( false );
-    
-    } 
 
+        }
+        return (paramstack.get(paramstack.size()-1).equals("true"))?( true ):( false );
+    }
 }
