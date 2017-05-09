@@ -1,7 +1,6 @@
 public class Error
 {
 
-    private Translator sygCommands = new Translator();
     private static String curline = "";
 
     public static void curLine( String line )
@@ -25,15 +24,15 @@ public class Error
         {
 
             System.out.println( msg );
-            sygCommands.ExitProg( code );
+            Translator.ExitProg( code );
 
         }
 
-        int line = sygCommands.GetLine()+1;
+        int line = Translator.GetLine()+1;
 
         System.out.println( "Error at line "+line+":" );
         System.out.println( msg );
-        
+
         if( !curline.isEmpty() )
         {
 
@@ -41,7 +40,7 @@ public class Error
 
         }
 
-        sygCommands.ExitProg( code );
+        Translator.ExitProg( code );
 
     }
 

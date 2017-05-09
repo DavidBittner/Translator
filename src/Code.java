@@ -25,6 +25,14 @@ public class Code
         lines.add( line );
     }
 
+    public void AddLines( ArrayList<String> lines )
+    {
+        for( String line : lines )
+        {
+            lines.add( line );
+        }
+    }
+
     //Function to check whether or not a character is on the list of wanted characters.
     private boolean OnList( char list[], char check )
     {
@@ -392,7 +400,7 @@ public class Code
 
         for( String line : lines )
         {
-            lineTracker.CountLine();
+            Translator.CountLine();
 
             //If this line isn't supposed to be executed or its empty, skip it.
             if( !execlines[tracker] || line.isEmpty() )
@@ -402,7 +410,7 @@ public class Code
             }
 
             Error er = new Error();
-            er.curLine( line );
+            Error.curLine( line );
 
             //This tokenizes the current line, returning functions and parameters seperated nicely.
             ArrayList<String> tokens = TokenizeLine( line );
