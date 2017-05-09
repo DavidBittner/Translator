@@ -52,16 +52,16 @@ public class FuncMaster
     private String Substr( String str, String sta, String sto )
     {
 
-        int start = Integer.parseInt( sta )+1;
-        int stop = Integer.parseInt( sto )+1;
+        int start = Integer.parseInt( sta );
+        int stop = Integer.parseInt( sto );
 
         if( start > str.length() )
         {
-            start = str.length()-1;
+            start = str.length();
         }
         if( stop > str.length() )
         {
-            stop = str.length()-1;
+            stop = str.length();
         }
 
         if( start > stop )
