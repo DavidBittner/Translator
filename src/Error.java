@@ -31,14 +31,13 @@ public class Error
 
         int line = sygCommands.GetLine()+1;
 
-        System.out.println( "Error at line "+line+":" );
-        System.out.println( msg );
-        
-        if( !curline.isEmpty() )
+        if(code != 0)
         {
-
+            System.out.println( "Error at line "+line+":" );
             System.out.println( curline+"\n" );
-
+        }else
+        {
+            System.out.println( msg );
         }
 
         sygCommands.ExitProg( code );

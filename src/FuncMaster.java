@@ -222,7 +222,7 @@ public class FuncMaster
                     String params[] = GrabParams( paramstack, 2 );
                     int val = Integer.parseInt( params[0] );
 
-                    return params[1].substring( 1, val );
+                    return params[1].substring( 0, val );
 
                 }
                 case "BLANK":
@@ -358,7 +358,7 @@ public class FuncMaster
         catch( NumberFormatException e )
         {
 
-            Error er = new Error( "Invalid value received for "+funcName+"().", 0 );
+            Error er = new Error( "Invalid value received for "+funcName+"().", 1 );
 
         }
 

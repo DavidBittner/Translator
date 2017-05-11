@@ -22,26 +22,19 @@ public class Translator
         //Determines what to do based on the number they pass
         switch( num )
         {
-
             case 0:
             {
-
                 break;
-
             }
             case 1:
             {
-
                 exitFlag = true;
                 break;
-
             }
             default:
             {
-
                 System.out.println( "Program forcefully closed with error code "+num+"." );
                 System.exit( num );
-
             }
         }
     }
@@ -188,7 +181,7 @@ public class Translator
     }
 
     //Called when the HEADER() function is called. Tells the program what to actually output header-wise.
-    //You could say it.. gives it a heads up to what the headers are! 
+    //You could say it.. gives it a heads up to what the headers are!
     public static void GiveHeaders( String heads[] )
     {
         headers = heads;
@@ -249,15 +242,15 @@ public class Translator
 
         if( templateFile.isEmpty() )
         {
-           Error er = new Error( "No filename entered for the template file .", -1 ); 
+           Error er = new Error( "No filename entered for the template file .", -1 );
         }
         if( dataFile.isEmpty() )
         {
-           Error er = new Error( "No filename entered for the input file.", -1 ); 
+           Error er = new Error( "No filename entered for the input file.", -1 );
         }
         if( outputFile.isEmpty() )
         {
-           Error er = new Error( "No filename entered for the output file.", -1 ); 
+           Error er = new Error( "No filename entered for the output file.", -1 );
         }
 
         ArrayList<String[]> output = new ArrayList<>();
@@ -292,7 +285,7 @@ public class Translator
 
                 if( execLines.get( i ).GetSize() <= 0 )
                 {
-                    
+
                     execLines.remove( i );
 
                 }
@@ -312,12 +305,12 @@ public class Translator
         try
         {
 
-            BufferedReader read = new BufferedReader( new FileReader( dataFile ) ); 
+            BufferedReader read = new BufferedReader( new FileReader( dataFile ) );
             String buff = "";
 
             String headers = read.readLine();
 
-            //Execute the header once, then remove it as it's not needed anymore. 
+            //Execute the header once, then remove it as it's not needed anymore.
             //(Is zero a magic number in this case?)
             execLines.get(0).Execute( null );
             execLines.remove( 0 );
@@ -329,12 +322,11 @@ public class Translator
                 inTracker++;
                 if( buff.split(",").length != headers.split(",").length && !buff.contains(Character.toString( '"' ) ) )
                 {
-
-                    Error er = new Error( "Input file column count does not match output header count at line "+inTracker, -2 );
-
+                    Error er = new Error( "Input file column count does not match output header count at line "+inTracker+" skipping row...", 0 );
+                    continue;
                 }
 
-                String tempArray[] = buff.split(","); 
+                String tempArray[] = buff.split(",");
                 ArrayList<String> usedList = new ArrayList<>();
 
                 for( String i : tempArray )
@@ -367,7 +359,7 @@ public class Translator
 
                 for( Code i : execLines )
                 {
-                    
+
                     String ret = i.Execute( usedList );
 
                     ret = (GetCharCount( ret, ',' )>0)?('"'+ret+'"'):(ret);
@@ -430,7 +422,7 @@ public class Translator
                 String str = i;
                 if( !first )
                 {
-                    
+
                     str = ","+i;
 
                 }else
@@ -481,8 +473,8 @@ public class Translator
         {
 
             System.out.println( e.getMessage() );
-    
-        } catch( IOException e ) 
+
+        } catch( IOException e )
         {
 
             System.out.println( e.getMessage() );
