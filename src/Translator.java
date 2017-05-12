@@ -253,6 +253,10 @@ public class Translator
            Error er = new Error( "No filename entered for the output file.", -1 );
         }
 
+        //Creating the instance of the VariableFactory
+        //This is required because the interal ArrayList needs to be instantiated
+        VariableFactory inst = new VariableFactory();
+
         ArrayList<String[]> output = new ArrayList<>();
         long stime = System.nanoTime();
 

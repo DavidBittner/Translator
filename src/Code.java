@@ -7,7 +7,7 @@ public class Code
     static String logiclist[] = { "IF","ELSE","SWITCH","ELSEIF" };
     static char wantedchars[] = { '(', ')', '{', '}' };
     static String oplist[] = { "=", "!=", "<", ">", "<=", ">=", "&&", "||" };
-    static String funclist[] = { "SEQ","SEARCH","TODAY","CONCAT","SUBSTR","LENGTH","MATH","RIGHT","REPLACE","C","TRUE","FALSE","PRINT","UPPER","LOWER","LEFT","ISNUMERIC","BLANK", "IGNORE", "FC", "UNIQUE", "GROUPTOTAL","HEADER","LOAD","EXISTS","LOOKUP" };
+    static String funclist[] = { "SEQ","SEARCH","TODAY","CONCAT","SUBSTR","LENGTH","MATH","RIGHT","REPLACE","C","TRUE","FALSE","PRINT","UPPER","LOWER","LEFT","ISNUMERIC","BLANK", "IGNORE", "FC", "UNIQUE", "GROUPTOTAL","HEADER","LOAD","EXISTS","LOOKUP","NEWVAR","GETVAR","SETVAR" };
 
     FuncMaster funcs = new FuncMaster();
 
