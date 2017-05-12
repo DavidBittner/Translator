@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-class LookupMaster
+class LookupFactory
 {
 
     private ArrayList<Lookup> lookups;

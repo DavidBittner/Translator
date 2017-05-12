@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class UniqueMaster
+public class UniqueFactory
 {
 
     private static ArrayList<Unique> uniques = new ArrayList<>();
