@@ -349,6 +349,25 @@ public class FuncMaster
                     }
                     return "true";
                 }
+                case "NEWVAR":
+                {
+                    //Creates a new variable.
+                    String params[] = GrabParams( paramstack, 1 );
+                    VariableFactory.addVar( params[0] );
+                }
+                case "GETVAR":
+                {
+                    //Retrieves data from a variable
+                    String params[] = GrabParams( paramstack, 1 );
+                    VariableFactory.getVar( params[0] );
+                }
+                case "SETVAR":
+                {
+                    //Sets a variable
+                    String params[] = GrabParams( paramstack, 2 );
+                    VariableFactory.setVar( params[0], params[1] );
+
+                }
                 default:
                 {
                     break;

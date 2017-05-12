@@ -12,12 +12,12 @@ public class VariableFactory
         }
     }
 
-    public void addVar( String name )
+    public static void addVar( String name )
     {
         vars.add( new Variable(name) );
     }
 
-    public void setVar( String name, String dat )
+    public static void setVar( String name, String dat )
     {
         for( Variable var : vars )
         {
@@ -29,7 +29,7 @@ public class VariableFactory
         }
     }
 
-    public String getVar( String name )
+    public static String getVar( String name )
     {
         for( Variable var : vars )
         {
