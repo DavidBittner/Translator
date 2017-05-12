@@ -8,9 +8,12 @@ BIN = csvtranslator_v2.2.jar
 
 MANIFEST = Manifest
 
+VTARGET = 7
+RT = $(shell locate -r /rt.jar$)
+
 all:
 	@echo Compiling for target all...
-	@$(C) $(SRC)
+	@$(C) -target $(VTARGET) -source $(VTARGET) -bootclasspath $(RT) $(SRC)
 	@echo All compiled.
 
 jar: all
