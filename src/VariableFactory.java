@@ -27,6 +27,7 @@ public class VariableFactory
                 return;
             }
         }
+        Error er = new Error("Cannot find variable "+name, 0);
     }
 
     public static String getVar( String name )
@@ -38,7 +39,7 @@ public class VariableFactory
                 return var.getDat();
             }
         }
+        Error er = new Error("Cannot find variable "+name, 0);
         return "";
     }
-
 }
