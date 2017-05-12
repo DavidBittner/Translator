@@ -397,7 +397,7 @@ public class Translator
 
         try
         {
-            UniqueMaster tempUniq = new UniqueMaster();
+            UniqueFactory tempUniq = new UniqueFactory();
             for( int j = 0; j < output.size(); j++ )
             {
                 for( int i : uniqueCols )

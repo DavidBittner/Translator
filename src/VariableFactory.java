@@ -21,7 +21,7 @@ public class VariableFactory
     {
         for( Variable var : vars )
         {
-            if var.getName().equals(name)
+            if(var.getName().equals(name))
             {
                 var.setDat(dat);
                 return;
@@ -33,11 +33,12 @@ public class VariableFactory
     {
         for( Variable var : vars )
         {
-            if var.getName().equals(name)
+            if(var.getName().equals(name))
             {
                 return var.getDat();
             }
         }
+        return "";
     }
 
 }

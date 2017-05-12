@@ -6,7 +6,7 @@ public class FuncMaster
 {
 
     //Definitely not a Matrix reference...
-    static LookupMaster keyMaster = new LookupMaster();
+    static LookupFactory keyMaster = new LookupFactory();
     static int seq = 0;
 
     //This function grabs a certain amount of values from the given ArrayList
@@ -302,7 +302,7 @@ public class FuncMaster
                     //Used to count the amount of unique occurences of something such as a username.
                     Translator tempTrans = new Translator();
 
-                    UniqueMaster tempUniq = new UniqueMaster();
+                    UniqueFactory tempUniq = new UniqueFactory();
                     String params[] = GrabParams( paramstack, 1 );
 
                     tempTrans.UniqueColNum();

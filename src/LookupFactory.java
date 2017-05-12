@@ -5,7 +5,7 @@ class LookupFactory
 
     private ArrayList<Lookup> lookups;
 
-    public LookupMaster()
+    public LookupFactory()
     {
 
         lookups = new ArrayList<>();
