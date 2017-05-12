@@ -51,9 +51,7 @@ public class Lookup
         int col = 0;
         while( col < headers.length-1 && !headers[col].equals( header ) )
         {
-
             col++;
-
         }
 
         if( col > headers.length-1 )
@@ -97,8 +95,14 @@ public class Lookup
         int loca = FindCol( cola );
         int locb = FindCol( colb );
 
-        if( loca == -1 || locb == -1 )
+        if( loca == -1 )
         {
+            Error er = new Error("Unable to find column " + cola + ".", 1 );
+            return "";
+        }
+        if( locb == -1 )
+        {
+            Error er = new Error("Unable to find column " + colb + ".", 1 );
             return "";
         }
 
