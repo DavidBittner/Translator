@@ -354,7 +354,7 @@ public class FuncMaster
                     //Creates a new variable.
                     String params[] = GrabParams( paramstack, 1 );
                     VariableFactory.addVar( params[0] );
-                    break;
+                    return null;
                 }
                 case "GETVAR":
                 {
@@ -367,12 +367,12 @@ public class FuncMaster
                     //Sets a variable
                     String params[] = GrabParams( paramstack, 2 );
                     VariableFactory.setVar( params[0], params[1] );
-                    break;
+                    return null;
 
                 }
                 default:
                 {
-                    break;
+                    return null;
                 }
            }
         }

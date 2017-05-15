@@ -434,8 +434,10 @@ public class Code
                             //This executes the most recent function in the function stack.
                             String res = funcs.CallFunc( data, paramstack, funcstack.get(funcstack.size()-1) );
 
-                            //This is just to put something in the parameter stack if there isn't anything already there.
-                            paramstack.add( res );
+                            if( res != null )
+                            {
+                                paramstack.add( res );
+                            }
 
                             funcstack.remove( funcstack.size()-1 );
                         }
@@ -481,11 +483,6 @@ public class Code
 
         if( paramstack.size() > 0 )
         {
-            for( String i : paramstack )
-            {
-                System.out.println('"'+i+'"');
-            }
-            System.out.println("-----");
             return paramstack.get( 0 );
         }else
         {
