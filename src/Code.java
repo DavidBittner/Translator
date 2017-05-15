@@ -449,7 +449,7 @@ public class Code
                                 //Gets the results from the queued up logic functions
                                 boolean res = funcs.solveLogic( logicstack, paramstack );
                                 LogicStatement( funcstack.get( funcstack.size()-1 ), res, "", tracker );
-                                //paramstack.clear();
+                                paramstack.remove(paramstack.size()-1);
 
                                 funcstack.remove( funcstack.size()-1 );
                             }else if( funcstack.get( funcstack.size()-1 ).equals( "SWITCH" ) )
@@ -481,9 +481,18 @@ public class Code
             Error er = new Error( funcstack.size() + " unsolved function(s) left. (Did you forget a ')'?)", 1 );
         }
 
+        for( int i = 0; i < paramstack.size(); i++ )
+        {
+            if(paramstack.get(i).isEmpty())
+            {
+                paramstack.remove(i);
+                i--;
+            }
+        }
+
         if( paramstack.size() > 0 )
         {
-            return paramstack.get( 0 );
+            return paramstack.get(0);
         }else
         {
             return "";
