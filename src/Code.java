@@ -447,7 +447,7 @@ public class Code
                                 //Gets the results from the queued up logic functions
                                 boolean res = funcs.solveLogic( logicstack, paramstack );
                                 LogicStatement( funcstack.get( funcstack.size()-1 ), res, "", tracker );
-                                paramstack.clear();
+                                //paramstack.clear();
 
                                 funcstack.remove( funcstack.size()-1 );
                             }else if( funcstack.get( funcstack.size()-1 ).equals( "SWITCH" ) )
@@ -481,7 +481,12 @@ public class Code
 
         if( paramstack.size() > 0 )
         {
-            return paramstack.get( paramstack.size()-1 );
+            for( String i : paramstack )
+            {
+                System.out.println('"'+i+'"');
+            }
+            System.out.println("-----");
+            return paramstack.get( 0 );
         }else
         {
             return "";
