@@ -190,68 +190,10 @@ public class Translator
     public static void main( String args[] )
     {
 
-        String templateFile = "";
-        String dataFile = "";
-        String outputFile = "";
-
-        //Done horribly. I'll try and think of a cleaner way, it will always work but when a user makes a mistake its very unclear what mistake they made.
-        try
-        {
-            for( int i = 0; i < args.length; i+=2 )
-            {
-
-                switch( args[i] )
-                {
-
-                    case "-template":
-                    {
-
-                        templateFile = args[i+1];
-                        break;
-
-                    }
-                    case "-import":
-                    {
-
-                        dataFile = args[i+1];
-                        break;
-
-                    }
-                    case "-export":
-                    {
-
-                        outputFile = args[i+1];
-                        break;
-
-                    }
-                    default:
-                    {
-
-                        System.out.println( "Unkown argument: "+args[i]+"." );
-                        break;
-
-                    }
-                }
-            }
-        }
-
-        catch( ArrayIndexOutOfBoundsException e )
-        {
-            Error er = new Error( "Invalid parameters entered.", 2 );
-        }
-
-        if( templateFile.isEmpty() )
-        {
-           Error er = new Error( "No filename entered for the template file .", -1 );
-        }
-        if( dataFile.isEmpty() )
-        {
-           Error er = new Error( "No filename entered for the input file.", -1 );
-        }
-        if( outputFile.isEmpty() )
-        {
-           Error er = new Error( "No filename entered for the output file.", -1 );
-        }
+        CLAEngine argEngine = new CLAEngine(args);
+        String templateFile = argEngine.getArg("-template");
+        String dataFile = argEngine.getArg("-import");
+        String outputFile = argEngine.getArg("-export");
 
         //Creating the instance of the VariableFactory
         //This is required because the interal ArrayList needs to be instantiated
@@ -263,7 +205,15 @@ public class Translator
         try
         {
 
-            BufferedReader read = new BufferedReader( new FileReader( templateFile ) );
+            BufferedReader read = null;
+            try
+            {
+                read = new BufferedReader( new FileReader( templateFile ) );
+            }
+            catch( FileNotFoundException ex )
+            {
+                Error er = new Error("Template file not found: "+ex.getMessage(), -2);
+            }
             String buff = "";
 
             execLines.add( new Code() );
