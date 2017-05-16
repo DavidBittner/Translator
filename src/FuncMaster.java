@@ -83,6 +83,7 @@ public class FuncMaster
     String CallFunc( ArrayList<String> rowData, ArrayList<String> paramstack, String funcName )
     {
 
+        Translator.curFunc = funcName;
         try
         {
             switch( funcName )

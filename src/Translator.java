@@ -14,6 +14,8 @@ public class Translator
     static boolean uniqueFlag = false;
     static boolean exitFlag = false;
 
+    static public String curFunc = "";
+
     static int lineTracker = 0;
 
     public static void ExitProg( int num )
@@ -269,12 +271,12 @@ public class Translator
             execLines.get(0).Execute( null );
             execLines.remove( 0 );
 
-            int inTracker = 1;
+            int inTracker = 0;
             while( (buff = read.readLine()) != null && !buff.isEmpty() )
             {
 
                 inTracker++;
-                if( buff.split(",").length != headers.split(",").length && !buff.contains(Character.toString( '"' ) ) )
+                if( buff.split(",", -1).length != headers.split(",", -1).length && !buff.contains(Character.toString( '"' ) ) )
                 {
                     Error er = new Error( "Input file column count does not match output header count at line "+inTracker+" skipping row...", 0 );
                     continue;

@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Error
 {
 
@@ -21,17 +23,30 @@ public class Error
     public Error( String msg, int code )
     {
 
+        if( !msg.isEmpty() )
+        {
+            if(!Translator.curFunc.isEmpty())
+            {
+                System.out.println("Failed during execution of "+Translator.curFunc+"() at line "+Translator.GetLine()+":");
+                System.out.println( curline );
+            }
+            System.out.println(msg + "\n");
+            sygCommands.ExitProg(code);
+            return;
+        }
+
+        //Old error stuff is deprecated.
         if( code == -2 )
         {
 
             System.out.println( msg );
             sygCommands.ExitProg( code );
-
+            return;
         }
 
         int line = sygCommands.GetLine()+1;
 
-        if(code != 0)
+        if(code == 2 )
         {
             System.out.println( "Error at line "+line+":" );
             System.out.println( curline+"\n" );

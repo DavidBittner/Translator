@@ -433,6 +433,7 @@ public class Code
                         {
                             //This executes the most recent function in the function stack.
                             String res = funcs.CallFunc( data, paramstack, funcstack.get(funcstack.size()-1) );
+                            Translator.curFunc = "";
 
                             if( res != null )
                             {
@@ -467,9 +468,9 @@ public class Code
                             }
                         }
                     }
-                    catch( ArrayIndexOutOfBoundsException e )
+                    finally
                     {
-                        er = new Error( "Not enough functions on line "+(tracker+1)+". Perhaps you have an extra ')'?", 1 );
+
                     }
                 }
             }

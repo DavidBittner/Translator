@@ -7,9 +7,7 @@ class LookupFactory
 
     public LookupFactory()
     {
-
         lookups = new ArrayList<>();
-
     }
 
     //This checks if a file exists already, if it doesn't it loads it in.
@@ -19,7 +17,7 @@ class LookupFactory
 
         for( Lookup i : lookups )
         {
-            if( filename.equals( i.getFilename() ) )
+            if( filename.equals( i.getID() ) )
             {
                 exists = true;
             }
@@ -38,13 +36,13 @@ class LookupFactory
         //Search through the available lookups trying to find a matching ID. (Filename is deprecated)
         for( Lookup i : lookups )
         {
-            if( i.getFilename().equals( name ) )
+            if( i.getID().equals( name ) )
             {
                 return i;
             }
         }
 
-        Error er = new Error( "LOAD(): File "+name+" not found.", 2 );
+        Error er = new Error( "LOOKUP ID '"+name+"' not found.", 2 );
         return null;
 
     }

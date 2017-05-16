@@ -9,7 +9,7 @@ public class Lookup
     private ArrayList<String[]> data;
     private String[] headers;
 
-    public String getFilename()
+    public String getID()
     {
         return id;
     }
@@ -34,7 +34,7 @@ public class Lookup
 
             while( ( read = dataReader.readLine() ) != null )
             {
-                data.add( read.split( "," ) );
+                data.add( read.split( ",", -1 ) );
             }
 
         }
@@ -56,9 +56,7 @@ public class Lookup
 
         if( col > headers.length-1 )
         {
-
             return -1;
-
         }
 
         return col;
@@ -71,21 +69,15 @@ public class Lookup
 
         if( col == -1 )
         {
-
             Error er = new Error( "Cannot find column "+header+".", 2 );
-
         }
 
         for( int i = 0; i < data.size(); i++ )
         {
-
             if( str.equals( data.get(i)[col] ) )
             {
-
                 return true;
-
             }
-
         }
         return false;
     }
