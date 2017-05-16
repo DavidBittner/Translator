@@ -291,21 +291,21 @@ public class Code
                         }
                         else
                         {
-                            while( holder.isEmpty() )
-                            {
-                                while( lines.get(templine).charAt(charnum) != '"' )
-                                {
 
+                            for( int i = 0; i < 2; i++ )
+                            {
+                                while(lines.get(templine).charAt(charnum) != '"')
+                                {
                                     if( found )
                                     {
                                         holder+=lines.get(templine).charAt(charnum);
                                     }
                                     charnum++;
-
                                 }
                                 charnum++;
-                                found = !found;
+                                found = true;
                             }
+
                             opts.add( holder );
                             optslines.add( templine );
                         }

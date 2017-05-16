@@ -28,6 +28,9 @@ public class Error
             if(!Translator.curFunc.isEmpty())
             {
                 System.out.println("Failed during execution of "+Translator.curFunc+"() at line "+Translator.GetLine()+":");
+            }
+            if(!curline.isEmpty())
+            {
                 System.out.println( curline );
             }
             System.out.println(msg + "\n");
