@@ -431,6 +431,14 @@ public class Code
                     {
                         if( OnList( funclist, funcstack.get( funcstack.size()-1 ) ) )
                         {
+
+                            if( data.size() <= 0 )
+                            {
+                                Translator.curFunc = "";
+                                funcstack.remove( funcstack.size()-1 );
+
+                                continue;
+                            }
                             //This executes the most recent function in the function stack.
                             String res = funcs.CallFunc( data, paramstack, funcstack.get(funcstack.size()-1) );
                             Translator.curFunc = "";

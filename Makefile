@@ -4,7 +4,7 @@ JAR = jar cfm
 SRC = $(wildcard ./src/*.java)
 CLASS = $(SRC:.java=.class)
 
-BIN = csvtranslator_v3.1.jar
+BIN = csvtranslator_v3.2.jar
 
 MANIFEST = Manifest
 
@@ -13,7 +13,7 @@ RT = $(shell locate -r /rt.jar$)
 
 all:
 	@echo Compiling for target all...
-	@$(C) -target $(VTARGET) -source $(VTARGET) -bootclasspath $(RT) $(SRC)
+	@$(C) -target $(VTARGET) -source $(VTARGET) $(SRC)
 	@echo All compiled.
 
 jar: all

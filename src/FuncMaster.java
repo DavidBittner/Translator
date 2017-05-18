@@ -92,6 +92,11 @@ public class FuncMaster
                 case "C":
                 {
 
+                    if( rowData.size() <= 0 )
+                    {
+                        return "";
+                    }
+
                     //This function simply returns a column from the dataset.
                     String params[] = GrabParams( paramstack, 1 );
                     return rowData.get( (Integer.parseInt( params[0] )-1)%rowData.size() );
