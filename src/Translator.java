@@ -102,7 +102,7 @@ public class Translator
 
                 ArrayList<String> tempList = new ArrayList<>();
 
-                for( String iter : last.split(",") )
+                for( String iter : last.split(",", -1) )
                 {
 
                     tempList.add( iter );
@@ -276,36 +276,45 @@ public class Translator
             {
 
                 inTracker++;
-                if( buff.split(",", -1).length != headers.split(",", -1).length && !buff.contains(Character.toString( '"' ) ) )
+                String tempArray[] = buff.split(",", -1);
+                if( tempArray.length != headers.split(",", -1).length && !buff.contains(Character.toString( '"' ) ) )
                 {
                     Error er = new Error( "Input file column count does not match output header count at line "+inTracker+" skipping row...", 0 );
                     continue;
+                }else
+                {
+                    boolean check = false;
+                    for( String i : tempArray )
+                    {
+                        if( !i.isEmpty() )
+                        {
+                            check = true;
+                            break;
+                        }
+                    }
+                    if( !check )
+                    {
+                        continue;
+                    }
                 }
 
-                String tempArray[] = buff.split(",");
                 ArrayList<String> usedList = new ArrayList<>();
 
                 for( String i : tempArray )
                 {
-
                    usedList.add( i );
-
                 }
 
                 for( int i = 0; i < usedList.size(); i++ )
                 {
-
                     //This basically combines entries until they have matching quotes on each end.
                     while( GetCharCount( usedList.get(i), '"' ) == 1 )
                     {
-
                         usedList.set( i, usedList.get(i)+',' );
                         usedList.set( i, usedList.get(i)+usedList.get(i+1) );
                         usedList.remove( i+1 );
-
                     }
                     usedList.set( i, usedList.get(i).replace( Character.toString('"'), "" ) );
-
                 }
 
                 output.add( new String[ execLines.size() ] );
