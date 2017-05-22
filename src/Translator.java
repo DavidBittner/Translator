@@ -362,12 +362,11 @@ public class Translator
 
         try
         {
-            UniqueFactory tempUniq = new UniqueFactory();
             for( int j = 0; j < output.size(); j++ )
             {
                 for( int i : uniqueCols )
                 {
-                    output.get(j)[i] = Integer.toString(tempUniq.getOccurences( output.get(j)[i] ));
+                    output.get(j)[i] = Integer.toString(UniqueFactory.getOccurences( output.get(j)[i] ));
                 }
             }
 

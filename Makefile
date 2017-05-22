@@ -4,7 +4,7 @@ JAR = jar cfm
 SRC = $(wildcard ./src/*.java)
 CLASS = $(SRC:.java=.class)
 
-BIN = csvtranslator_v3.3.1.jar
+BIN = csvtranslator_v3.4.jar
 
 MANIFEST = Manifest
 

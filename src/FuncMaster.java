@@ -150,8 +150,7 @@ public class FuncMaster
                     String params[] = GrabParams( paramstack, 1 );
                     if( params[0].equals( "true" ) )
                     {
-                        Translator uniqueCall = new Translator();
-                        uniqueCall.UniqueRecords();
+                        Translator.UniqueRecords();
                     }
                     break;
 
@@ -174,7 +173,7 @@ public class FuncMaster
                     String params[] = GrabParams( paramstack, 1 );
                     String heads[] = params[0].split(",");
 
-                    statTrans.GiveHeaders( heads );
+                    Translator.GiveHeaders( heads );
                     break;
 
                 }
@@ -210,7 +209,7 @@ public class FuncMaster
                     int prec = Integer.parseInt( params[1] );
 
                     RPN calc = new RPN();
-                    return calc.Calc( params[0], prec );
+                    return RPN.Calc( params[0], prec );
 
                 }
                 case "RIGHT":
@@ -243,7 +242,7 @@ public class FuncMaster
 
                     //Ignores the entire row from the output file.
                     Translator tempTrans = new Translator();
-                    tempTrans.IgnoreRecord();
+                    Translator.IgnoreRecord();
 
                     break;
 
@@ -306,14 +305,11 @@ public class FuncMaster
                 {
 
                     //Used to count the amount of unique occurences of something such as a username.
-                    Translator tempTrans = new Translator();
-
-                    UniqueFactory tempUniq = new UniqueFactory();
                     String params[] = GrabParams( paramstack, 1 );
 
-                    tempTrans.UniqueColNum();
+                    Translator.UniqueColNum();
 
-                    tempUniq.giveKey( params[0] );
+                    UniqueFactory.giveKey( params[0] );
                     return params[0];
 
                 }
