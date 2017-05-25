@@ -372,6 +372,10 @@ public class FuncMaster
                     return null;
 
                 }
+                case "LOGICONLY":
+                {
+                    return null;
+                }
                 default:
                 {
                     return null;

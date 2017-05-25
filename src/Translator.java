@@ -60,6 +60,30 @@ public class Translator
 
         String ret = "";
 
+        int nullRows = 0;
+        for( String nullFinder : row )
+        {
+            if( nullFinder == null )
+            {
+                nullRows++;
+            }
+        }
+        if( nullRows > 0 )
+        {
+            String []newI = new String[row.length - nullRows];
+            int increm = 0;
+            for( String nullFinder : row )
+            {
+                if( nullFinder != null )
+                {
+                    newI[increm] = nullFinder;
+                }
+                increm++;
+            }
+
+            row = newI;
+        }
+
         boolean first = true;
         for( String i : row )
         {
@@ -94,7 +118,6 @@ public class Translator
         String last = "";
         for( int i = 0; i < ary.length; i++ )
         {
-
             if( !last.equals( ary[i] ) )
             {
 
@@ -104,15 +127,10 @@ public class Translator
 
                 for( String iter : last.split(",", -1) )
                 {
-
                     tempList.add( iter );
-
                 }
-
                 in.add( tempList.toArray( new String[tempList.size()] ) );
-
             }
-
         }
 
         return in;
@@ -221,31 +239,21 @@ public class Translator
             execLines.add( new Code() );
             while( ( buff = read.readLine() ) != null )
             {
-
                 if( buff.equals( "END" ) )
                 {
-
                     execLines.add( new Code() );
-
                 }else
                 {
-
                     execLines.get( execLines.size()-1 ).AddLine( buff );
-
                 }
-
             }
 
             for( int i = 0; i < execLines.size(); i++ )
             {
-
                 if( execLines.get( i ).GetSize() <= 0 )
                 {
-
                     execLines.remove( i );
-
                 }
-
             }
 
             read.close();
@@ -322,10 +330,16 @@ public class Translator
                 int adder = 0;
                 curColumn = 0;
 
-                for( Code i : execLines )
+                for( int i = 0; i < execLines.size(); i++ )
                 {
 
-                    String ret = i.Execute( usedList );
+                    String ret = execLines.get(i).Execute( usedList );
+
+                    if( ret == null )
+                    {
+                        output.get( output.size()-1 )[adder] = ret;
+                        continue;
+                    }
 
                     ret = (GetCharCount( ret, ',' )>0)?('"'+ret+'"'):(ret);
 
@@ -406,11 +420,33 @@ public class Translator
             for( String i[] : output )
             {
 
+                int nullRows = 0;
+                for( String nullFinder : i )
+                {
+                    if( nullFinder == null )
+                    {
+                        nullRows++;
+                    }
+                }
+                if( nullRows > 0 )
+                {
+                    String []newI = new String[i.length - nullRows];
+                    int increm = 0;
+                    for( String nullFinder : i )
+                    {
+                        if( nullFinder != null )
+                        {
+                            newI[increm] = nullFinder;
+                        }
+                        increm++;
+                    }
+
+                    i = newI;
+                }
+
                 if( ConcatRow( i ).isEmpty() )
                 {
-
                     continue;
-
                 }
 
                 first = true;

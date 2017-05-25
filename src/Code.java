@@ -7,7 +7,7 @@ public class Code
     static String logiclist[] = { "IF","ELSE","SWITCH","ELSEIF" };
     static char wantedchars[] = { '(', ')', '{', '}' };
     static String oplist[] = { "=", "!=", "<", ">", "<=", ">=", "&&", "||" };
-    static String funclist[] = { "SEQ","SEARCH","TODAY","CONCAT","SUBSTR","LENGTH","MATH","RIGHT","REPLACE","C","TRUE","FALSE","PRINT","UPPER","LOWER","LEFT","ISNUMERIC","BLANK", "IGNORE", "FC", "UNIQUE", "GROUPTOTAL","HEADER","LOAD","EXISTS","LOOKUP","NEWVAR","GETVAR","SETVAR" };
+    static String funclist[] = { "SEQ","SEARCH","TODAY","CONCAT","SUBSTR","LENGTH","MATH","RIGHT","REPLACE","C","TRUE","FALSE","PRINT","UPPER","LOWER","LEFT","ISNUMERIC","BLANK", "IGNORE", "FC", "UNIQUE", "GROUPTOTAL","HEADER","LOAD","EXISTS","LOOKUP","NEWVAR","GETVAR","SETVAR","LOGICONLY" };
 
     FuncMaster funcs = new FuncMaster();
 
@@ -436,10 +436,7 @@ public class Code
                             String res = funcs.CallFunc( data, paramstack, funcstack.get(funcstack.size()-1) );
                             Translator.curFunc = "";
 
-                            if( res != null )
-                            {
-                                paramstack.add( res );
-                            }
+                            paramstack.add( res );
 
                             funcstack.remove( funcstack.size()-1 );
                         }
@@ -485,7 +482,7 @@ public class Code
 
         for( int i = 0; i < paramstack.size(); i++ )
         {
-            if(paramstack.get(i).isEmpty())
+            if( paramstack.get(i) != null && paramstack.get(i).isEmpty())
             {
                 paramstack.remove(i);
                 i--;
