@@ -30,7 +30,11 @@ public class Lookup
             data = new ArrayList<>();
 
             String read = "";
-            headers = dataReader.readLine().split(",");
+            read = dataReader.readLine();
+            if( read == null ) {
+                Error er = new Error("Cannot load file: " + filename + ". File empty.", 2 );
+            }
+            headers = read.split(",");
 
             while( ( read = dataReader.readLine() ) != null )
             {
@@ -41,7 +45,7 @@ public class Lookup
         catch( IOException err )
         {
             System.out.println( err.getMessage() + "\n" );
-            Error er = new Error( "Error when opening file:"+filename+" for Lookup funcs.", 2 );
+            Error er = new Error( "Error when opening file:"+filename+" for LOOKUP/EXISTS.", 2 );
         }
     }
 

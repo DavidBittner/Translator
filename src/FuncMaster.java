@@ -51,7 +51,6 @@ public class FuncMaster
     //Modified substr that takes strings as parameters, nothing else.
     private String Substr( String str, String sta, String sto )
     {
-
         int start = Integer.parseInt( sta );
         int stop = Integer.parseInt( sto );
 
@@ -70,7 +69,24 @@ public class FuncMaster
         }
 
         return str.substring( start, stop );
+    }
 
+    private String leftTrim( String str ) {
+        for( int i = 0; i < str.length(); i++ ) {
+            if(!Character.isWhitespace(str.charAt(i))) {
+                return str.substring( i, str.length() );
+            }
+        }
+        return "";
+    }
+
+    private String rightTrim( String str ) {
+        for( int i = str.length()-1; i >= 0; i-- ) {
+            if(!Character.isWhitespace(str.charAt(i))) {
+                return str.substring( 0, i+1 );
+            }
+        }
+        return "";
     }
 
     //This function is used if the SEQ function is called, basically just tracks the line that the program is currently on.
@@ -376,6 +392,21 @@ public class FuncMaster
                 {
                     return null;
                 }
+                case "LTRIM":
+                {
+                    String params[] = GrabParams( paramstack, 1 );
+                    return leftTrim( params[0] );
+                }
+                case "RTRIM":
+                {
+                    String params[] = GrabParams( paramstack, 1 );
+                    return rightTrim( params[0] );
+                }
+                case "TRIM":
+                {
+                    String params[] = GrabParams( paramstack, 1 );
+                    return params[0].trim();
+                }
                 default:
                 {
                     return null;
@@ -389,7 +420,7 @@ public class FuncMaster
 
         }
 
-       return "";
+       return null;
 
     }
 

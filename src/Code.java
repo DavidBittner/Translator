@@ -7,7 +7,7 @@ public class Code
     static String logiclist[] = { "IF","ELSE","SWITCH","ELSEIF" };
     static char wantedchars[] = { '(', ')', '{', '}' };
     static String oplist[] = { "=", "!=", "<", ">", "<=", ">=", "&&", "||" };
-    static String funclist[] = { "SEQ","SEARCH","TODAY","CONCAT","SUBSTR","LENGTH","MATH","RIGHT","REPLACE","C","TRUE","FALSE","PRINT","UPPER","LOWER","LEFT","ISNUMERIC","BLANK", "IGNORE", "FC", "UNIQUE", "GROUPTOTAL","HEADER","LOAD","EXISTS","LOOKUP","NEWVAR","GETVAR","SETVAR","LOGICONLY" };
+    static String funclist[] = { "SEQ","SEARCH","TODAY","CONCAT","SUBSTR","LENGTH","MATH","RIGHT","REPLACE","C","TRUE","FALSE","PRINT","UPPER","LOWER","LEFT","ISNUMERIC","BLANK", "IGNORE", "FC", "UNIQUE", "GROUPTOTAL","HEADER","LOAD","EXISTS","LOOKUP","NEWVAR","GETVAR","SETVAR","LOGICONLY","RTRIM","LTRIM","TRIM" };
 
     FuncMaster funcs = new FuncMaster();
 
@@ -491,7 +491,7 @@ public class Code
 
         if( paramstack.size() > 0 )
         {
-            return paramstack.get(0);
+            return paramstack.get(paramstack.size()-1);
         }else
         {
             return "";
