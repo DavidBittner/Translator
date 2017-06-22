@@ -65,7 +65,7 @@ public class AssertFactory {
 		ArrayList<String> tempParams = new ArrayList<>(Arrays.asList(params));
 		ArrayList<String> tempData = new ArrayList<>(Arrays.asList(data));
 		
-		//JazzyJeff
+		//DJ JazzyJeff THE FUNC MASTAH
 		return new FuncMaster().CallFunc(tempData, tempParams, funcName);
 	}
 	
