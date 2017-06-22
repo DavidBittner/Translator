@@ -1,3 +1,4 @@
+package translator.main;
 
 public class Unique
 {

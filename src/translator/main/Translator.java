@@ -1,3 +1,5 @@
+package translator.main;
+
 import java.io.*;
 import java.util.*;
 
@@ -414,7 +416,7 @@ public class Translator
                 writer.write( str.getBytes() );
 
             }
-            String lnbrk = "\r\n";
+            String lnbrk = "\n\r";
             writer.write( lnbrk.getBytes() );
 
             for( String i[] : output )

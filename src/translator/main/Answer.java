@@ -1,3 +1,4 @@
+package translator.main;
 class Answer
 {
 

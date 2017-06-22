@@ -1,3 +1,4 @@
+package translator.main;
 import java.util.*;
 
 public class Code
@@ -129,12 +130,12 @@ public class Code
     //This function is for tokenizing the line of code its given.
     public ArrayList<String> TokenizeLine( String line )
     {
-        if( line.replace(" ","").replace("\t","").startsWith( "#" ) )
+        if( line.replace(" ","").replace("	","").startsWith( "#" ) )
         {
             return new ArrayList<>();
         }
 
-        line = line.replace( Character.toString( '\t' ), "" );
+        line = line.replace( Character.toString( '	' ), "" );
         line = ReplaceOutsideQuotes( line, ' ' );
 
         String holder = "";

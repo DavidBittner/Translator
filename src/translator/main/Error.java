@@ -1,3 +1,4 @@
+package translator.main;
 import java.util.Arrays;
 
 public class Error
@@ -32,7 +33,7 @@ public class Error
             {
                 System.out.println( curline );
             }
-            System.out.println(msg + "\n");
+            System.out.println(msg);
             Translator.ExitProg(code);
             return;
         }

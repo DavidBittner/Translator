@@ -1,3 +1,4 @@
+package translator.main;
 import java.util.*;
 
 public class UniqueFactory

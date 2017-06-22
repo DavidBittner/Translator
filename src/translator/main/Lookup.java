@@ -1,3 +1,4 @@
+package translator.main;
 import java.util.*;
 import java.io.*;
 
@@ -44,7 +45,7 @@ public class Lookup
         }
         catch( IOException err )
         {
-            System.out.println( err.getMessage() + "\n" );
+            System.out.println( err.getMessage() );
             Error er = new Error( "Error when opening file:"+filename+" for LOOKUP/EXISTS.", 2 );
         }
     }
