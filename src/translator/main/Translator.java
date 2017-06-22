@@ -218,9 +218,7 @@ public class Translator
         String outputFile = argEngine.getArg("-export");
 
         //Creating the instance of the VariableFactory
-        //This is required because the interal ArrayList needs to be instantiated
-        VariableFactory inst = new VariableFactory();
-
+        //This is required because the internal ArrayList needs to be instantiated
         ArrayList<String[]> output = new ArrayList<>();
         long stime = System.nanoTime();
 
@@ -234,7 +232,7 @@ public class Translator
             }
             catch( FileNotFoundException ex )
             {
-                Error er = new Error("Template file not found: "+ex.getMessage(), -2);
+                new Error("Template file not found: "+ex.getMessage(), -2);
             }
             String buff = "";
 
@@ -263,9 +261,7 @@ public class Translator
         }
         catch( IOException e )
         {
-
             System.out.println( e.getMessage() );
-
         }
 
         try
@@ -289,7 +285,7 @@ public class Translator
                 String tempArray[] = buff.split(",", -1);
                 if( tempArray.length != headers.split(",", -1).length && !buff.contains(Character.toString( '"' ) ) )
                 {
-                    Error er = new Error( "Input file column count does not match output header count at line "+inTracker+" skipping row...", 0 );
+                    new Error( "Input file column count does not match output header count at line "+inTracker+" skipping row...", 0 );
                     continue;
                 }else
                 {
@@ -369,6 +365,7 @@ public class Translator
                     output.remove( output.size()-1 );
                 }
             }
+            read.close();
         }
 
         catch( IOException e )
@@ -416,7 +413,7 @@ public class Translator
                 writer.write( str.getBytes() );
 
             }
-            String lnbrk = "\n\r";
+            String lnbrk = System.lineSeparator();
             writer.write( lnbrk.getBytes() );
 
             for( String i[] : output )
@@ -468,9 +465,9 @@ public class Translator
 
                 }
                 writer.write( lnbrk.getBytes() );
-
             }
-
+            writer.close();
+            
         } catch( FileNotFoundException e )
         {
 

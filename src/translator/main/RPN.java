@@ -1,6 +1,6 @@
 package translator.main;
+
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class RPN
 {
@@ -341,8 +341,6 @@ public class RPN
     {
 
         ArrayList<Double> output = new ArrayList<>();
-        ArrayList<String> ops = new ArrayList<>();
-
         ArrayList<Double> vals = new ArrayList<>();
 
         for( String i : input )

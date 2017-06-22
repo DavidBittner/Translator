@@ -43,7 +43,7 @@ class LookupFactory
             }
         }
 
-        Error er = new Error( "LOOKUP ID '"+name+"' not found.", 2 );
+        new Error( "LOOKUP ID '"+name+"' not found.", 2 );
         return null;
 
     }
@@ -63,7 +63,7 @@ class LookupFactory
 
         //This starts out the same as the previous function, but instead calls the lookup function
         Lookup lookup = findLookup( name );
-        return ( lookup.Lookup( cola, str, colb ) );
+        return ( lookup.LookupInstance( cola, str, colb ) );
 
     }
 

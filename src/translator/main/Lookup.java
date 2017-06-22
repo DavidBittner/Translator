@@ -33,7 +33,7 @@ public class Lookup
             String read = "";
             read = dataReader.readLine();
             if( read == null ) {
-                Error er = new Error("Cannot load file: " + filename + ". File empty.", 2 );
+                new Error("Cannot load file: " + filename + ". File empty.", 2 );
             }
             headers = read.split(",");
 
@@ -41,12 +41,13 @@ public class Lookup
             {
                 data.add( read.split( ",", -1 ) );
             }
+            dataReader.close();
 
         }
         catch( IOException err )
         {
             System.out.println( err.getMessage() );
-            Error er = new Error( "Error when opening file:"+filename+" for LOOKUP/EXISTS.", 2 );
+            new Error( "Error when opening file:"+filename+" for LOOKUP/EXISTS.", 2 );
         }
     }
 
@@ -74,7 +75,7 @@ public class Lookup
 
         if( col == -1 )
         {
-            Error er = new Error( "Cannot find column "+header+".", 2 );
+            new Error( "Cannot find column "+header+".", 2 );
         }
 
         for( int i = 0; i < data.size(); i++ )
@@ -87,19 +88,19 @@ public class Lookup
         return false;
     }
 
-    public String Lookup( String cola, String str, String colb )
+    public String LookupInstance( String cola, String str, String colb )
     {
         int loca = FindCol( cola );
         int locb = FindCol( colb );
 
         if( loca == -1 )
         {
-            Error er = new Error("Unable to find column " + cola + ".", 1 );
+            new Error("Unable to find column " + cola + ".", 1 );
             return "";
         }
         if( locb == -1 )
         {
-            Error er = new Error("Unable to find column " + colb + ".", 1 );
+            new Error("Unable to find column " + colb + ".", 1 );
             return "";
         }
 

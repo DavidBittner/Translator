@@ -18,7 +18,7 @@ public class FuncMaster
         if( count > params.size() )
         {
 
-            Error er = new Error( "Not enough parameters. Need "+count+", have "+params.size()+".", 2 );
+            new Error( "Not enough parameters. Need "+count+", have "+params.size()+".", 2 );
 
         }
 
@@ -185,8 +185,6 @@ public class FuncMaster
                 {
 
                     //This function sets the headers of the output file.
-                    Translator statTrans = new Translator();
-
                     String params[] = GrabParams( paramstack, 1 );
                     String heads[] = params[0].split(",");
 
@@ -225,7 +223,6 @@ public class FuncMaster
                     String params[] = GrabParams( paramstack, 2 );
                     int prec = Integer.parseInt( params[1] );
 
-                    RPN calc = new RPN();
                     return RPN.Calc( params[0], prec );
 
                 }
@@ -258,7 +255,6 @@ public class FuncMaster
                 {
 
                     //Ignores the entire row from the output file.
-                    Translator tempTrans = new Translator();
                     Translator.IgnoreRecord();
 
                     break;
@@ -417,7 +413,7 @@ public class FuncMaster
         catch( NumberFormatException e )
         {
 
-            Error er = new Error( "Invalid value received for "+funcName+"().", 1 );
+            new Error( "Invalid value received for "+funcName+"().", 1 );
 
         }
 

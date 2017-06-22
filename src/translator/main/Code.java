@@ -316,7 +316,7 @@ public class Code
 
                 if( opts.size() == 0 )
                 {
-                    Error er = new Error( "No cases for switch statement found. (Perhaps you did case instead of CASE?)", 2 );
+                    new Error( "No cases for switch statement found. (Perhaps you did case instead of CASE?)", 2 );
                 }
 
                 int stline = -1;
@@ -389,7 +389,6 @@ public class Code
 
         //Iterating through ever line of code in this section.
         int tracker = 0;
-        Translator lineTracker = new Translator();
 
         for( String line : lines )
         {
@@ -402,7 +401,6 @@ public class Code
                 continue;
             }
 
-            Error er = new Error();
             Error.curLine( line );
 
             //This tokenizes the current line, returning functions and parameters seperated nicely.
@@ -463,7 +461,7 @@ public class Code
                             }else
                             {
                                 //Not sure how this could be called, but I'm handling it just in case
-                                er = new Error( "Unrecognized logic type: "+funcstack.get(funcstack.size()-1)+".", 1 );
+                                new Error( "Unrecognized logic type: "+funcstack.get(funcstack.size()-1)+".", 1 );
                             }
                         }
                     }
@@ -478,7 +476,7 @@ public class Code
 
         if( funcstack.size() > 0 )
         {
-            Error er = new Error( funcstack.size() + " unsolved function(s) left. (Did you forget a ')'?)", 1 );
+            new Error( funcstack.size() + " unsolved function(s) left. (Did you forget a ')'?)", 1 );
         }
 
         for( int i = 0; i < paramstack.size(); i++ )

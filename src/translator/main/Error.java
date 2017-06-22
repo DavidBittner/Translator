@@ -1,5 +1,4 @@
 package translator.main;
-import java.util.Arrays;
 
 public class Error
 {
