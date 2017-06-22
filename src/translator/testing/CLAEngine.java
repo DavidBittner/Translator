@@ -1,6 +1,8 @@
-package translator.main;
+package blob.retriever;
 
 import java.util.ArrayList;
+
+import blob.retriever.model.CLA;
 
 public class CLAEngine
 {
@@ -41,13 +43,8 @@ public class CLAEngine
             {
                 if( arg.data == null || arg.data.isEmpty() && req )
                 {
-                	if( !arg.name.startsWith("--") )
-                	{
-                		System.out.println( name + " argument left blank." );
-                        System.exit(2);
-                	}else{
-                		return " ";
-                	}
+                    System.out.println( name + " argument left blank." );
+                    System.exit(2);
                 }
                 return arg.data;
             }

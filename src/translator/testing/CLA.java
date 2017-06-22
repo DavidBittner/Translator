@@ -1,4 +1,4 @@
-package translator.main;
+package blob.retriever.model;
 
 public class CLA
 {

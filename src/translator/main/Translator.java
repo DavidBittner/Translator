@@ -3,6 +3,8 @@ package translator.main;
 import java.io.*;
 import java.util.*;
 
+import translator.testing.AssertFactory;
+
 public class Translator
 {
 
@@ -211,12 +213,21 @@ public class Translator
 
     public static void main( String args[] )
     {
-
+    	
         CLAEngine argEngine = new CLAEngine(args);
-        String templateFile = argEngine.getArg("-template");
-        String dataFile = argEngine.getArg("-import");
-        String outputFile = argEngine.getArg("-export");
+        String templateFile = argEngine.getArg("-template", true);
+        String dataFile = argEngine.getArg("-import", true);
+        String outputFile = argEngine.getArg("-export", true);
 
+        String []testArgs = { "--assert-funcs", "--assert-logic" };
+        for( String i : testArgs )
+        {
+        	if( argEngine.checkArg(i) )
+        	{
+        		AssertFactory.Assert(args);
+        	}
+        }
+        
         //Creating the instance of the VariableFactory
         //This is required because the internal ArrayList needs to be instantiated
         ArrayList<String[]> output = new ArrayList<>();

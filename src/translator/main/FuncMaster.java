@@ -97,7 +97,7 @@ public class FuncMaster
     }
 
     //A switch statement that handles every function call.
-    String CallFunc( ArrayList<String> rowData, ArrayList<String> paramstack, String funcName )
+    public String CallFunc( ArrayList<String> rowData, ArrayList<String> paramstack, String funcName )
     {
 
         Translator.curFunc = funcName;
@@ -131,27 +131,19 @@ public class FuncMaster
 
                     while( ret.length() < st+en && tracker < rowData.size() )
                     {
-
                         ret = ret+rowData.get(tracker);
                         tracker++;
-
                     }
 
-                    return ret.substring( st, en );
+                    return ret.substring( st, Math.min(en,ret.length() ) );
 
                 }
                 case "SEARCH":
                 {
                     String params[] = GrabParams( paramstack, 2 );
 
-                    for( int i = 0; i < params[0].length()-params[1].length(); i++ )
-                    {
-                        if( params[0].substring( i, i+params[1].length() ).equals( params[1] ) )
-                        {
-                            return Integer.toString(i);
-                        }
-                    }
-                    return "0";
+                    String ret = Integer.toString(params[1].indexOf(params[0]));
+                    return ret;
                 }
                 case "PRINT":
                 {
@@ -163,15 +155,12 @@ public class FuncMaster
                 }
                 case "UNIQUE":
                 {
-
                     String params[] = GrabParams( paramstack, 1 );
                     if( params[0].equals( "true" ) )
                     {
                         Translator.UniqueRecords();
                     }
                     break;
-
-
                 }
                 case "CONCAT":
                 {
@@ -351,7 +340,6 @@ public class FuncMaster
 
                     //Checks whether or not a string is a number.
                     String params[] = GrabParams( paramstack, 1 );
-                    Integer.parseInt( params[0] );
 
                     for( int i = 0; i < params[0].length(); i++ )
                     {
