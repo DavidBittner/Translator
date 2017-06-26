@@ -22,41 +22,14 @@ public class Translator
 
     static int lineTracker = 0;
 
-    public static void ExitProg( int num )
-    {
-
-        //Determines what to do based on the number they pass
-        switch( num )
-        {
-            case 0:
-            {
-                break;
-            }
-            case 1:
-            {
-                exitFlag = true;
-                break;
-            }
-            default:
-            {
-                System.out.println( "Program forcefully closed with error code "+num+"." );
-                System.exit( num );
-            }
-        }
-    }
-
     public static void CountLine()
     {
-
         lineTracker++;
-
     }
 
     public static int GetLine()
     {
-
         return lineTracker;
-
     }
 
     private static String ConcatRow( String row[] )
@@ -72,6 +45,7 @@ public class Translator
                 nullRows++;
             }
         }
+        
         if( nullRows > 0 )
         {
             String []newI = new String[row.length - nullRows];
@@ -243,7 +217,7 @@ public class Translator
             }
             catch( FileNotFoundException ex )
             {
-                new Error("Template file not found: "+ex.getMessage(), -2);
+                new Error("Template file not found: "+ex.getMessage());
             }
             String buff = "";
 
@@ -296,7 +270,7 @@ public class Translator
                 String tempArray[] = buff.split(",", -1);
                 if( tempArray.length != headers.split(",", -1).length && !buff.contains(Character.toString( '"' ) ) )
                 {
-                    new Error( "Input file column count does not match output header count at line "+inTracker+" skipping row...", 0 );
+                    new Error( "Input file column count does not match output header count at line "+inTracker+"!");
                     continue;
                 }else
                 {

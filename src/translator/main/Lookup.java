@@ -33,7 +33,7 @@ public class Lookup
             String read = "";
             read = dataReader.readLine();
             if( read == null ) {
-                new Error("Cannot load file: " + filename + ". File empty.", 2 );
+                new Error("Cannot load file: " + filename + ". File empty.");
             }
             headers = read.split(",");
 
@@ -47,7 +47,7 @@ public class Lookup
         catch( IOException err )
         {
             System.out.println( err.getMessage() );
-            new Error( "Error when opening file:"+filename+" for LOOKUP/EXISTS.", 2 );
+            new Error( "Error when opening file:"+filename+" for LOOKUP/EXISTS." );
         }
     }
 
@@ -75,7 +75,7 @@ public class Lookup
 
         if( col == -1 )
         {
-            new Error( "Cannot find column "+header+".", 2 );
+            new Error( "Cannot find column "+header+".");
         }
 
         for( int i = 0; i < data.size(); i++ )
@@ -95,12 +95,12 @@ public class Lookup
 
         if( loca == -1 )
         {
-            new Error("Unable to find column " + cola + ".", 1 );
+            new Error("Unable to find column " + cola + ".");
             return "";
         }
         if( locb == -1 )
         {
-            new Error("Unable to find column " + colb + ".", 1 );
+            new Error("Unable to find column " + colb + ".");
             return "";
         }
 

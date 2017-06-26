@@ -18,7 +18,7 @@ public class FuncMaster
         if( count > params.size() )
         {
 
-            new Error( "Not enough parameters. Need "+count+", have "+params.size()+".", 2 );
+            new Error( "Not enough parameters. Need "+count+", have "+params.size()+"." );
 
         }
 
@@ -401,7 +401,7 @@ public class FuncMaster
         catch( NumberFormatException e )
         {
 
-            new Error( "Invalid value received for "+funcName+"().", 1 );
+            new Error( "Invalid value received for "+funcName+"().");
 
         }
 

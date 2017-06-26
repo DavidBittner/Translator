@@ -316,7 +316,7 @@ public class Code
 
                 if( opts.size() == 0 )
                 {
-                    new Error( "No cases for switch statement found. (Perhaps you did case instead of CASE?)", 2 );
+                    new Error( "No cases for switch statement found. (Perhaps you did 'case' instead of 'CASE'?)");
                 }
 
                 int stline = -1;
@@ -461,7 +461,7 @@ public class Code
                             }else
                             {
                                 //Not sure how this could be called, but I'm handling it just in case
-                                new Error( "Unrecognized logic type: "+funcstack.get(funcstack.size()-1)+".", 1 );
+                                new Error( "Unrecognized logic type: "+funcstack.get(funcstack.size()-1)+".");
                             }
                         }
                     }
@@ -476,7 +476,7 @@ public class Code
 
         if( funcstack.size() > 0 )
         {
-            new Error( funcstack.size() + " unsolved function(s) left. (Did you forget a ')'?)", 1 );
+            new Error( funcstack.size() + " unsolved function(s) left. (Did you forget a ')'?");
         }
 
         for( int i = 0; i < paramstack.size(); i++ )

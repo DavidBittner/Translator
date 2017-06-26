@@ -43,7 +43,7 @@ class LookupFactory
             }
         }
 
-        new Error( "LOOKUP ID '"+name+"' not found.", 2 );
+        new Error( "LOOKUP ID '"+name+"' not found." );
         return null;
 
     }
