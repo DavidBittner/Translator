@@ -50,9 +50,9 @@ public class AssertFactory {
 			}
 			catch( AssertionError as )
 			{
-				System.out.println( "Function assertion failed:");
-				System.out.println( as.getMessage() );
-				System.out.println( Arrays.toString(as.getStackTrace()) );
+				System.err.println( "Function assertion failed:");
+				System.err.println( as.getMessage() );
+				System.err.println( Arrays.toString(as.getStackTrace()) );
 			}
 		}
 		

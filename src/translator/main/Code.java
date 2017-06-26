@@ -67,13 +67,10 @@ public class Code
     //A bit hacky, but eh. For checking whether or not a string is numeric.
     private boolean IsNumeric( String str )
     {
-        try
-        {
-            Integer.parseInt( str );
-        }
-        catch( NumberFormatException e )
-        {
-            return false;
+        for( char i : str.toCharArray() ) {
+        	if( !Character.isDigit(i) ) {
+        		return false;
+        	}
         }
 
         return true;
@@ -373,6 +370,15 @@ public class Code
     public String Execute( ArrayList<String> data )
     {
 
+    	try{
+    		assert IsNumeric( "15234" );
+        	assert !IsNumeric( "123a235" );	
+    	}
+    	catch( AssertionError er ) {
+    		er.printStackTrace(System.err);
+    		System.exit(1);
+    	}
+    	
         //The stacks that hold functions, parameters and so on.
         ArrayList<String> paramstack = new ArrayList<String>();
         ArrayList<String> logicstack = new ArrayList<String>();
@@ -426,48 +432,45 @@ public class Code
                     logicstack.add( iter );
                 }else if( iter.equals( ")" ) )
                 {
-                    try
+                	if( funcstack.size() == 0 ) {
+                		new Error("Invalid function, or too many ')'.");
+                	}
+                	
+                    if( OnList( funclist, funcstack.get( funcstack.size()-1 ) ) )
                     {
-                        if( OnList( funclist, funcstack.get( funcstack.size()-1 ) ) )
+
+                        //This executes the most recent function in the function stack.
+                        String res = funcs.CallFunc( data, paramstack, funcstack.get(funcstack.size()-1) );
+                        Translator.curFunc = "";
+
+                        paramstack.add( res );
+
+                        funcstack.remove( funcstack.size()-1 );
+                    }
+                    else if( OnList( logiclist, funcstack.get( funcstack.size()-1 ) ) )
+                    {
+                        //This is determining what kind of logic function it is. If, or switch.
+                        if( funcstack.get( funcstack.size()-1 ).equals( "IF" ) )
                         {
+                            //Gets the results from the queued up logic functions
+                            boolean res = funcs.solveLogic( logicstack, paramstack );
+                            LogicStatement( funcstack.get( funcstack.size()-1 ), res, "", tracker );
+                            
+                            paramstack.remove(paramstack.size()-1);
+                            funcstack.remove( funcstack.size()-1 );
+                        }else if( funcstack.get( funcstack.size()-1 ).equals( "SWITCH" ) )
+                        {
+                            String param = paramstack.get( paramstack.size()-1 );
+                            paramstack.remove( paramstack.size()-1 );
 
-                            //This executes the most recent function in the function stack.
-                            String res = funcs.CallFunc( data, paramstack, funcstack.get(funcstack.size()-1) );
-                            Translator.curFunc = "";
-
-                            paramstack.add( res );
+                            LogicStatement( funcstack.get( funcstack.size()-1 ), false, param, tracker );
 
                             funcstack.remove( funcstack.size()-1 );
-                        }
-                        else if( OnList( logiclist, funcstack.get( funcstack.size()-1 ) ) )
+                        }else
                         {
-                            //This is determining what kind of logic function it is. If, or switch.
-                            if( funcstack.get( funcstack.size()-1 ).equals( "IF" ) )
-                            {
-                                //Gets the results from the queued up logic functions
-                                boolean res = funcs.solveLogic( logicstack, paramstack );
-                                LogicStatement( funcstack.get( funcstack.size()-1 ), res, "", tracker );
-                                paramstack.remove(paramstack.size()-1);
-
-                                funcstack.remove( funcstack.size()-1 );
-                            }else if( funcstack.get( funcstack.size()-1 ).equals( "SWITCH" ) )
-                            {
-                                String param = paramstack.get( paramstack.size()-1 );
-                                paramstack.remove( paramstack.size()-1 );
-
-                                LogicStatement( funcstack.get( funcstack.size()-1 ), false, param, tracker );
-
-                                funcstack.remove( funcstack.size()-1 );
-                            }else
-                            {
-                                //Not sure how this could be called, but I'm handling it just in case
-                                new Error( "Unrecognized logic type: "+funcstack.get(funcstack.size()-1)+".");
-                            }
+                            //Not sure how this could be called, but I'm handling it just in case
+                            new Error( "Unrecognized logic type: "+funcstack.get(funcstack.size()-1)+".");
                         }
-                    }
-                    finally
-                    {
-
                     }
                 }
             }
