@@ -6,39 +6,35 @@ import java.text.*;
 public class FuncMaster
 {
 
-    //Definitely not a Matrix reference...
-    static LookupFactory keyMaster = new LookupFactory();
     static int seq = 0;
 
     //This function grabs a certain amount of values from the given ArrayList
     //It also does error handling in case there aren't enough values available
     private String []GrabParams( ArrayList<String> params, int count )
     {
-
         if( count > params.size() )
         {
-
             new Error( "Not enough parameters. Need "+count+", have "+params.size()+"." );
-
         }
 
         String ret[] = new String[count];
 
         for( int i = 0; i < count; i++ )
         {
-
             ret[(count-i)-1] = params.get( params.size()-1 );
             params.remove( params.size()-1 );
-
         }
 
         return ret;
-
     }
 
     //Checking whether or not a string is numeric, I.E. 1523 is true.
     private boolean isNumeric( String a )
     {
+    	if( a.isEmpty() )
+    	{
+    		return false;
+    	}
         for( int i = 0; i < a.length(); i++ )
         {
             if( !Character.isDigit( a.charAt(i) ) )
@@ -57,11 +53,11 @@ public class FuncMaster
 
         if( start > str.length() )
         {
-            start = str.length();
+        	new Error("Substring start value exceeds length of string.");
         }
         if( stop > str.length() )
         {
-            stop = str.length();
+        	new Error("Substring end value exceeds length of string.");
         }
 
         if( start > stop )
@@ -135,8 +131,37 @@ public class FuncMaster
                         tracker++;
                     }
 
-                    return ret.substring( st, Math.min(en,ret.length() ) );
-
+                    if( ret.length() < en )
+                    {
+                    	new Error("FC value exceeds length of row.");
+                    	return "";
+                    }else
+                    {
+                        return ret.substring( st, Math.min(en,ret.length() ) );
+                    }
+                }
+                case "LOADMIN":
+                {
+                	String params[] = GrabParams( paramstack, 2 );
+                	
+                	Lookup temp = LookupFactory.findLookup( params[0] );
+                	if( temp.getRowCount() < Integer.parseInt(params[1]) )
+                	{
+                		new Error("Row count of file: " + temp.getID() + " is below minimum (it is " + temp.getRowCount()+").");
+                	}
+                	return null;
+                }
+                case "LOADRELATIVEMIN":
+                {
+                	String params[] = GrabParams( paramstack, 2 );
+                	Lookup temp = LookupFactory.findLookup( params[0] );
+                	
+                	if( temp.getRowCount() < Translator.rowCount-Integer.parseInt(params[1]) )
+                	{
+                		new Error("Row count of file: " + temp.getID() + " is below mimimum (it is " + temp.getRowCount()+").");
+                	}
+                	
+                	return null;
                 }
                 case "SEARCH":
                 {
@@ -186,8 +211,9 @@ public class FuncMaster
 
                     //This loads in another file for the EXISTS and LOOKUP functions.
                     String params[] = GrabParams( paramstack, 2 );
-                    keyMaster.LoadFile( params[0], params[1] );
-                    break;
+                    
+                    LookupFactory.LoadFile( params[1], params[0] );
+                    return null;
 
                 }
                 case "SUBSTR":
@@ -292,7 +318,7 @@ public class FuncMaster
 
                     //This function returns true or false if an entry already exists in the given file.
                     String params[] = GrabParams( paramstack, 3 );
-                    return keyMaster.checkExistence( params[0], params[1], params[2] );
+                    return LookupFactory.checkExistence( params[0], params[1], params[2] );
 
                 }
                 case "LOOKUP":
@@ -300,7 +326,7 @@ public class FuncMaster
 
                     //This looks into another file and returns an entry from that column, if it exists.
                     String params[] = GrabParams( paramstack, 4 );
-                    return keyMaster.Lookup( params[0], params[1], params[2], params[3] );
+                    return LookupFactory.Lookup( params[0], params[1], params[2], params[3] );
 
                 }
                 case "GROUPTOTAL":
@@ -394,6 +420,7 @@ public class FuncMaster
                 }
                 default:
                 {
+                	new Error("Unrecognized function... you should never see this.");
                     return null;
                 }
            }

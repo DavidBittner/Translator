@@ -11,7 +11,9 @@ public class Translator
     static ArrayList<Code> execLines = new ArrayList<>();
     static String[] headers = new String[1];
 
-    static ArrayList<Integer> uniqueCols = new ArrayList<>();;
+    static ArrayList<Integer> uniqueCols = new ArrayList<>();
+    
+    static int rowCount = 0;
     static int curColumn = 0;
 
     static boolean ignoreFlag = false;
@@ -192,6 +194,21 @@ public class Translator
         String templateFile = argEngine.getArg("-template", true);
         String dataFile = argEngine.getArg("-import", true);
         String outputFile = argEngine.getArg("-export", true);
+        
+        LineNumberReader lnr = null;
+		try {
+			lnr = new LineNumberReader(new FileReader(new File(dataFile)));
+	        lnr.skip(Long.MAX_VALUE);
+	        rowCount = lnr.getLineNumber()+1;
+		} catch (IOException e1) {
+			new Error("Failed to open file: " + dataFile);
+		} finally {
+			try {
+				lnr.close();
+			} catch (IOException e) {
+				new Error("Failed to close file: " + dataFile);
+			}
+		}
 
         String []testArgs = { "--assert-funcs", "--assert-logic" };
         for( String i : testArgs )

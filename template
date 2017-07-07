@@ -1,0 +1,8 @@
+HEADER("A,B,C")
+LOAD("IMPORT","import")
+END
+CONCAT(C(1),SEQ(2))
+END
+C(2)
+END
+C(3)

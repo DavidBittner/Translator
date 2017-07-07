@@ -22,6 +22,11 @@ public class Lookup
         this.id = id;
         runInit();
     }
+    
+    public int getRowCount()
+    {
+    	return data.size();
+    }
 
     public void runInit()
     {
@@ -46,8 +51,7 @@ public class Lookup
         }
         catch( IOException err )
         {
-            System.out.println( err.getMessage() );
-            new Error( "Error when opening file:"+filename+" for LOOKUP/EXISTS." );
+            new Error( "Error when opening file: '"+filename+"'." );
         }
     }
 

@@ -8,7 +8,7 @@ public class Code
     static String logiclist[] = { "IF","ELSE","SWITCH","ELSEIF" };
     static char wantedchars[] = { '(', ')', '{', '}' };
     static String oplist[] = { "=", "!=", "<", ">", "<=", ">=", "&&", "||" };
-    static String funclist[] = { "SEQ","SEARCH","TODAY","CONCAT","SUBSTR","LENGTH","MATH","RIGHT","REPLACE","C","TRUE","FALSE","PRINT","UPPER","LOWER","LEFT","ISNUMERIC","BLANK", "IGNORE", "FC", "UNIQUE", "GROUPTOTAL","HEADER","LOAD","EXISTS","LOOKUP","NEWVAR","GETVAR","SETVAR","LOGICONLY","RTRIM","LTRIM","TRIM" };
+    static String funclist[] = { "SEQ","SEARCH","TODAY","CONCAT","SUBSTR","LENGTH","MATH","RIGHT","REPLACE","C","TRUE","FALSE","PRINT","UPPER","LOWER","LEFT","ISNUMERIC","BLANK", "IGNORE", "FC", "UNIQUE", "GROUPTOTAL","HEADER","LOAD","EXISTS","LOOKUP","NEWVAR","GETVAR","SETVAR","LOGICONLY","RTRIM","LTRIM","TRIM","LOADMIN","LOADRELATIVEMIN" };
 
     FuncMaster funcs = new FuncMaster();
 
@@ -399,7 +399,7 @@ public class Code
         for( String line : lines )
         {
             Translator.CountLine();
-
+            
             //If this line isn't supposed to be executed or its empty, skip it.
             if( !execlines[tracker] || line.isEmpty() )
             {
@@ -415,13 +415,13 @@ public class Code
             for( String iter : tokens )
             {
 
-                if( IsNumeric( iter ) )
+                if( IsNumeric( iter ) && !iter.isEmpty() )
                 {
                     //If the value is a number, it gets added as a parameter.
                     paramstack.add( iter );
                 }else if( GetCharCount( iter, '"' ) > 0 )
                 {
-                    //If it has qutoes in it, then it's also a parameter, just a string.
+                    //If it has quotes in it, then it's also a parameter, just a string.
                     paramstack.add( iter.replace( Character.toString('"'), "" ) );
                 }else if( OnList( funclist, iter ) || OnList( logiclist, iter ) )
                 {
@@ -443,7 +443,10 @@ public class Code
                         String res = funcs.CallFunc( data, paramstack, funcstack.get(funcstack.size()-1) );
                         Translator.curFunc = "";
 
-                        paramstack.add( res );
+                        if( res != null )
+                        {
+                            paramstack.add( res );
+                        }
 
                         funcstack.remove( funcstack.size()-1 );
                     }

@@ -6,6 +6,8 @@ import java.util.Arrays;
 import translator.main.CLAEngine;
 import translator.main.FuncMaster;
 
+//TODO: Change C(), SUBSTR(), FC()
+
 public class AssertFactory { 
 	
 	public static void Assert( String []args )
@@ -45,7 +47,7 @@ public class AssertFactory {
 				
 				assert callFunc( new String[]{"    123"}, new String[]{}, "LTRIM" ).equals("123"): "LTRIM() assert failed";
 				assert callFunc( new String[]{"123    "}, new String[]{}, "RTRIM" ).equals("123"): "RTRIM() assert failed";
-				assert callFunc( new String[]{"  123  "}, new String[]{},  "TRIM" ).equals("123"): "LTRIM() assert failed";
+				assert callFunc( new String[]{"  123  "}, new String[]{},  "TRIM" ).equals("123"):  "TRIM() assert failed";
 
 			}
 			catch( AssertionError as )
