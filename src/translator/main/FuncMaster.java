@@ -212,7 +212,7 @@ public class FuncMaster
                     //This loads in another file for the EXISTS and LOOKUP functions.
                     String params[] = GrabParams( paramstack, 2 );
                     
-                    LookupFactory.LoadFile( params[1], params[0] );
+                    LookupFactory.LoadFile( params[0], params[1] );
                     return null;
 
                 }
