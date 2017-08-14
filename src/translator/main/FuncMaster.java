@@ -444,7 +444,7 @@ public class FuncMaster
                 	String params[] = GrabParams( paramstack, 1 );
                 	String temp = params[0].replaceAll( "[^\\x20-\\x7F]", "");
                 	if( !temp.equals(params[0]) ) {
-                    	new Error("Invalid characters found", true);
+                    	new Error("Invalid characters found. Processed result is: "+temp, true);
                 	}
                 	return temp;
                 }

@@ -64,7 +64,7 @@ public class Error
         {
             if(!Translator.curFunc.isEmpty())
             {
-                Print("Failed during execution of "+Translator.curFunc+"() at line "+(Translator.GetLine()+1)+":\n");
+                Print("ERROR: Failed during execution of "+Translator.curFunc+"() at line "+(Translator.GetLine()+1)+":");
                 linePrinted = true;
             }
             if(!curline.isEmpty())
@@ -72,9 +72,9 @@ public class Error
             	if( !linePrinted ) {
                 	Print("Error at line "+(Translator.GetLine()+1)+":\n");
             	}
-                Print( curline );
+                Print( "\t"+curline );
             }
-            Print("ERROR: "+msg);
+            Print("\t"+msg);
         }
         closeLog();
         System.exit(1);
