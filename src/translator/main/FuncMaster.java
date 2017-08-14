@@ -7,7 +7,7 @@ public class FuncMaster
 {
 
     static int seq = 0;
-
+    
     //This function grabs a certain amount of values from the given ArrayList
     //It also does error handling in case there aren't enough values available
     private String []GrabParams( ArrayList<String> params, int count )
@@ -86,6 +86,18 @@ public class FuncMaster
         return "";
     }
 
+    String strip( String strip ) {
+    	return strip.replace("^\\\"|\\\"$", "");
+    }
+    
+    String destrip( String destrip, String prev ) {
+    	if( prev.matches("^\\\"|\\\"$") ) {
+        	return '"'+destrip+'"';
+    	}else {
+    		return destrip;
+    	}
+    }
+    
     //This function is used if the SEQ function is called, basically just tracks the line that the program is currently on.
     public void SeqInc()
     {
@@ -94,8 +106,7 @@ public class FuncMaster
 
     //A switch statement that handles every function call.
     public String CallFunc( ArrayList<String> rowData, ArrayList<String> paramstack, String funcName )
-    {
-
+    {    	
         Translator.curFunc = funcName;
         try
         {
@@ -112,7 +123,12 @@ public class FuncMaster
 
                     //This function simply returns a column from the dataset.
                     String params[] = GrabParams( paramstack, 1 );
-                    return rowData.get( (Integer.parseInt( params[0] )-1)%rowData.size() );
+                    int num = Integer.parseInt( params[0] )-1;
+                    if( num >= rowData.size() || num < 0 ) {
+                    	new Error("Invalid column number: " + params[0] + ". There are " + rowData.size() + " columns total.");
+                    }
+                    
+                    return rowData.get( (Integer.parseInt( params[0] )-1) );
 
                 }
                 case "FC":
@@ -167,7 +183,7 @@ public class FuncMaster
                 {
                     String params[] = GrabParams( paramstack, 2 );
 
-                    String ret = Integer.toString(params[1].indexOf(params[0]));
+                    String ret = Integer.toString(strip(params[1]).indexOf(params[0]));
                     return ret;
                 }
                 case "PRINT":
@@ -192,8 +208,13 @@ public class FuncMaster
 
                     //For concatenating.
                     String params[] = GrabParams( paramstack, 2 );
-                    return params[0]+params[1];
-
+                    String a = strip(params[0]), b = strip(params[1]);
+                    if( a.equals(params[0]) && b.equals(params[1])) {
+                        return params[0]+params[1];
+                    }else {
+                    	return '"'+params[0]+params[1]+'"';
+                    }
+                    
                 }
                 case "HEADER":
                 {
@@ -221,7 +242,7 @@ public class FuncMaster
 
                     //A substring function.
                     String params[] = GrabParams( paramstack, 3 );
-                    return Substr( params[0], params[1], params[2] );
+                    return destrip(Substr( strip(params[0]), params[1], params[2] ), params[0]);
 
                 }
                 case "LENGTH":
@@ -358,7 +379,7 @@ public class FuncMaster
                     //For replacing things inside strings.
                     String params[] = GrabParams( paramstack, 3 );
 
-                    return params[0].replace( params[1], params[2] );
+                    return destrip(strip(params[0]).replace( params[1], params[2] ), params[0]);
 
                 }
                 case "ISNUMERIC":
@@ -421,7 +442,11 @@ public class FuncMaster
                 case "ASCII":
                 {
                 	String params[] = GrabParams( paramstack, 1 );
-                	return params[0].replaceAll( "[^\\x00-\\x7F]", "");
+                	String temp = params[0].replaceAll( "[^\\x20-\\x7F]", "");
+                	if( !temp.equals(params[0]) ) {
+                    	new Error("Invalid characters found", true);
+                	}
+                	return temp;
                 }
                 default:
                 {

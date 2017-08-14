@@ -179,9 +179,26 @@ public class Translator
     {
     	
         CLAEngine argEngine = new CLAEngine(args);
+        
+        String []testArgs = { "--assert-funcs", "--assert-logic" };
+        for( String i : testArgs )
+        {
+        	if( argEngine.checkArg(i) )
+        	{
+        		AssertFactory.Assert(args);
+        		System.exit(1);
+        	}
+        }
+        
         String templateFile = argEngine.getArg("-template", true);
         String dataFile = argEngine.getArg("-import", true);
         String outputFile = argEngine.getArg("-export", true);
+        
+        if( argEngine.checkArg("-log") ) {
+        	Error.openLog(argEngine.getArg("-log", false));
+        }else {
+        	Error.openLog("log.txt");
+        }
         
         LineNumberReader lnr = null;
 		try {
@@ -197,15 +214,6 @@ public class Translator
 				new Error("Failed to close file: " + dataFile);
 			}
 		}
-
-        String []testArgs = { "--assert-funcs", "--assert-logic" };
-        for( String i : testArgs )
-        {
-        	if( argEngine.checkArg(i) )
-        	{
-        		AssertFactory.Assert(args);
-        	}
-        }
         
         //Creating the instance of the VariableFactory
         //This is required because the internal ArrayList needs to be instantiated
@@ -304,13 +312,12 @@ public class Translator
                 for( int i = 0; i < usedList.size(); i++ )
                 {
                     //This basically combines entries until they have matching quotes on each end.
-                    while( GetCharCount( usedList.get(i), '"' ) == 1 )
+                    while( GetCharCount( usedList.get(i), '"' ) %2 != 0 )
                     {
                         usedList.set( i, usedList.get(i)+',' );
                         usedList.set( i, usedList.get(i)+usedList.get(i+1) );
                         usedList.remove( i+1 );
                     }
-                    usedList.set( i, usedList.get(i).replace( Character.toString('"'), "" ) );
                 }
 
                 output.add( new String[ execLines.size() ] );
@@ -328,8 +335,6 @@ public class Translator
                         output.get( output.size()-1 )[adder] = ret;
                         continue;
                     }
-
-                    ret = (GetCharCount( ret, ',' )>0)?('"'+ret+'"'):(ret);
 
                     output.get( output.size()-1 )[adder] = ret;
                     adder++;
@@ -465,6 +470,8 @@ public class Translator
 
         }
 
+        Error.closeLog();
+        
         //Just calculating how long the whole operation took
         long etime = System.nanoTime();
 

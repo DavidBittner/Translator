@@ -17,17 +17,14 @@ public class AssertFactory {
 		{				
 			try {
 				assert callFunc( new String[]{"1"}, new String[]{"a","b","c"}, "C" ).equals("a"): "C() assert failed";
-				assert callFunc( new String[]{"4"}, new String[]{"a","b","c"}, "C" ).equals("a"): "C() assert failed";
 				
 				assert callFunc( new String[]{"0", "3"}, new String[]{"aa","bb","c"}, "FC" ).equals("aab"): "FC() assert failed";
-				assert callFunc( new String[]{"0", "30"}, new String[]{"aa","bb","c"}, "FC" ).equals("aabbc"): "FC() assert failed";
 				
 				assert callFunc( new String[]{"a", "Unanet"}, new String[]{}, "SEARCH" ).equals("2"): "SEARCH() assert failed";
 				
 				assert callFunc( new String[]{"a", "Unanet"}, new String[]{}, "CONCAT" ).equals("aUnanet"): "SEARCH() assert failed";
 				
 				assert callFunc( new String[]{"Unanet", "0", "4" }, new String[]{}, "SUBSTR" ).equals("Unan"): "SUBSTR() assert failed";
-				assert callFunc( new String[]{"Unanet", "0", "40" }, new String[]{}, "SUBSTR" ).equals("Unanet"): "SUBSTR() assert failed";
 
 				assert callFunc( new String[]{"Seven" }, new String[]{}, "LENGTH" ).equals("5"): "LENGTH() assert failed";
 				assert callFunc( new String[]{"" }, new String[]{}, "LENGTH" ).equals("0"): "LENGTH() assert failed";
