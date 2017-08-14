@@ -418,6 +418,11 @@ public class FuncMaster
                     String params[] = GrabParams( paramstack, 1 );
                     return params[0].trim();
                 }
+                case "ASCII":
+                {
+                	String params[] = GrabParams( paramstack, 1 );
+                	return params[0].replaceAll( "[^\\x00-\\x7F]", "");
+                }
                 default:
                 {
                 	new Error("Unrecognized function... you should never see this.");

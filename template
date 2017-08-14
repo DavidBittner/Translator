@@ -1,8 +1,8 @@
 HEADER("A,B,C")
-LOAD("IMPORT","import")
+LOAD("import","import")
 END
-CONCAT(C(1),SEQ(2))
+ASCII(CONCAT(C(1),SEQ(2)))
 END
-C(2)
+ASCII(C(2))
 END
-C(3)
+ASCII(C(3))

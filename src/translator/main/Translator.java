@@ -141,43 +141,31 @@ public class Translator
     //Finds the columns in which the GroupTotal function is used on
     public static void UniqueColNum()
     {
-
         boolean exists = false;
         for( int i : uniqueCols )
         {
-
             if( i == curColumn )
             {
-
                 exists = true;
-
             }
-
         }
 
         if( !exists )
         {
-
             uniqueCols.add( curColumn );
-
         }
-
     }
 
     //Called when IGNORE() is called
     public static void IgnoreRecord()
     {
-
         ignoreFlag = true;
-
     }
 
     //Called when UNIQUE() is called
     public static void UniqueRecords()
     {
-
         uniqueFlag = true;
-
     }
 
     //Called when the HEADER() function is called. Tells the program what to actually output header-wise.
@@ -401,19 +389,14 @@ public class Translator
                 String str = i;
                 if( !first )
                 {
-
                     str = ","+i;
-
                 }else
                 {
-
                     str = "*"+i;
-
                 }
                 first = false;
 
                 writer.write( str.getBytes() );
-
             }
             String lnbrk = System.lineSeparator();
             writer.write( lnbrk.getBytes() );
