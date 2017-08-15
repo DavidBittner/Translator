@@ -1,9 +1,0 @@
-WARNING: Received during execution of ASCII() at line 3:
-	Invalid characters found. Processed result is: 1
-WARNING: Received during execution of ASCII() at line 5:
-	Invalid characters found. Processed result is: B2
-WARNING: Received during execution of ASCII() at line 7:
-	Invalid characters found. Processed result is: B3
-ERROR: Failed during execution of C() at line 9:
-	ASCII(C(4))
-	Invalid column number: 4. There are 3 columns total.

@@ -9,7 +9,7 @@ public class Translator
 {
 
     static ArrayList<Code> execLines = new ArrayList<>();
-    static String[] headers = new String[1];
+    static String[] headers;
 
     static ArrayList<Integer> uniqueCols = new ArrayList<>();
     
@@ -20,6 +20,8 @@ public class Translator
     static boolean uniqueFlag = false;
     static boolean exitFlag = false;
 
+    static boolean buffered = false;
+    
     static public String curFunc = "";
 
     static int lineTracker = 0;
@@ -194,6 +196,8 @@ public class Translator
         String dataFile = argEngine.getArg("-import", true);
         String outputFile = argEngine.getArg("-export", true);
         
+        buffered = argEngine.checkArg("--buffered");
+        
         if( argEngine.checkArg("-log") ) {
         	Error.openLog(argEngine.getArg("-log", false));
         }else {
@@ -266,22 +270,36 @@ public class Translator
         {
 
             BufferedReader read = new BufferedReader( new FileReader( dataFile ) );
+            PrintWriter writer = null;
+            
             String buff = "";
 
-            String headers = read.readLine();
+            String inHeaders = read.readLine();
 
             //Execute the header once, then remove it as it's not needed anymore.
             //(Is zero a magic number in this case?)
             execLines.get(0).Execute( null );
             execLines.remove( 0 );
 
+            if( buffered ) {
+            	writer = new PrintWriter(outputFile);
+            	writer.write("*");
+            	for( int i = 0; i < headers.length; i++ ) {
+            		if( i != 0 ) {
+            			writer.write(",");
+            		}
+            		writer.write(headers[i]);
+            	}
+            	writer.write(System.lineSeparator());
+            }
+            
             int inTracker = 0;
             while( (buff = read.readLine()) != null && !buff.isEmpty() )
             {
 
                 inTracker++;
                 String tempArray[] = buff.split(",", -1);
-                if( tempArray.length != headers.split(",", -1).length && !buff.contains(Character.toString( '"' ) ) )
+                if( tempArray.length != inHeaders.split(",", -1).length && !buff.contains(Character.toString( '"' ) ) )
                 {
                     new Error( "Input file column count does not match output header count at line "+inTracker+"!");
                     continue;
@@ -354,15 +372,32 @@ public class Translator
                     System.exit( 0 );
                 }
 
-                if( ignoreFlag )
+                if( buffered && !ignoreFlag ) {
+                	for( int i = 0; i < output.get(0).length; i++ ) {
+                    	if( output.get(0)[i].contains(",") ) {
+                        	writer.write('"'+output.get(0)[i]+'"');
+                    	}else {
+                        	writer.write(output.get(0)[i]);
+                    	}
+                    	
+                    	if( i < output.get(0).length-1 ) {
+                    		writer.write(",");
+                    	}
+                    }
+                	writer.write(System.lineSeparator());
+                }
+                
+                if( ignoreFlag || buffered)
                 {
                     ignoreFlag = false;
                     output.remove( output.size()-1 );
                 }
             }
             read.close();
+            if( buffered ) {
+        		writer.close();
+        	}
         }
-
         catch( IOException e )
         {
             System.out.println( e.getMessage() );
@@ -370,6 +405,11 @@ public class Translator
 
         try
         {
+
+        	if( buffered ) {
+        		throw new Exception("not needed");
+        	}
+        	
             for( int j = 0; j < output.size(); j++ )
             {
                 for( int i : uniqueCols )
@@ -380,9 +420,7 @@ public class Translator
 
             if( uniqueFlag )
             {
-
                 output = GetUniques( output );
-
             }
 
             FileOutputStream writer = new FileOutputStream( outputFile );
@@ -460,24 +498,22 @@ public class Translator
             
         } catch( FileNotFoundException e )
         {
-
             System.out.println( e.getMessage() );
-
         } catch( IOException e )
         {
-
             System.out.println( e.getMessage() );
-
+        } catch( Exception e ) {
         }
 
         Error.closeLog();
         
+        System.gc();
         //Just calculating how long the whole operation took
         long etime = System.nanoTime();
 
         double calckedTime = (etime-stime)/(Math.pow(10,9));
         calckedTime = Math.round( calckedTime*1000.0 )/1000.0;
-
+        
         System.out.println( "Process took a total of "+Double.toString( calckedTime )+" seconds." );
 
     }

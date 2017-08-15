@@ -196,6 +196,9 @@ public class FuncMaster
                 }
                 case "UNIQUE":
                 {
+                	if(Translator.buffered) {
+                		new Error("Use of UNIQUE() with buffered output.");
+                	}
                     String params[] = GrabParams( paramstack, 1 );
                     if( params[0].equals( "true" ) )
                     {
@@ -352,7 +355,9 @@ public class FuncMaster
                 }
                 case "GROUPTOTAL":
                 {
-
+                	if(Translator.buffered) {
+                		new Error("Use of GROUPTOTAL() with buffered output.");
+                	}
                     //Used to count the amount of unique occurences of something such as a username.
                     String params[] = GrabParams( paramstack, 1 );
 
