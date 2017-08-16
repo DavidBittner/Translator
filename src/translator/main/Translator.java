@@ -197,6 +197,7 @@ public class Translator
         String outputFile = argEngine.getArg("-export", true);
         
         buffered = argEngine.checkArg("--buffered");
+        boolean percent = argEngine.checkArg("--percent");
         
         if( argEngine.checkArg("-log") ) {
         	Error.openLog(argEngine.getArg("-log", false));
@@ -226,7 +227,6 @@ public class Translator
 
         try
         {
-
             BufferedReader read = null;
             try
             {
@@ -293,10 +293,21 @@ public class Translator
             	writer.write(System.lineSeparator());
             }
             
-            int inTracker = 0;
+            long inTracker = 0;
+            float perc = 0.0f;
+            
+            final int FLUSH_RATE = 10000;
             while( (buff = read.readLine()) != null && !buff.isEmpty() )
             {
 
+            	if( inTracker%FLUSH_RATE == 0 ) {
+            		if( percent ) {
+            			perc = (inTracker/(rowCount*1.0f))*100;
+            			System.out.printf("%d/%d - %.2f%%\n", inTracker, rowCount, perc);
+            		}
+            		Error.flushLog();
+            	}
+            	
                 inTracker++;
                 String tempArray[] = buff.split(",", -1);
                 if( tempArray.length != inHeaders.split(",", -1).length && !buff.contains(Character.toString( '"' ) ) )
@@ -374,11 +385,7 @@ public class Translator
 
                 if( buffered && !ignoreFlag ) {
                 	for( int i = 0; i < output.get(0).length; i++ ) {
-                    	if( output.get(0)[i].contains(",") ) {
-                        	writer.write('"'+output.get(0)[i]+'"');
-                    	}else {
-                        	writer.write(output.get(0)[i]);
-                    	}
+                    	writer.write(output.get(0)[i]);
                     	
                     	if( i < output.get(0).length-1 ) {
                     		writer.write(",");

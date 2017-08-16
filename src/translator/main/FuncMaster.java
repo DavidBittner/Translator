@@ -128,8 +128,9 @@ public class FuncMaster
                     	new Error("Invalid column number: " + params[0] + ". There are " + rowData.size() + " columns total.");
                     }
                     
-                    return rowData.get( (Integer.parseInt( params[0] )-1) );
-
+                    String a = strip(rowData.get( (Integer.parseInt( params[0] )-1) ));
+                    return a;
+                    
                 }
                 case "FC":
                 {

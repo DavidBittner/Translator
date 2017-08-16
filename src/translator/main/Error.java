@@ -31,7 +31,14 @@ public class Error
 			}
     	}
     }
-
+    public static void flushLog() {
+    	try {
+			logFile.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
     public Error()
     {
         //Needs to be declared to do nothing
