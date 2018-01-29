@@ -1,4 +1,4 @@
-package translator.main;
+package unanet.translator;
 import java.util.ArrayList;
 
 public class VariableFactory

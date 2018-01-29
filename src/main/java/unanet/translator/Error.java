@@ -1,4 +1,4 @@
-package translator.main;
+package unanet.translator;
 
 import java.io.FileWriter;
 import java.io.IOException;

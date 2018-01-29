@@ -1,9 +1,7 @@
-package translator.main;
+package unanet.translator;
 
 import java.io.*;
 import java.util.*;
-
-import translator.testing.AssertFactory;
 
 public class Translator
 {
@@ -181,16 +179,6 @@ public class Translator
     {
     	
         CLAEngine argEngine = new CLAEngine(args);
-        
-        String []testArgs = { "--assert-funcs", "--assert-logic" };
-        for( String i : testArgs )
-        {
-        	if( argEngine.checkArg(i) )
-        	{
-        		AssertFactory.Assert(args);
-        		System.exit(1);
-        	}
-        }
         
         String templateFile = argEngine.getArg("-template", true);
         String dataFile = argEngine.getArg("-import", true);
