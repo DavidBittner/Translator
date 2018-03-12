@@ -15,20 +15,17 @@ public class Code
     private ArrayList<String> lines;
     private boolean execlines[];
 
-    public Code()
-    {
+    public Code() {
         lines = new ArrayList<>();
     }
 
     //Function used to add lines to this block of code.
-    public void AddLine( String line )
-    {
+    public void AddLine( String line ) {
         lines.add( line );
     }
 
     //Function to check whether or not a character is on the list of wanted characters.
-    private boolean OnList( char list[], char check )
-    {
+    private boolean OnList( char list[], char check ) {
         for( char i : list )
         {
             if( check == i )
@@ -36,13 +33,11 @@ public class Code
                 return true;
             }
         }
-
         return false;
     }
 
     //For checking if other things are on the other lists.
-    private boolean OnList( String list[], String check )
-    {
+    private boolean OnList( String list[], String check ) {
         for( String i : list )
         {
             if( i.equals( check ) )
@@ -54,8 +49,7 @@ public class Code
     }
 
     //For checking all of them at once.
-    private boolean CheckAllLists( String check )
-    {
+    private boolean CheckAllLists( String check ) {
         boolean found = false;
         found = (found || OnList( logiclist, check ) );
         found = (found || OnList( oplist, check ) );
@@ -64,9 +58,7 @@ public class Code
         return found;
     }
 
-    //A bit hacky, but eh. For checking whether or not a string is numeric.
-    private boolean IsNumeric( String str )
-    {
+    private boolean IsNumeric( String str ) {
         for( char i : str.toCharArray() ) {
         	if( !Character.isDigit(i) ) {
         		return false;
@@ -77,17 +69,13 @@ public class Code
     }
 
     //This is for replacing a character in a string, but only outside of quotes.
-    String ReplaceOutsideQuotes( String str, char charac )
-    {
-        //Creating a StringBuilder using the string that was passed through.
+    String ReplaceOutsideQuotes( String str, char charac ) {
         StringBuilder strbuild = new StringBuilder( str );
 
         for( int i = 0; i < strbuild.length(); i++ )
         {
-            //If a quote is found, skip until the next quote.
             if( strbuild.charAt(i) == '"' )
             {
-                //It adds 1 to i, and the runs a loop that continues until it has found another quote
                 i++;
                 while( strbuild.charAt(i)!='"' && i < strbuild.length() )
                 {
@@ -103,13 +91,10 @@ public class Code
             }
         }
 
-        //Return the string!
         return strbuild.toString();
     }
 
-    //In the title. Returns the amount of characters in a string.
-    int GetCharCount( String str, char ch )
-    {
+    int GetCharCount( String str, char ch ) {
         int count = 0;
 
         for( int i = 0; i < str.length(); i++ )
@@ -121,50 +106,42 @@ public class Code
         }
 
         return count;
-
     }
 
     //This function is for tokenizing the line of code its given.
-    public ArrayList<String> TokenizeLine( String line )
-    {
-        if( line.replace(" ","").replace("	","").startsWith( "#" ) )
-        {
+    public ArrayList<String> TokenizeLine( String line ) {
+
+        if(line.replace(" ","").replace("\t","").startsWith( "#" )) {
             return new ArrayList<>();
         }
 
-        line = line.replace( Character.toString( '	' ), "" );
+        line = line.replace( Character.toString( '\t' ), "" );
         line = ReplaceOutsideQuotes( line, ' ' );
 
         String holder = "";
         ArrayList<String> output = new ArrayList<>();
 
         //This turns the line into a bunch of tokens, iterating through each character and checking if it exists in one of the list given at the beginning of the file.
-        for( int i = 0; i < line.length(); i++ )
-        {
-            if( line.charAt(i) == ',' )
-            {
-                if( !holder.isEmpty() )
-                {
+        for( int i = 0; i < line.length(); i++ ) {
+            if( line.charAt(i) == ',' ) {
+                if( !holder.isEmpty() ) {
                     output.add( holder );
                     holder = "";
                 }
                 continue;
             }
 
-            if( IsNumeric( holder ) && !IsNumeric( holder+line.charAt(i) ) )
-            {
+            if( IsNumeric( holder ) && !IsNumeric( holder+line.charAt(i) ) ) {
                 output.add( holder );
                 holder = "";
             }
 
-            if( line.charAt(i) == '"' )
-            {
+            if( line.charAt(i) == '"' ) {
                 String temp = "";
                 temp+='"';
                 i++;
 
-                while( line.charAt(i) != '"' )
-                {
+                while( line.charAt(i) != '"' ) {
                     temp+=line.charAt(i);
                     i++;
                 }
@@ -174,21 +151,17 @@ public class Code
                 holder = "";
                 continue;
 
-            }else if( OnList( wantedchars, line.charAt(i) ) )
-            {
+            }else if( OnList( wantedchars, line.charAt(i) ) ) {
                 output.add( Character.toString( line.charAt(i) ) );
-            }else
-            {
+            }else {
                 holder+=line.charAt(i);
             }
 
-            if( OnList( oplist, holder ) && OnList( oplist, holder+line.charAt(i+1) ) )
-            {
+            if( OnList( oplist, holder ) && OnList( oplist, holder+line.charAt(i+1) ) ) {
                 continue;
             }
 
-            if( CheckAllLists( holder ) )
-            {
+            if( CheckAllLists( holder ) ) {
                 if( OnList( funclist, holder ) && line.charAt(i+1) == '(' )
                 {
                     output.add( holder );
@@ -367,18 +340,8 @@ public class Code
         }
     }
 
-    public String Execute( ArrayList<String> data )
-    {
+    public String Execute( ArrayList<String> data ) {
 
-    	try{
-    		assert IsNumeric( "15234" );
-        	assert !IsNumeric( "123a235" );	
-    	}
-    	catch( AssertionError er ) {
-    		er.printStackTrace(System.err);
-    		System.exit(1);
-    	}
-    	
         //The stacks that hold functions, parameters and so on.
         ArrayList<String> paramstack = new ArrayList<String>();
         ArrayList<String> logicstack = new ArrayList<String>();
@@ -393,7 +356,7 @@ public class Code
             execlines[i] = true;
         }
 
-        //Iterating through ever line of code in this section.
+        //Iterating through every line of code in this section.
         int tracker = 0;
 
         for( String line : lines )
@@ -507,5 +470,4 @@ public class Code
     {
         return lines.size();
     }
-
 }

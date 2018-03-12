@@ -8,10 +8,8 @@ class Answer
 
     Answer( String ops, double ans )
     {
-
         this.ops = ops;
         this.ans = ans;
-
     }
 
 }
